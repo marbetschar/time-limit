@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Timer
+GenericName=Timer App
+Comment=Simple and beautiful timer for elementary OS
+Categories=Utility
+Exec=name.betschart.marco.timer
+Icon=application-default-icon
+Terminal=false
+Type=Application
+Keyword=Timer;Countdown

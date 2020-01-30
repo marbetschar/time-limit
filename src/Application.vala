@@ -29,10 +29,14 @@ public class Timer : Gtk.Application {
     }
 
     protected override void activate () {
+        var label = new Gtk.Label ("Hello Again World!");
+
         var main_window = new Gtk.ApplicationWindow (this);
         main_window.default_height = 300;
         main_window.default_width = 300;
         main_window.title = "Timer";
+
+        main_window.add (label);
         main_window.show_all ();
     }
 
