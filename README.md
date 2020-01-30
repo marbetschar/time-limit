@@ -1,5 +1,8 @@
 # Timer
 
+A simply beautiful timer app for elementary OS.
+Heavily inspired by [Timer for Mac](https://github.com/michaelvillar/timer-app).
+
 ## Building and Installation
 
 You'll need the following dependencies:
