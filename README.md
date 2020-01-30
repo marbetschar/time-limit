@@ -19,5 +19,5 @@ To install, use `ninja install`, then execute with `name.betschart.marco.timer`
 
 ```bash
 ninja install
-name.betschart.marco.timer`
+name.betschart.marco.timer
 ```
