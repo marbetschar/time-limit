@@ -10,17 +10,11 @@ You'll need the following dependencies:
 * meson
 * valac
 
-Run `meson build` to configure the build environment. Change to the build directory and run `ninja` to build
+Simply run
 
-```bash
-meson build --prefix=/usr
-cd build
-ninja
+```
+./install.sh
 ```
 
-To install, use `ninja install`, then execute with `name.betschart.marco.timer`
-
-```bash
-ninja install
-name.betschart.marco.timer
-```
+The install script configures the build environment, compiles the app and installs it.
+The app is started automatically after successful installation.
