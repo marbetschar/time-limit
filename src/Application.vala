@@ -19,29 +19,60 @@
 * Authored by: Marco Betschart <elementary-timer@marco.betschart.name
 */
 
-public class Timer : Gtk.Application {
+public class Timer.Application : Gtk.Application {
+    public static GLib.Settings settings;
 
-    public Timer () {
+    public Application () {
         Object (
             application_id: "name.betschart.marco.timer",
             flags: ApplicationFlags.FLAGS_NONE
         );
     }
 
+    static construct {
+        settings = new Settings("name.betschart.marco.timer");
+    }
+
     protected override void activate () {
-        var label = new Gtk.Label ("Hello Again World!");
+        if (get_windows ().length () > 0) {
+            get_windows ().data.present ();
+            return;
+        }
 
-        var main_window = new Gtk.ApplicationWindow (this);
-        main_window.default_height = 300;
-        main_window.default_width = 300;
-        main_window.title = "Timer";
+        var main_window = new MainWindow (this);
 
-        main_window.add (label);
+        int window_x, window_y;
+        var rect = Gtk.Allocation ();
+
+        settings.get ("window-position", "(ii)", out window_x, out window_y);
+        settings.get ("window-size", "(ii)", out rect.width, out rect.height);
+
+        if (window_x != -1 || window_y != -1) {
+            main_window.move (window_x, window_y);
+        }
+
+        main_window.set_allocation (rect);
+
+        if (settings.get_boolean ("window-maximized")) {
+            main_window.maximize ();
+        }
+
         main_window.show_all ();
+
+        var quit_action = new SimpleAction ("quit", null);
+
+        add_action (quit_action);
+        set_accels_for_action ("app.quit", {"<Control>q"});
+
+        quit_action.activate.connect (() => {
+            if (main_window != null) {
+                main_window.destroy ();
+            }
+        });
     }
 
     public static int main (string[] args) {
-        var app = new Timer ();
+        var app = new Application ();
         return app.run (args);
     }
 }
