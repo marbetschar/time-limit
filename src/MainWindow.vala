@@ -24,17 +24,34 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
     public MainWindow (Gtk.Application application) {
         Object (
             application: application,
-            icon_name: "name.betschart.marco.timer",
-            title: _("Timer")
+            icon_name: "name.betschart.marco.timer"
         );
     }
 
     construct {
+        var main_window_provider = new Gtk.CssProvider ();
+        main_window_provider.load_from_resource ("name/betschart/marco/timer/MainWindow.css");
+
+        var header = new Gtk.HeaderBar ();
+        header.decoration_layout = "close:";
+        header.has_subtitle = false;
+        header.show_close_button = true;
+
+        unowned Gtk.StyleContext header_context = header.get_style_context ();
+        header_context.add_class ("titlebar");
+        header_context.add_class ("default-decoration");
+        header_context.add_class ("main-background");
+        header_context.add_class (Gtk.STYLE_CLASS_FLAT);
+        header_context.add_provider (main_window_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+        set_titlebar (header);
+
         default_height = 150;
-        default_width = 150;
+        default_width = 160;
 
-        var label = new Gtk.Label ("Hello Again World!");
-
-        add (label);
+        var main_window_context = get_style_context ();
+        main_window_context.add_class ("rounded");
+        main_window_context.add_class ("main-background");
+        main_window_context.add_provider (main_window_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 }
