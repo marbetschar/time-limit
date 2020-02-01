@@ -20,6 +20,7 @@ executable(
     gresource,
     'src/Application.vala',
     'src/MainWindow.vala',
+    'src/Widgets/Clock.vala',
     dependencies: [
         dependency('gtk+-3.0')
     ],

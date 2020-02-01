@@ -2,5 +2,6 @@
 <gresources>
   <gresource prefix="/name/betschart/marco/timer">
     <file compressed="true">MainWindow.css</file>
+    <file compressed="true">Clock.css</file>
   </gresource>
 </gresources>
