@@ -21,6 +21,10 @@
 
 public class Timer.Widgets.Clock : Gtk.Overlay {
 
+    private const Gtk.TargetEntry[] target_entries = {
+        {"number", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
     private Timer.Widgets.Arrow arrow;
     private Timer.Widgets.Face face;
     private Timer.Widgets.Labels labels;
@@ -52,5 +56,8 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         var context = get_style_context ();
         context.add_class ("clock");
         context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+        //Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, null, Gdk.DragAction.COPY);
+        //Gtk.drag_source_set (arrow, Gdk.ModifierType.BUTTON1_MASK, null, Gdk.DragAction.COPY);
     }
 }
