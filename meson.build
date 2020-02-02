@@ -23,6 +23,7 @@ executable(
     'src/Widgets/Clock.vala',
     'src/Widgets/Face.vala',
     'src/Widgets/Labels.vala',
+    'src/Widgets/Arrow.vala',
     dependencies: [
         dependency('gtk+-3.0')
     ],

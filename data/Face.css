@@ -27,3 +27,12 @@
         from (#FFFFFF), to (#F0F4F9));
     box-shadow: 0 1 6 rgba(0, 0, 0, 0.07);
 }
+
+/*
+Another use of pseudo-classes is to match widgets depending on their state.
+The available pseudo-classes for widget states are
+:active, :prelight (or :hover), :insensitive, :selected,
+:focused and :inconsistent.
+
+https://people.gnome.org/~desrt/gtk/html/GtkCssProvider.html
+*/
