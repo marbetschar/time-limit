@@ -6,4 +6,6 @@ cd build
 ninja
 
 sudo ninja install
+
+export G_MESSAGES_DEBUG=all
 name.betschart.marco.timer

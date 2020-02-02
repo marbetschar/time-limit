@@ -21,10 +21,6 @@
 
 public class Timer.Widgets.Clock : Gtk.Overlay {
 
-    private const Gtk.TargetEntry[] target_entries = {
-        {"number", Gtk.TargetFlags.SAME_APP, 0}
-    };
-
     private Timer.Widgets.Arrow arrow;
     private Timer.Widgets.Face face;
     private Timer.Widgets.Labels labels;
@@ -40,6 +36,8 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         arrow = new Timer.Widgets.Arrow ();
         arrow.valign = Gtk.Align.START;
         arrow.halign = Gtk.Align.CENTER;
+
+        arrow.button_press_event.connect (arrow_on_button_press_event);
 
         face = new Timer.Widgets.Face ();
         face.margin = 20;
@@ -57,7 +55,12 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         context.add_class ("clock");
         context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        //Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, null, Gdk.DragAction.COPY);
-        Gtk.drag_source_set (arrow, Gdk.ModifierType.BUTTON1_MASK, null, Gdk.DragAction.COPY);
+        debug ("test");
+    }
+
+    private bool arrow_on_button_press_event (Gdk.EventButton event) {
+        debug ("arrow_on_button_press_event");
+
+        return true;
     }
 }
