@@ -32,6 +32,9 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
         var main_window_provider = new Gtk.CssProvider ();
         main_window_provider.load_from_resource ("name/betschart/marco/timer/MainWindow.css");
 
+        weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
+        default_theme.add_resource_path ("/name/betschart/marco/timer");
+
         var header = new Gtk.HeaderBar ();
         header.decoration_layout = "close:";
         header.has_subtitle = false;

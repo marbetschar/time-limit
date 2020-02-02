@@ -21,22 +21,37 @@
 
 public class Timer.Widgets.Clock : Gtk.Box {
 
+    private Gtk.Stack time_stack;
     private Gtk.Label time_label;
+    private Gtk.Image time_pause;
     private Gtk.Label minutes_label;
     private Gtk.Label seconds_label;
+
+    private static Gtk.CssProvider clock_provider;
 
     public Clock () {
         Object (orientation: Gtk.Orientation.VERTICAL, spacing: 12);
     }
 
-    construct {
-        var clock_provider = new Gtk.CssProvider ();
+    static construct {
+        clock_provider = new Gtk.CssProvider ();
         clock_provider.load_from_resource ("name/betschart/marco/timer/Clock.css");
+    }
+
+    construct {
+        time_pause = new Gtk.Image.from_icon_name ("pause", Gtk.IconSize.BUTTON);
 
         time_label = new Gtk.Label ("16:49");
         var time_label_context = time_label.get_style_context ();
         time_label_context.add_class ("time-label");
         time_label_context.add_provider (clock_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+        time_stack = new Gtk.Stack ();
+        time_stack.hhomogeneous = false;
+        time_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        time_stack.add (time_label);
+        time_stack.add (time_pause);
+        time_stack.visible_child = time_pause;
 
         minutes_label = new Gtk.Label ("0'");
         var minutes_label_context = minutes_label.get_style_context ();
@@ -48,8 +63,12 @@ public class Timer.Widgets.Clock : Gtk.Box {
         seconds_label_context.add_class ("seconds-label");
         seconds_label_context.add_provider (clock_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        add (time_label);
+        add (time_stack);
         add (minutes_label);
         add (seconds_label);
+
+        var context = get_style_context ();
+        context.add_class ("clock");
+        context.add_provider (clock_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 }
