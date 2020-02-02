@@ -6,6 +6,7 @@ Heavily inspired by [Michael Villar's Timer for Mac](https://github.com/michaelv
 ## Building and Installation
 
 You'll need the following dependencies:
+* glib-2.0
 * gtk+-3.0
 * meson
 * valac

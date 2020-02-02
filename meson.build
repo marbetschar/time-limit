@@ -13,6 +13,10 @@ gresource = gnome.compile_resources(
     source_dir: 'data'
 )
 
+# Add math library (-lm) portably
+compiler = meson.get_compiler('c')
+math_lib = compiler.find_library('m', required : false)
+
 # Create a new executable, list the files we want to compile,
 # list the dependencies we need, and install
 executable(
@@ -25,7 +29,9 @@ executable(
     'src/Widgets/Labels.vala',
     'src/Widgets/Arrow.vala',
     dependencies: [
-        dependency('gtk+-3.0')
+        dependency('glib-2.0'),
+        dependency('gtk+-3.0'),
+        math_lib
     ],
     install: true
 )

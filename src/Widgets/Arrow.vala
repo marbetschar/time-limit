@@ -21,14 +21,21 @@
 
 public class Timer.Widgets.Arrow : Gtk.DrawingArea {
 
-    public double progress = 0.0;
+    public double progress { get; set; }
 
     construct {
-        set_size_request (25, 25);
+        progress = 0.0;
+
+        add_events (Gdk.EventMask.BUTTON_PRESS_MASK
+                  | Gdk.EventMask.BUTTON_RELEASE_MASK
+                  | Gdk.EventMask.POINTER_MOTION_MASK);
 
         notify["progress"].connect(() => {
+            debug ("progress: %f.", this.progress);
             queue_draw ();
         });
+
+        set_size_request (25, 25);
     }
 
     public override bool draw (Cairo.Context context) {
