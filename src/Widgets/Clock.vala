@@ -58,6 +58,6 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         //Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, null, Gdk.DragAction.COPY);
-        //Gtk.drag_source_set (arrow, Gdk.ModifierType.BUTTON1_MASK, null, Gdk.DragAction.COPY);
+        Gtk.drag_source_set (arrow, Gdk.ModifierType.BUTTON1_MASK, null, Gdk.DragAction.COPY);
     }
 }
