@@ -21,8 +21,6 @@
 
 public class Timer.Widgets.Face : Gtk.Frame {
 
-    private Timer.Widgets.Arrow arrow;
-
     private static Gtk.CssProvider css_provider;
 
     static construct {
@@ -31,10 +29,6 @@ public class Timer.Widgets.Face : Gtk.Frame {
     }
 
     construct {
-        arrow = new Timer.Widgets.Arrow ();
-
-        add (arrow);
-
         var context = get_style_context ();
         context.add_class ("face");
         context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);

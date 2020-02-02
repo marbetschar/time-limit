@@ -48,14 +48,14 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
         header_context.add_provider (main_window_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         var clock = new Timer.Widgets.Clock ();
-        clock.margin = 12;
+        clock.margin = 4;
         clock.margin_top = 0;
         add (clock);
 
         set_titlebar (header);
 
         default_height = 200;
-        default_width = 212;
+        default_width = 204;
         resizable = false;
 
         var main_window_context = get_style_context ();

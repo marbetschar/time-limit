@@ -42,6 +42,7 @@ public class Timer.Widgets.Labels : Gtk.Box {
         time_pause = new Gtk.Image.from_icon_name ("pause", Gtk.IconSize.BUTTON);
 
         time_label = new Gtk.Label ("16:49");
+
         var time_label_context = time_label.get_style_context ();
         time_label_context.add_class ("time-label");
         time_label_context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -56,12 +57,18 @@ public class Timer.Widgets.Labels : Gtk.Box {
         minutes_label = new Gtk.Label ("0'");
         minutes_label.valign = Gtk.Align.CENTER;
         minutes_label.margin = 0;
+
+        var minutes_label_attributes = new Pango.AttrList ();
+        minutes_label_attributes.insert (Pango.attr_rise_new (-20000));
+        minutes_label.attributes = minutes_label_attributes;
+
         var minutes_label_context = minutes_label.get_style_context ();
         minutes_label_context.add_class ("minutes-label");
         minutes_label_context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         seconds_label = new Gtk.Label ("0\"");
         seconds_label.valign = Gtk.Align.START;
+
         var seconds_label_context = seconds_label.get_style_context ();
         seconds_label_context.add_class ("seconds-label");
         seconds_label_context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);

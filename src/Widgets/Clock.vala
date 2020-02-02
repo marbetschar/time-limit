@@ -21,6 +21,8 @@
 
 public class Timer.Widgets.Clock : Gtk.Overlay {
 
+    private Timer.Widgets.Arrow arrow;
+    private Timer.Widgets.Face face;
     private Timer.Widgets.Labels labels;
 
     private static Gtk.CssProvider css_provider;
@@ -31,14 +33,20 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     construct {
-        var face = new Timer.Widgets.Face ();
-        face.expand = true;
+        arrow = new Timer.Widgets.Arrow ();
+        arrow.valign = Gtk.Align.START;
+        arrow.halign = Gtk.Align.CENTER;
+
+        face = new Timer.Widgets.Face ();
+        face.margin = 20;
 
         labels = new Timer.Widgets.Labels ();
+        labels.margin = 20;
         labels.valign = Gtk.Align.CENTER;
         labels.halign = Gtk.Align.CENTER;
 
-        add (face);
+        add (arrow);
+        add_overlay (face);
         add_overlay (labels);
 
         var context = get_style_context ();
