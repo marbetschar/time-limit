@@ -4,5 +4,7 @@
     <file alias="pause.svg" compressed="true" preprocess="xml-stripblanks">pause.svg</file>
     <file compressed="true">MainWindow.css</file>
     <file compressed="true">Clock.css</file>
+    <file compressed="true">Face.css</file>
+    <file compressed="true">Labels.css</file>
   </gresource>
 </gresources>

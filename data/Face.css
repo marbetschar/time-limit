@@ -19,3 +19,11 @@
 * Authored by: Marco Betschart <elementary-timer@marco.betschart.header
 */
 
+.face {
+    border-color: transparent;
+    border-radius: 50%;
+    background-image: -gtk-gradient (linear,
+        center top, center bottom,
+        from (#FFFFFF), to (#F0F4F9));
+    box-shadow: 0 1 6 rgba(0, 0, 0, 0.07);
+}

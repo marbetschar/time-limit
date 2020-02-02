@@ -19,30 +19,18 @@
 * Authored by: Marco Betschart <elementary-timer@marco.betschart.name
 */
 
-public class Timer.Widgets.Clock : Gtk.Overlay {
-
-    private Timer.Widgets.Labels labels;
+public class Timer.Widgets.Face : Gtk.Frame {
 
     private static Gtk.CssProvider css_provider;
 
     static construct {
         css_provider = new Gtk.CssProvider ();
-        css_provider.load_from_resource ("name/betschart/marco/timer/Clock.css");
+        css_provider.load_from_resource ("name/betschart/marco/timer/Face.css");
     }
 
     construct {
-        var face = new Timer.Widgets.Face ();
-        face.expand = true;
-
-        labels = new Timer.Widgets.Labels ();
-        labels.valign = Gtk.Align.CENTER;
-        labels.halign = Gtk.Align.CENTER;
-
-        add (face);
-        add_overlay (labels);
-
         var context = get_style_context ();
-        context.add_class ("clock");
+        context.add_class ("face");
         context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 }
