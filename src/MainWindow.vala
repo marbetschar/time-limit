@@ -55,7 +55,7 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
         set_titlebar (header);
 
         default_height = 200;
-        default_width = 204;
+        default_width = 200;
         resizable = false;
 
         var main_window_context = get_style_context ();

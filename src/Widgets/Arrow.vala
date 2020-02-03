@@ -89,8 +89,8 @@ public class Timer.Widgets.Arrow : Gtk.DrawingArea {
             } else if (progress_motion - progress > 0.75) {
                 progress_motion -= 1;
             }
-            if (progress < 0) {
-                progress = 0;
+            if (progress_motion < 0) {
+                progress_motion = 0;
             }
             progress = progress_motion;
 

@@ -67,7 +67,9 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
                 seconds = seconds - Timer.Util.truncating_remainder (seconds, 60);
             }
 
-            //debug ("seconds: %f", seconds);
+            //debug ("progress: %f, scaled: %f", progress, scaled_progress);
+            //handle.arrow_move (progress);
+            debug ("seconds: %f", seconds);
             this.seconds = seconds;
         });
     }
@@ -75,7 +77,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     private double scaleOriginal = 6;
     private double scaleActual = 3;
 
-    private double convert_progress_to_scale (double progress) {
+    public double convert_progress_to_scale (double progress) {
         if (minutes <= 60) {
             if (progress <= scaleOriginal / 60) {
                 return progress / (scaleOriginal / scaleActual);
