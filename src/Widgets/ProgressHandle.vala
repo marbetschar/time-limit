@@ -43,12 +43,26 @@ public class Timer.Widgets.ProgressHandle : Gtk.Fixed {
             arrow.progress = progress;
         });
 
+        //realize.connect (on_realize);
         size_allocate.connect (on_size_allocate);
+        //parent_set.connect (on_parent_set);
 
         arrow.button_press_event.connect (arrow_on_button_press_event);
         arrow.button_release_event.connect (arrow_on_button_release_event);
         arrow.motion_notify_event.connect (arrow_on_motion_notify_event);
     }
+
+    /*private void on_realize () {
+        Gtk.Allocation alloc;
+        get_allocation (out alloc);
+
+        Gtk.Allocation arrow_alloc;
+        arrow.get_allocation (out arrow_alloc);
+
+        debug ("on_realize.alloc.width: %f", alloc.width);
+
+        move (arrow, alloc.width / 2 - arrow_alloc.width / 2, 0);
+    }*/
 
     private void on_size_allocate (Gtk.Allocation alloc) {
         Gtk.Allocation arrow_alloc;
@@ -56,6 +70,18 @@ public class Timer.Widgets.ProgressHandle : Gtk.Fixed {
 
         move (arrow, alloc.width / 2 - arrow_alloc.width / 2, 0);
     }
+
+    /*private void on_parent_set (Gtk.Widget? previous_parent) {
+        Gtk.Allocation alloc;
+        get_allocation (out alloc);
+
+        Gtk.Allocation arrow_alloc;
+        arrow.get_allocation (out arrow_alloc);
+
+        debug ("on_parent_set.alloc.width: %f", alloc.width);
+
+        move (arrow, alloc.width / 2 - arrow_alloc.width / 2, 0);
+    }*/
 
     private bool arrow_drag_enabled = false;
 
