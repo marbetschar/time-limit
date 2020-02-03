@@ -34,32 +34,27 @@ public class Timer.Widgets.ProgressHandle : Gtk.Fixed {
 
     construct {
         arrow = new Timer.Widgets.Arrow ();
-        arrow.valign = Gtk.Align.START;
-        arrow.halign = Gtk.Align.CENTER;
-
-        Gtk.Allocation parent_alloc;
-        parent.get_allocation(out parent_alloc);
-
-        debug ("parent_alloc(width: %f, height: %f)", parent_alloc.width, parent_alloc.height);
-
-        put (arrow, 33, parent_alloc.width / 2);
+        put (arrow, 0, 0); //x: 86, y: 0
 
         progress = 0.0;
 
-        var context = get_style_context ();
-        context.add_class ("progress-handle");
-        context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
         notify["progress"].connect(() => {
-            /*
             debug ("progress: %f.", this.progress);
-            queue_draw ();
-            */
+            arrow.progress = progress;
         });
+
+        size_allocate.connect (on_size_allocate);
 
         arrow.button_press_event.connect (arrow_on_button_press_event);
         arrow.button_release_event.connect (arrow_on_button_release_event);
         arrow.motion_notify_event.connect (arrow_on_motion_notify_event);
+    }
+
+    private void on_size_allocate (Gtk.Allocation alloc) {
+        Gtk.Allocation arrow_alloc;
+        arrow.get_allocation (out arrow_alloc);
+
+        move (arrow, alloc.width / 2 - arrow_alloc.width / 2, 0);
     }
 
     private bool arrow_drag_enabled = false;
@@ -80,6 +75,8 @@ public class Timer.Widgets.ProgressHandle : Gtk.Fixed {
 
     private bool arrow_on_motion_notify_event (Gdk.EventMotion event) {
         if (arrow_drag_enabled) {
+            move (arrow, (int) event.x, (int) event.y);
+            /*
             Gtk.Allocation alloc;
             get_allocation (out alloc);
 
@@ -109,6 +106,7 @@ public class Timer.Widgets.ProgressHandle : Gtk.Fixed {
             var arrow_y = center_y + Math.sin (arrow_angle) * center_y;
 
             //arrow.progress = convert_progress_to_scale (progress);
+            */
         }
         return true;
     }

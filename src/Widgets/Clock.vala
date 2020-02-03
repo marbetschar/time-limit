@@ -33,11 +33,6 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     construct {
-        Gtk.Allocation alloc;
-        get_allocation(out alloc);
-
-        debug ("clock.alloc(width: %f, height: %f)", alloc.width, alloc.height);
-
         handle = new Timer.Widgets.ProgressHandle ();
 
         face = new Timer.Widgets.Face ();
