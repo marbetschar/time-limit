@@ -95,6 +95,7 @@ public class Timer.Widgets.Arrow : Gtk.DrawingArea {
             progress = progress_motion;
 
             queue_draw ();
+            debug ("progress:", progress);
             progress_changed (progress);
         }
         return true;

@@ -68,8 +68,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
             }
 
             //debug ("progress: %f, scaled: %f", progress, scaled_progress);
-            //handle.arrow_move (progress);
-            debug ("seconds: %f", seconds);
+            //debug ("seconds: %f", seconds);
             this.seconds = seconds;
         });
     }

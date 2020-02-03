@@ -43,7 +43,7 @@ public class Timer.Widgets.ProgressHandle : Gtk.Fixed {
         });
     }
 
-    public void arrow_move (double progress) {
+    private void arrow_move (double progress) {
         int arrow_width = arrow.get_allocated_width ();
         int arrow_height = arrow.get_allocated_height ();
 
