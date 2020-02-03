@@ -21,6 +21,12 @@
 
 public class Timer.Widgets.Clock : Gtk.Overlay {
 
+    private double seconds { get; set; }
+
+    private double minutes {
+        get { return Math.floor (seconds / 60); }
+    }
+
     private Timer.Widgets.ProgressHandle handle;
     private Timer.Widgets.Face face;
     private Timer.Widgets.Labels labels;
@@ -50,5 +56,33 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         var context = get_style_context ();
         context.add_class ("clock");
         context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+        handle.progress_changed.connect ((progress) => {
+            var scaled_progress = convert_progress_to_scale (progress);
+
+            var seconds = Math.round (scaled_progress * 60.0 * 60.0);
+            if (seconds <= 300) {
+                seconds = seconds - Math.fabs (Math.remainder (seconds, 10));
+            } else {
+                seconds = seconds - Math.fabs (Math.remainder (seconds, 60));
+            }
+
+            debug ("seconds: %f", seconds);
+            this.seconds = seconds;
+        });
+    }
+
+    private double scaleOriginal = 6;
+    private double scaleActual = 3;
+
+    private double convert_progress_to_scale (double progress) {
+        if (minutes <= 60) {
+            if (progress <= scaleOriginal / 60) {
+                return progress / (scaleOriginal / scaleActual);
+            } else {
+                return (progress * 60 - scaleOriginal + scaleActual) / (60 - scaleActual);
+            }
+        }
+        return progress;
     }
 }

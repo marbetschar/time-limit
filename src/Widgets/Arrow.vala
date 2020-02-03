@@ -21,21 +21,21 @@
 
 public class Timer.Widgets.Arrow : Gtk.DrawingArea {
 
-    public double progress { get; set; }
+    private double progress { get; set; }
+    public signal void progress_changed (double progress);
 
     construct {
+        set_size_request (25, 25);
+
         progress = 0.0;
 
         add_events (Gdk.EventMask.BUTTON_PRESS_MASK
                   | Gdk.EventMask.BUTTON_RELEASE_MASK
                   | Gdk.EventMask.POINTER_MOTION_MASK);
 
-        notify["progress"].connect(() => {
-            debug ("progress: %f.", this.progress);
-            queue_draw ();
-        });
-
-        set_size_request (25, 25);
+        button_press_event.connect (on_button_press_event);
+        button_release_event.connect (on_button_release_event);
+        motion_notify_event.connect (on_motion_notify_event);
     }
 
     public override bool draw (Cairo.Context context) {
@@ -64,5 +64,68 @@ public class Timer.Widgets.Arrow : Gtk.DrawingArea {
       NSColor(srgbRed: 0.5529, green: 0.6275, blue: 0.7216, alpha: 1.0).setFill()
     }
     */
+    }
+
+    private bool drag_is_active = false;
+
+    private bool on_button_press_event (Gdk.EventButton event) {
+        if (!drag_is_active) {
+            drag_is_active = true;
+        }
+        return true;
+    }
+
+    private bool on_button_release_event (Gdk.EventButton event) {
+        if (drag_is_active) {
+            drag_is_active = false;
+        }
+        return true;
+    }
+
+    private bool on_motion_notify_event (Gdk.EventMotion event) {
+        if (drag_is_active) {
+            Gtk.Allocation alloc;
+            get_allocation (out alloc);
+
+            var center_x = alloc.x + alloc.width / 2;
+            var center_y = alloc.y + alloc.height / 2;
+
+            var delta_x = (event.x - center_x) / center_x;
+            var delta_y = (event.y - center_y) / center_y;
+
+            //debug ("event.x: %f, center_x: %f", event.x, center_x);
+            //debug ("event.y: %f, center_y: %f", event.y, center_y);
+            // debug ("delta_x; %f, delta_y: %f", delta_x, delta_y);
+
+            var angle = Math.atan (delta_y / delta_x);
+            if (delta_x < 0) {
+                angle = angle - Math.PI;
+            }
+
+            var motion_progress = (progress - Math.fabs (Math.remainder (progress, 1))) + -(angle - Math.PI / 2.0) / (Math.PI * 2.0);
+            if (progress - motion_progress > 0.25) {
+                motion_progress += 1;
+            } else if (motion_progress - progress > 0.75) {
+                motion_progress -= 1;
+            }
+            if (progress < 0) {
+                motion_progress = 0;
+            }
+            progress = motion_progress;
+
+            queue_draw ();
+            progress_changed (progress);
+
+            /*
+            var arrow_angle = -progress * Math.PI * 2 + Math.PI / 2;
+            var arrow_x = center_x + Math.cos (arrow_angle) * center_x;
+            var arrow_y = center_y + Math.sin (arrow_angle) * center_y;
+            */
+
+            //arrow.progress = convert_progress_to_scale (progress);
+            //move (arrow, (int) event.x, (int) event.y);
+            // move (arrow, (int) arrow_x, (int) arrow_y);
+        }
+        return true;
     }
 }
