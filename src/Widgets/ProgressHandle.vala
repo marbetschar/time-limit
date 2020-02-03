@@ -44,16 +44,16 @@ public class Timer.Widgets.ProgressHandle : Gtk.Fixed {
     }
 
     private void arrow_move (double progress) {
-        Gtk.Allocation alloc;
-        get_allocation (out alloc);
-
-        Gtk.Allocation arrow_alloc;
-        arrow.get_allocation (out arrow_alloc);
+        int widget_width = get_allocated_width ();
+        int widget_height = get_allocated_height ();
 
         var angle = -progress * Math.PI * 2 + Math.PI / 2;
-        var x = alloc.width / 2 + Math.cos (angle) * alloc.width / 2;
-        var y = alloc.height / 2 + Math.sin (angle) * alloc.height / 2;
+        var delta_x = widget_width / 2 + Math.cos (angle) * widget_width / 2;
+        var delta_y = widget_height / 2 + Math.sin (angle) * widget_height / 2;
 
-        move (arrow, (int) (x - arrow_alloc.width / 2), (int) (y - arrow_alloc.height / 2));
+        int arrow_width = arrow.get_allocated_width ();
+        int arrow_height = arrow.get_allocated_height ();
+
+        move (arrow, (int) delta_x, (int) delta_y);
     }
 }

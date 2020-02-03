@@ -62,12 +62,12 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
             var seconds = Math.round (scaled_progress * 60.0 * 60.0);
             if (seconds <= 300) {
-                seconds = seconds - Math.fabs (Math.remainder (seconds, 10));
+                seconds = seconds - Timer.Util.truncating_remainder (seconds, 10);
             } else {
-                seconds = seconds - Math.fabs (Math.remainder (seconds, 60));
+                seconds = seconds - Timer.Util.truncating_remainder (seconds, 60);
             }
 
-            debug ("seconds: %f", seconds);
+            //debug ("seconds: %f", seconds);
             this.seconds = seconds;
         });
     }

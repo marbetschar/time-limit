@@ -24,6 +24,7 @@ executable(
     gresource,
     'src/Application.vala',
     'src/MainWindow.vala',
+    'src/Util.vala',
     'src/Widgets/Clock.vala',
     'src/Widgets/Face.vala',
     'src/Widgets/Labels.vala',
