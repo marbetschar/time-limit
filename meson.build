@@ -27,6 +27,7 @@ executable(
     'src/Widgets/Clock.vala',
     'src/Widgets/Face.vala',
     'src/Widgets/Labels.vala',
+    'src/Widgets/ProgressHandle.vala',
     'src/Widgets/Arrow.vala',
     dependencies: [
         dependency('glib-2.0'),

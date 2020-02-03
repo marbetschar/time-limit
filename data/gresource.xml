@@ -6,5 +6,6 @@
     <file compressed="true">Clock.css</file>
     <file compressed="true">Face.css</file>
     <file compressed="true">Labels.css</file>
+    <file compressed="true">ProgressHandle.css</file>
   </gresource>
 </gresources>
