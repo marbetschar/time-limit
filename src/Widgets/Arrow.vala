@@ -42,7 +42,7 @@ public class Timer.Widgets.Arrow : Gtk.DrawingArea {
         int width = get_allocated_width ();
         int height = get_allocated_height ();
 
-        double angle = progress * Math.PI * 2;
+        double angle = progress * Math.PI * 2 - Math.PI;
         context.translate (width / 2, height / 2);
         context.rotate (angle);
         context.translate (-(width / 2), -(height / 2));
@@ -75,26 +75,26 @@ public class Timer.Widgets.Arrow : Gtk.DrawingArea {
 
     private bool on_motion_notify_event (Gdk.EventMotion event) {
         if (drag_is_active) {
-            Gtk.Allocation parent_alloc;
-            parent.get_allocation (out parent_alloc);
+            var parent_center_x = parent.get_allocated_width () / 2;
+            var parent_center_y = parent.get_allocated_height () / 2;
 
-            var parent_center_x = parent_alloc.x + parent_alloc.width / 2;
-            var parent_center_y = parent_alloc.y + parent_alloc.height / 2;
+            var arrow_width = get_allocated_width ();
+            var arrow_height = get_allocated_height ();
 
-            Gtk.Allocation arrow_alloc;
-            get_allocation (out arrow_alloc);
+            int arrow_center_x, arrow_center_y;
+            translate_coordinates (parent, arrow_width / 2, arrow_height / 2, out arrow_center_x, out arrow_center_y);
 
-            var arrow_center_x = arrow_alloc.x + arrow_alloc.width / 2 + event.x;
-            var arrow_center_y = arrow_alloc.y + arrow_alloc.height / 2 + event.y;
+            var delta_x = (arrow_center_x + event.x - parent_center_x) / parent_center_x;
+            var delta_y = (arrow_center_y + event.y - parent_center_y) / -parent_center_y;
 
-            var delta_x = (arrow_center_x - parent_center_x) / parent_center_x;
-            var delta_y = (arrow_center_y - parent_center_y) / parent_center_y;
-
-            var angle = Math.atan (-delta_y / delta_x);
+            var angle = Math.atan (delta_y / delta_x);
             if (delta_x < 0) {
                 angle = angle - Math.PI;
             }
-            var progress_motion = (progress - Timer.Util.truncating_remainder (progress, 1)) + -(angle - Math.PI / 2.0) / (Math.PI * 2.0);
+
+            var progress_motion = (progress - Timer.Util.truncating_remainder (progress, 1)) + -(angle - Math.PI / 2) / (Math.PI * 2.0);
+
+            debug ("dy: %f, angle: %f, progress: %f", delta_y, angle, progress_motion);
 
             if (progress - progress_motion > 0.25) {
                 progress_motion += 1;
@@ -105,8 +105,6 @@ public class Timer.Widgets.Arrow : Gtk.DrawingArea {
                 progress_motion = 0;
             }
             progress = progress_motion;
-
-            debug ("progress: %f", progress);
 
             queue_draw ();
             progress_changed (progress);

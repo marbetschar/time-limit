@@ -50,7 +50,7 @@ public class Timer.Widgets.ProgressHandle : Gtk.Fixed {
         int widget_width = get_allocated_width () - arrow_width;
         int widget_height = get_allocated_height () - arrow_height;
 
-        var angle = progress * Math.PI * 2 + Math.PI / 2;
+        var angle = progress * Math.PI * 2;// - Math.PI / 2;
         var delta_x = widget_width / 2 + Math.cos (angle) * widget_width / 2;
         var delta_y = widget_height / 2 + Math.sin (angle) * widget_height / 2;
 
