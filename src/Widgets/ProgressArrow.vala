@@ -94,10 +94,7 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
             if (delta_x < 0) {
                 angle = angle - Math.PI;
             }
-
             var progress_motion = (progress - Timer.Util.truncating_remainder (progress, 1)) + -(angle - Math.PI / 2) / (Math.PI * 2.0);
-
-            debug ("ey: %f, dy: %f, angle: %f, progress: %f", event.y, delta_y, angle, progress_motion);
 
             if (progress - progress_motion > 0.25) {
                 progress_motion += 1;
