@@ -28,8 +28,9 @@ executable(
     'src/Widgets/Clock.vala',
     'src/Widgets/Face.vala',
     'src/Widgets/Labels.vala',
-    'src/Widgets/ProgressHandle.vala',
-    'src/Widgets/Arrow.vala',
+    'src/Widgets/ProgressIndicator.vala',
+    'src/Widgets/ProgressArrow.vala',
+    'src/Widgets/ProgressBar.vala',
     dependencies: [
         dependency('glib-2.0'),
         dependency('gtk+-3.0'),

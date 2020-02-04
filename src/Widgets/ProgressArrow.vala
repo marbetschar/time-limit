@@ -19,15 +19,18 @@
 * Authored by: Marco Betschart <elementary-timer@marco.betschart.name
 */
 
-public class Timer.Widgets.Arrow : Gtk.DrawingArea {
+public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
 
-    private double progress { get; set; }
     public signal void progress_changed (double progress);
+
+    public double progress { get; construct set; }
+
+    public ProgressArrow (double progress) {
+        Object (progress: progress);
+    }
 
     construct {
         set_size_request (25, 25);
-
-        progress = 0.0;
 
         add_events (Gdk.EventMask.BUTTON_PRESS_MASK
                   | Gdk.EventMask.BUTTON_RELEASE_MASK

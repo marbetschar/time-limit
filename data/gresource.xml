@@ -2,10 +2,10 @@
 <gresources>
   <gresource prefix="/name/betschart/marco/timer">
     <file alias="pause.svg" compressed="true" preprocess="xml-stripblanks">pause.svg</file>
+    <file alias="progress.png" compressed="true">progress.png</file>
     <file compressed="true">MainWindow.css</file>
     <file compressed="true">Clock.css</file>
     <file compressed="true">Face.css</file>
     <file compressed="true">Labels.css</file>
-    <file compressed="true">ProgressHandle.css</file>
   </gresource>
 </gresources>
