@@ -66,14 +66,14 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
         if (!drag_is_active) {
             drag_is_active = true;
         }
-        return true;
+        return Gdk.EVENT_PROPAGATE;
     }
 
     private bool on_button_release_event (Gdk.EventButton event) {
         if (drag_is_active) {
             drag_is_active = false;
         }
-        return true;
+        return Gdk.EVENT_PROPAGATE;
     }
 
     private bool on_motion_notify_event (Gdk.EventMotion event) {
@@ -110,6 +110,6 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
             progress_changed (progress);
 
         }
-        return true;
+        return Gdk.EVENT_PROPAGATE;
     }
 }

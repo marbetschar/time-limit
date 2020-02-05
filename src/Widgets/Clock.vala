@@ -39,7 +39,9 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     construct {
-        indicator = new Timer.Widgets.ProgressIndicator ();
+        add_events (Gdk.EventMask.BUTTON_RELEASE_MASK);
+
+        indicator = new Timer.Widgets.ProgressIndicator (0.0);
 
         face = new Timer.Widgets.Face ();
         face.margin = 20;
@@ -57,6 +59,8 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         context.add_class ("clock");
         context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
+        button_release_event.connect (on_button_release_event);
+
         indicator.progress_changed.connect ((progress) => {
             var scaled_progress = convert_progress_to_scale (progress);
 
@@ -72,6 +76,26 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         });
 
         update_request ();
+    }
+
+    private bool paused = true;
+
+    private bool on_button_release_event (Gdk.EventButton event) {
+        if (paused) {
+            paused = false;
+            Timeout.add_seconds (1, tick);
+        }
+        return Gdk.EVENT_PROPAGATE;
+    }
+
+    private bool tick () {
+        debug ("Timeout.callback: %i", (int) this.seconds);
+        if (paused || this.seconds <= 0) {
+            return false;
+        }
+        indicator.progress = invert_progress_to_scale ((this.seconds - 1) / 60 / 60);
+
+        return true;
     }
 
     private void update_request () {
@@ -93,12 +117,23 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     private double scaleOriginal = 6;
     private double scaleActual = 3;
 
-    public double convert_progress_to_scale (double progress) {
+    private double convert_progress_to_scale (double progress) {
         if (minutes <= 60) {
             if (progress <= scaleOriginal / 60) {
                 return progress / (scaleOriginal / scaleActual);
             } else {
                 return (progress * 60 - scaleOriginal + scaleActual) / (60 - scaleActual);
+            }
+        }
+        return progress;
+    }
+
+    private double invert_progress_to_scale (double progress) {
+        if (minutes <= 60) {
+            if (progress <= scaleActual / 60) {
+                return progress * (scaleOriginal / scaleActual);
+            } else {
+                return (progress * (60 - scaleActual) - scaleActual + scaleOriginal) / 60;
             }
         }
         return progress;

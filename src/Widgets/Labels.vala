@@ -23,7 +23,7 @@ public class Timer.Widgets.Labels : Gtk.Box {
 
     public Gtk.Stack time_stack;
     public Gtk.Label time_label;
-    private Gtk.Image time_pause;
+    public Gtk.Image time_pause;
     public Gtk.Label minutes_label;
     public Gtk.Label seconds_label;
 
