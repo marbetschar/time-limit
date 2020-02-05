@@ -25,10 +25,6 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     public double seconds { get; private set; }
     public bool pause { get; private set; }
 
-    private double minutes {
-        get { return Math.floor (seconds / 60); }
-    }
-
     private double on_button_press_seconds;
     private bool on_button_press_pause;
     private bool button_press_active;
@@ -114,32 +110,28 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         return Gdk.EVENT_PROPAGATE;
     }
 
-    private void on_progress_changed () {
-        var scaled_progress = convert_progress_to_scale (progress);
-
-        var seconds_new = Math.round (scaled_progress * 60.0 * 60.0);
-        if (seconds_new <= 300) {
-            seconds_new = seconds_new - Timer.Util.truncating_remainder (seconds_new, 10);
-        } else {
-            seconds_new = seconds_new - Timer.Util.truncating_remainder (seconds_new, 60);
+    private void on_seconds_changed () {
+        if (!pause) {
+            progress = convert_seconds_to_progress (seconds);
+            update_labels ();
         }
-
-        seconds = seconds_new;
     }
 
-    private void on_seconds_changed () {
-        update_labels ();
+    private void on_progress_changed () {
+        if (pause) {
+            seconds = convert_progress_to_seconds (progress);
+            update_labels ();
+        }
     }
 
     private void on_pause_changed () {
         if (!button_press_active && !pause && seconds > 0) {
             Timeout.add_seconds (1, () => {
                 if (!pause) {
-
-                    var progress_new = invert_progress_to_scale ((seconds - 1) / 60 / 60);
-                    progress = progress_new > 0 ? progress_new : 0;
+                    var seconds_new = seconds - 1;
+                    seconds = seconds_new > 0 ? seconds_new : 0;
                 }
-                return !pause && progress > 0;
+                return !pause && seconds > 0;
             });
         }
         update_labels ();
@@ -156,7 +148,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
             labels.seconds_label.label = "";
 
         } else {
-            labels.minutes_label.label = "%i\'".printf ((int) minutes);
+            labels.minutes_label.label = "%i\'".printf ((int) convert_seconds_to_minutes (seconds));
             labels.seconds_label.label = "%i\"".printf ((int) Timer.Util.truncating_remainder (seconds, 60));
         }
 
@@ -170,7 +162,28 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     private double scale_original = 6;
     private double scale_actual = 3;
 
-    private double convert_progress_to_scale (double progress) {
+    private double convert_seconds_to_minutes (double seconds) {
+        return Math.floor (seconds / 60);
+    }
+
+    private double convert_progress_to_seconds (double progress) {
+        var scaled_progress = convert_progress_to_scale (progress, convert_seconds_to_minutes (seconds));
+
+        var seconds = Math.round (scaled_progress * 60.0 * 60.0);
+        if (seconds <= 300) {
+            seconds = seconds - Timer.Util.truncating_remainder (seconds, 10);
+        } else {
+            seconds = seconds - Timer.Util.truncating_remainder (seconds, 60);
+        }
+
+        return seconds;
+    }
+
+    private double convert_seconds_to_progress (double seconds) {
+        return invert_progress_to_scale(seconds / 3600, convert_seconds_to_minutes(seconds));
+    }
+
+    private double convert_progress_to_scale (double progress, double minutes) {
         if (minutes <= 60) {
             if (progress <= scale_original / 60) {
                 return progress / (scale_original / scale_actual);
@@ -181,7 +194,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         return progress;
     }
 
-    private double invert_progress_to_scale (double progress) {
+    private double invert_progress_to_scale (double progress, double minutes) {
         if (minutes <= 60) {
             if (progress <= scale_actual / 60) {
                 return progress * (scale_original / scale_actual);
