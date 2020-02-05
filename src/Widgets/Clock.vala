@@ -67,10 +67,27 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
                 seconds = seconds - Timer.Util.truncating_remainder (seconds, 60);
             }
 
-            //debug ("progress: %f, scaled: %f", progress, scaled_progress);
-            //debug ("seconds: %f", seconds);
             this.seconds = seconds;
+            update_request ();
         });
+
+        update_request ();
+    }
+
+    private void update_request () {
+        var until = new DateTime.now_local ();
+        until = until.add_seconds (seconds);
+        until = until.add_seconds (-until.get_seconds ());
+        labels.time_label.label = until.format ("%R");
+
+        if (seconds < 60) {
+            labels.minutes_label.label = "%i\"".printf ((int) seconds);
+            labels.seconds_label.label = "";
+
+        } else {
+            labels.minutes_label.label = "%i\'".printf ((int) minutes);
+            labels.seconds_label.label = "%i\"".printf ((int) Timer.Util.truncating_remainder (seconds, 60));
+        }
     }
 
     private double scaleOriginal = 6;
