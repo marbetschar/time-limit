@@ -36,7 +36,7 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
         add (bar);
 
         arrow = new Timer.Widgets.ProgressArrow (progress);
-        add (arrow);
+        put (arrow, 90, 0); // TODO: Calculate initial placing
 
         bind_property ("progress", arrow, "progress", BindingFlags.BIDIRECTIONAL);
         bind_property ("progress", bar, "progress", BindingFlags.DEFAULT);
@@ -47,16 +47,21 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
     }
 
     private void arrow_move (double progress) {
-        int arrow_width = arrow.get_allocated_width ();
-        int arrow_height = arrow.get_allocated_height ();
+        int width = get_allocated_width ();
+        int height = get_allocated_height ();
 
-        int content_width = get_allocated_width () - arrow_width;
-        int content_height = get_allocated_height () - arrow_height;
+        if (width > 1 && height > 1) {
+            int arrow_width = arrow.get_allocated_width ();
+            int arrow_height = arrow.get_allocated_height ();
 
-        var angle = progress * Math.PI * 2 - Math.PI / 2;
-        var delta_x = content_width / 2 + Math.cos (angle) * content_width / 2;
-        var delta_y = content_height / 2 + Math.sin (angle) * content_height / 2;
+            int content_width = width - arrow_width;
+            int content_height = height - arrow_height;
 
-        move (arrow, (int) delta_x, (int) delta_y);
+            var angle = progress * Math.PI * 2 - Math.PI / 2;
+            var delta_x = content_width / 2 + Math.cos (angle) * content_width / 2;
+            var delta_y = content_height / 2 + Math.sin (angle) * content_height / 2;
+
+            move (arrow, (int) delta_x, (int) delta_y);
+        }
     }
 }
