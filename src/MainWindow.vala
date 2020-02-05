@@ -53,6 +53,15 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
         var clock = new Timer.Widgets.Clock ();
         add (clock);
 
+        set_titlebar (header);
+
+        var main_window_context = get_style_context ();
+        main_window_context.add_class ("rounded");
+        main_window_context.add_class ("main-background");
+        main_window_context.add_class (Gtk.STYLE_CLASS_FLAT);
+        main_window_context.add_class ("main");
+        main_window_context.add_provider (main_window_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
         key_release_event.connect ((event) => {
             switch (event.keyval) {
                 case Gdk.Key.space:
@@ -65,14 +74,5 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
                     break;
             }
         });
-
-        set_titlebar (header);
-
-        var main_window_context = get_style_context ();
-        main_window_context.add_class ("rounded");
-        main_window_context.add_class ("main-background");
-        main_window_context.add_class (Gtk.STYLE_CLASS_FLAT);
-        main_window_context.add_class ("main");
-        main_window_context.add_provider (main_window_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 }
