@@ -24,13 +24,16 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
     public MainWindow (Gtk.Application application) {
         Object (
             application: application,
-            icon_name: "name.betschart.marco.timer"
+            icon_name: "name.betschart.marco.timer",
+            resizable: false,
+            default_height: 200,
+            default_width: 200
         );
     }
 
     construct {
         var main_window_provider = new Gtk.CssProvider ();
-        main_window_provider.load_from_resource ("name/betschart/marco/timer/MainWindow.css");
+        main_window_provider.load_from_resource ("name/betschart/marco/timer/Main.css");
 
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
         default_theme.add_resource_path ("/name/betschart/marco/timer");
@@ -48,19 +51,28 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
         header_context.add_provider (main_window_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         var clock = new Timer.Widgets.Clock ();
-        clock.margin = 4;
-        clock.margin_top = 0;
         add (clock);
 
-        set_titlebar (header);
+        key_release_event.connect ((event) => {
+            switch (event.keyval) {
+                case Gdk.Key.space:
+                    clock.pause = !clock.pause;
+                    break;
 
-        default_height = 200;
-        default_width = 200;
-        resizable = false;
+                case Gdk.Key.Escape:
+                    clock.pause = false;
+                    clock.seconds = 0;
+                    break;
+            }
+        });
+
+        set_titlebar (header);
 
         var main_window_context = get_style_context ();
         main_window_context.add_class ("rounded");
         main_window_context.add_class ("main-background");
+        main_window_context.add_class (Gtk.STYLE_CLASS_FLAT);
+        main_window_context.add_class ("main");
         main_window_context.add_provider (main_window_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 }

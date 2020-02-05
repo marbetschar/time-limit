@@ -22,8 +22,8 @@
 public class Timer.Widgets.Clock : Gtk.Overlay {
 
     public double progress { get; set; }
-    public double seconds { get; private set; }
-    public bool pause { get; private set; }
+    public double seconds { get; set; }
+    public bool pause { get; set; }
 
     private double on_button_press_seconds;
     private bool on_button_press_pause;
@@ -37,7 +37,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
     static construct {
         css_provider = new Gtk.CssProvider ();
-        css_provider.load_from_resource ("name/betschart/marco/timer/Clock.css");
+        css_provider.load_from_resource ("name/betschart/marco/timer/Main.css");
     }
 
     construct {
@@ -64,7 +64,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         add_overlay (labels);
 
         var context = get_style_context ();
-        context.add_class ("clock");
+        context.add_class ("main");
         context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         bind_property ("progress", indicator, "progress", BindingFlags.BIDIRECTIONAL);
@@ -74,6 +74,8 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
         button_press_event.connect (on_button_press_event);
         button_release_event.connect (on_button_release_event);
+        key_press_event.connect (on_key_release_event);
+        key_release_event.connect (on_key_release_event);
 
         notify["progress"].connect (on_progress_changed);
         notify["seconds"].connect (on_seconds_changed);
@@ -107,6 +109,11 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
             pause = false;
         }
 
+        return Gdk.EVENT_PROPAGATE;
+    }
+
+    private bool on_key_release_event (Gdk.EventKey event) {
+        debug ("key_release");
         return Gdk.EVENT_PROPAGATE;
     }
 

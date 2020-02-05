@@ -23,3 +23,22 @@
     background-color: shade (@bg_color, 0.92);
     color: mix (@bg_color, @text_color, 0.77);
 }
+
+/*
+.titlebar, .main {
+    transition: 500ms ease;
+}
+
+.main:backdrop {
+    background: transparent;
+}
+
+.main:backdrop .titlebar {
+    opacity: 0;
+}
+
+.main:backdrop * {
+    border: 0px solid transparent;
+    box-shadow: 0 0 transparent;
+}
+*/
