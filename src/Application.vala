@@ -69,6 +69,10 @@ public class Timer.Application : Gtk.Application {
                 main_window.destroy ();
             }
         });
+
+        main_window.send_notification.connect ((notification) => {
+            send_notification("name.betschart.marco.timer", notification);
+        });
     }
 
     public static int main (string[] args) {

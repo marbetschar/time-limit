@@ -137,6 +137,13 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
                 if (!pause) {
                     var seconds_new = seconds - 1;
                     seconds = seconds_new > 0 ? seconds_new : 0;
+
+                    if (seconds == 0) {
+                        var main_window = (Timer.MainWindow) parent;
+                        var notification = new Notification (_("It's time!"));
+                        notification.set_body (_("Your countdown is over."));
+                        main_window.send_notification (notification);
+                    }
                 }
                 return !pause && seconds > 0;
             });

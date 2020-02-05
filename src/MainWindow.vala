@@ -21,6 +21,8 @@
 
 public class Timer.MainWindow : Gtk.ApplicationWindow {
 
+    public signal void send_notification (Notification notification);
+
     public MainWindow (Gtk.Application application) {
         Object (
             application: application,

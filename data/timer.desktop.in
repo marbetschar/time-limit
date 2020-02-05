@@ -8,3 +8,4 @@ Icon=name.betschart.marco.timer
 Terminal=false
 Type=Application
 Keyword=Timer;Countdown
+X-GNOME-UsesNotifications=true
