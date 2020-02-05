@@ -21,11 +21,17 @@
 
 public class Timer.Widgets.Clock : Gtk.Overlay {
 
-    private double seconds { get; set; }
+    public double progress { get; set; }
+    public double seconds { get; private set; }
+    public bool pause { get; private set; }
 
     private double minutes {
         get { return Math.floor (seconds / 60); }
     }
+
+    private double on_button_press_seconds;
+    private bool on_button_press_pause;
+    private bool button_press_active;
 
     private Timer.Widgets.ProgressIndicator indicator;
     private Timer.Widgets.Face face;
@@ -39,7 +45,13 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     construct {
-        add_events (Gdk.EventMask.BUTTON_RELEASE_MASK);
+        progress = 0.0;
+        seconds = 0.0;
+        pause = false;
+
+        on_button_press_seconds = 0.0;
+        on_button_press_pause = false;
+        button_press_active = false;
 
         indicator = new Timer.Widgets.ProgressIndicator (0.0);
 
@@ -59,46 +71,81 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         context.add_class ("clock");
         context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
+        bind_property ("progress", indicator, "progress", BindingFlags.BIDIRECTIONAL);
+
+        add_events (Gdk.EventMask.BUTTON_PRESS_MASK
+                  | Gdk.EventMask.BUTTON_RELEASE_MASK);
+
+        button_press_event.connect (on_button_press_event);
         button_release_event.connect (on_button_release_event);
 
-        indicator.progress_changed.connect ((progress) => {
-            var scaled_progress = convert_progress_to_scale (progress);
+        notify["progress"].connect (on_progress_changed);
+        notify["seconds"].connect (on_seconds_changed);
+        notify["pause"].connect (on_pause_changed);
 
-            var seconds = Math.round (scaled_progress * 60.0 * 60.0);
-            if (seconds <= 300) {
-                seconds = seconds - Timer.Util.truncating_remainder (seconds, 10);
-            } else {
-                seconds = seconds - Timer.Util.truncating_remainder (seconds, 60);
-            }
-
-            this.seconds = seconds;
-            update_request ();
-        });
-
-        update_request ();
+        update_labels ();
     }
 
-    private bool paused = true;
+    private bool on_button_press_event (Gdk.EventButton event) {
+        button_press_active = true;
 
-    private bool on_button_release_event (Gdk.EventButton event) {
-        if (paused) {
-            paused = false;
-            Timeout.add_seconds (1, tick);
-        }
+        on_button_press_seconds = seconds;
+        on_button_press_pause = pause;
+
+        pause = true;
+
         return Gdk.EVENT_PROPAGATE;
     }
 
-    private bool tick () {
-        debug ("Timeout.callback: %i", (int) this.seconds);
-        if (paused || this.seconds <= 0) {
-            return false;
-        }
-        indicator.progress = invert_progress_to_scale ((this.seconds - 1) / 60 / 60);
+    private bool on_button_release_event (Gdk.EventButton event) {
+        button_press_active = false;
 
-        return true;
+        if (on_button_press_seconds == seconds && seconds > 0) {
+            pause = !on_button_press_pause;
+
+            if (pause) {
+                update_labels ();
+            }
+
+        } else {
+            pause = false;
+        }
+
+        return Gdk.EVENT_PROPAGATE;
     }
 
-    private void update_request () {
+    private void on_progress_changed () {
+        var scaled_progress = convert_progress_to_scale (progress);
+
+        var seconds_new = Math.round (scaled_progress * 60.0 * 60.0);
+        if (seconds_new <= 300) {
+            seconds_new = seconds_new - Timer.Util.truncating_remainder (seconds_new, 10);
+        } else {
+            seconds_new = seconds_new - Timer.Util.truncating_remainder (seconds_new, 60);
+        }
+
+        seconds = seconds_new;
+    }
+
+    private void on_seconds_changed () {
+        update_labels ();
+    }
+
+    private void on_pause_changed () {
+        if (!button_press_active && !pause && seconds > 0) {
+            Timeout.add_seconds (1, () => {
+                if (!pause) {
+
+                    var progress_new = invert_progress_to_scale ((seconds - 1) / 60 / 60);
+                    progress = progress_new > 0 ? progress_new : 0;
+                }
+                return !pause && progress > 0;
+            });
+        }
+        update_labels ();
+    }
+
+    private void update_labels () {
         var until = new DateTime.now_local ();
         until = until.add_seconds (seconds);
         until = until.add_seconds (-until.get_seconds ());
@@ -112,17 +159,23 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
             labels.minutes_label.label = "%i\'".printf ((int) minutes);
             labels.seconds_label.label = "%i\"".printf ((int) Timer.Util.truncating_remainder (seconds, 60));
         }
+
+        if (!button_press_active && pause && seconds > 0) {
+            labels.time_stack.visible_child = labels.time_pause;
+        } else {
+            labels.time_stack.visible_child = labels.time_label;
+        }
     }
 
-    private double scaleOriginal = 6;
-    private double scaleActual = 3;
+    private double scale_original = 6;
+    private double scale_actual = 3;
 
     private double convert_progress_to_scale (double progress) {
         if (minutes <= 60) {
-            if (progress <= scaleOriginal / 60) {
-                return progress / (scaleOriginal / scaleActual);
+            if (progress <= scale_original / 60) {
+                return progress / (scale_original / scale_actual);
             } else {
-                return (progress * 60 - scaleOriginal + scaleActual) / (60 - scaleActual);
+                return (progress * 60 - scale_original + scale_actual) / (60 - scale_actual);
             }
         }
         return progress;
@@ -130,10 +183,10 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
     private double invert_progress_to_scale (double progress) {
         if (minutes <= 60) {
-            if (progress <= scaleActual / 60) {
-                return progress * (scaleOriginal / scaleActual);
+            if (progress <= scale_actual / 60) {
+                return progress * (scale_original / scale_actual);
             } else {
-                return (progress * (60 - scaleActual) - scaleActual + scaleOriginal) / 60;
+                return (progress * (60 - scale_actual) - scale_actual + scale_original) / 60;
             }
         }
         return progress;

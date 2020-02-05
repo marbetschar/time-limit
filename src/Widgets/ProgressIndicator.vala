@@ -22,7 +22,6 @@
 public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
 
     public double progress { get; construct set; }
-    public signal void progress_changed (double progress);
 
     private Timer.Widgets.ProgressArrow arrow;
     private Timer.Widgets.ProgressBar bar;
@@ -34,21 +33,16 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
     construct {
         bar = new Timer.Widgets.ProgressBar (progress);
         bar.margin = 7;
-        put (bar, 0, 0);
+        add (bar);
 
         arrow = new Timer.Widgets.ProgressArrow (progress);
-        put (arrow, 86, 0); // TODO: Calc initial position dynamically
+        add (arrow);
+
+        bind_property ("progress", arrow, "progress", BindingFlags.BIDIRECTIONAL);
+        bind_property ("progress", bar, "progress", BindingFlags.DEFAULT);
 
         notify["progress"].connect (() => {
-            debug ("forward.progress: %f", progress);
-            arrow.progress = progress;
-        });
-
-        arrow.progress_changed.connect ((progress) => {
-            debug ("progress_changed");
             arrow_move (progress);
-            bar.progress = progress;
-            progress_changed (progress);
         });
     }
 

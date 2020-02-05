@@ -21,8 +21,6 @@
 
 public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
 
-    public signal void progress_changed (double progress);
-
     public double progress { get; construct set; }
 
     public ProgressArrow (double progress) {
@@ -94,21 +92,18 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
             if (delta_x < 0) {
                 angle = angle - Math.PI;
             }
-            var progress_motion = (progress - Timer.Util.truncating_remainder (progress, 1)) + -(angle - Math.PI / 2) / (Math.PI * 2.0);
+            var progress_new = (progress - Timer.Util.truncating_remainder (progress, 1)) + -(angle - Math.PI / 2) / (Math.PI * 2.0);
 
-            if (progress - progress_motion > 0.25) {
-                progress_motion += 1;
-            } else if (progress_motion - progress > 0.75) {
-                progress_motion -= 1;
+            if (progress - progress_new > 0.25) {
+                progress_new += 1;
+            } else if (progress_new - progress > 0.75) {
+                progress_new -= 1;
             }
-            if (progress_motion < 0) {
-                progress_motion = 0;
+            if (progress_new < 0) {
+                progress_new = 0;
             }
-            progress = progress_motion;
 
-            queue_draw ();
-            progress_changed (progress);
-
+            progress = progress_new;
         }
         return Gdk.EVENT_PROPAGATE;
     }

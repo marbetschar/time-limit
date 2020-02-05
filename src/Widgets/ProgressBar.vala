@@ -32,9 +32,10 @@ public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
     }
 
     construct {
+        set_size_request (192, 192); // TODO: Make size allocation dynamic to support resizing
+
         try {
             background = new Gdk.Pixbuf.from_resource ("/name/betschart/marco/timer/progress.png");
-            set_size_request (192, 192); // TODO: Make size allocation dynamic to support resizing
         } catch (Error e) {
             warning (e.message);
         }
@@ -73,7 +74,6 @@ public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
         context.translate (-center.x, -center.y);
 
         Gdk.cairo_set_source_pixbuf (context, background, margin, margin);
-
         context.fill ();
 
         return true;
