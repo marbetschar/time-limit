@@ -1,17 +1,18 @@
-# A simply beautiful Timer app for elementary OS
+# Timing
+
+A simple and beautiful timer app for elementary OS
 
 <img src="timer.png?raw=true" width="262" align="right">
 
 ## Usage
 
 Drag the blue arrow to set a timer. Release to start and click to pause.
-
 When the time is up, a notification will show up with a nice sound.
 
 ### Keyboard shortcuts
 
-- `Space`: Pause/Play
-- `Esc`: Reset
+- `Space` for pause/play
+- `Esc` to reset
 
 ## Installation
 
@@ -36,4 +37,4 @@ The app is started automatically after successful installation.
 
 ## Acknowledgements
 
-Designed by [Michael Villar](https://github.com/michaelvillar/timer-app).
+- Designed by [Michael Villar](https://github.com/michaelvillar/timer-app).
