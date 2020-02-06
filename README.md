@@ -1,9 +1,23 @@
-# Timer
+# A simply beautiful Timer app for elementary OS
 
-A simply beautiful timer app for elementary OS.
-Heavily inspired by [Michael Villar's Timer for Mac](https://github.com/michaelvillar/timer-app).
+<img src="timer.png?raw=true" width="262" align="right">
 
-## Building and Installation
+## Usage
+
+Drag the blue arrow to set a timer. Release to start and click to pause.
+
+When the time is up, a notification will show up with a nice sound.
+
+### Keyboard shortcuts
+
+- `Space`: Pause/Play
+- `Esc`: Reset
+
+## Installation
+
+Please be patient, the app should become available in elementary AppCenter soon...
+
+## Building
 
 You'll need the following dependencies:
 * glib-2.0
@@ -19,3 +33,7 @@ Simply run
 
 The install script configures the build environment, compiles the app and installs it.
 The app is started automatically after successful installation.
+
+## Acknowledgements
+
+Designed by [Michael Villar](https://github.com/michaelvillar/timer-app).
