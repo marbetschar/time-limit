@@ -2,10 +2,10 @@
 Name=Time Limit
 GenericName=Time Limit
 Comment=A simply beautiful timer
-Categories=Utility
+Categories=Utility;Other;
 Exec=com.github.marbetschar.time-limit
 Icon=com.github.marbetschar.time-limit
 Terminal=false
 Type=Application
-Keyword=Timer;Countdown
+Keywords=Timer;Countdown;Deadline;Clock;
 X-GNOME-UsesNotifications=true
