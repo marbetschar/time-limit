@@ -1,5 +1,5 @@
 # project name and programming language
-project('com.github.marbetschar.timing', 'vala', 'c')
+project('com.github.marbetschar.time-limit', 'vala', 'c')
 
 gnome = import('gnome')
 i18n = import('i18n')

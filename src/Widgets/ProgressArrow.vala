@@ -16,7 +16,7 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 *
-* Authored by: Marco Betschart <elementary-timer@marco.betschart.name
+* Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
 public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {

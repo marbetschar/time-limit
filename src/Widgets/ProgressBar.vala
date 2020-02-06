@@ -16,7 +16,7 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 *
-* Authored by: Marco Betschart <elementary-timer@marco.betschart.name
+* Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
 public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
@@ -35,7 +35,7 @@ public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
         set_size_request (192, 192); // TODO: Make size allocation dynamic to support resizing
 
         try {
-            background = new Gdk.Pixbuf.from_resource ("/com/github/marbetschar/timing/progress.png");
+            background = new Gdk.Pixbuf.from_resource ("/com/github/marbetschar/time-limit/progress.png");
         } catch (Error e) {
             warning (e.message);
         }

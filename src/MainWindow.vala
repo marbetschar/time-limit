@@ -16,7 +16,7 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 *
-* Authored by: Marco Betschart <elementary-timer@marco.betschart.name
+* Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
 public class Timer.MainWindow : Gtk.ApplicationWindow {
@@ -26,7 +26,7 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
     public MainWindow (Gtk.Application application) {
         Object (
             application: application,
-            icon_name: "com.github.marbetschar.timing",
+            icon_name: "com.github.marbetschar.time-limit",
             resizable: false,
             default_height: 200,
             default_width: 200
@@ -35,10 +35,10 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
 
     construct {
         var main_window_provider = new Gtk.CssProvider ();
-        main_window_provider.load_from_resource ("com/github/marbetschar/timing/Main.css");
+        main_window_provider.load_from_resource ("com/github/marbetschar/time-limit/Main.css");
 
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
-        default_theme.add_resource_path ("/com/github/marbetschar/timing/");
+        default_theme.add_resource_path ("/com/github/marbetschar/time-limit/");
 
         var header = new Gtk.HeaderBar ();
         header.decoration_layout = "close:";

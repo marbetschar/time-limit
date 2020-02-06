@@ -1,9 +1,9 @@
 Format: https://dep.debian.net/deps/dep5
 Upstream-Name: cmake-hello-world
-Source: https://github.com/marbetschar/timer
+Source: https://github.com/marbetschar/time-limit
 
 Files: src/* data/* debian/*
-Copyright: 2020 Marco Betschart <elementary-timer@marco.betschart.name>
+Copyright: 2020 Marco Betschart <time-limit@marco.betschart.name>
 License: GPL-3.0+
 
 License: GPL-3.0+

@@ -1,10 +1,10 @@
 [Desktop Entry]
-Name=Timer
-GenericName=Timer App
+Name=Time Limit
+GenericName=Time Limit
 Comment=A simply beautiful timer
 Categories=Utility
-Exec=com.github.marbetschar.timing
-Icon=com.github.marbetschar.timing
+Exec=com.github.marbetschar.time-limit
+Icon=com.github.marbetschar.time-limit
 Terminal=false
 Type=Application
 Keyword=Timer;Countdown

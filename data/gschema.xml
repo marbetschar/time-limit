@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema path="/com/github/marbetschar/timing/" id="com.github.marbetschar.timing">
+  <schema path="/com/github/marbetschar/time-limit/" id="com.github.marbetschar.time-limit">
     <key name="window-maximized" type="b">
       <default>false</default>
       <summary>Whether the window was maximized on last run</summary>

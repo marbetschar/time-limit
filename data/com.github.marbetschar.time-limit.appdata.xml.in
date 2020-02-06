@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2020 Marco Betschart <elementary-timer@marco.betschart.name> -->
 <component type="desktop">
-  <id>com.github.marbetschar.timing</id>
+  <id>com.github.marbetschar.time-limit</id>
   <metadata_license>CC0</metadata_license>
-  <name>Timer</name>
+  <name>Time Limit</name>
   <summary>A simple and beautiful timer</summary>
   <description>
     <p>
@@ -22,7 +22,7 @@
      <value key="x-appcenter-suggested-price">2</value>
   </custom>
     <provides>
-    <binary>com.github.marbetschar.timing</binary>
+    <binary>com.github.marbetschar.time-limit</binary>
   </provides>
   <content_rating type="oars-1.1">
     <content_attribute id="violence-cartoon">none</content_attribute>
@@ -54,16 +54,16 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <developer_name>Marco Betschart</developer_name>
-  <url type="homepage">https://github.com/marbetschar/timer</url>
-  <url type="bugtracker">https://github.com/marbetschar/timer/issues</url>
-  <url type="help">https://github.com/marbetschar/timer/issues</url>
-  <update_contact>elementary-timer@marco.betschart.name</update_contact>
+  <url type="homepage">https://github.com/marbetschar/time-limit</url>
+  <url type="bugtracker">https://github.com/marbetschar/time-limit/issues</url>
+  <url type="help">https://github.com/marbetschar/time-limit/issues</url>
+  <update_contact>elementary-time-limit@marco.betschart.name</update_contact>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/marbetschar/timer/master/screenshots/Desktop-App.png</image>
+      <image>https://raw.githubusercontent.com/marbetschar/time-limit/master/screenshots/Desktop-App.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/marbetschar/timer/master/screenshots/Desktop-Notification.png</image>
+      <image>https://raw.githubusercontent.com/marbetschar/time-limit/master/screenshots/Desktop-Notification.png</image>
     </screenshot>
   </screenshots>
 </component>

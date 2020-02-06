@@ -16,7 +16,7 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 *
-* Authored by: Marco Betschart <elementary-timer@marco.betschart.name
+* Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
 public class Timer.Application : Gtk.Application {
@@ -24,13 +24,13 @@ public class Timer.Application : Gtk.Application {
 
     public Application () {
         Object (
-            application_id: "com.github.marbetschar.timing",
+            application_id: "com.github.marbetschar.time-limit",
             flags: ApplicationFlags.FLAGS_NONE
         );
     }
 
     static construct {
-        settings = new Settings("com.github.marbetschar.timing");
+        settings = new Settings("com.github.marbetschar.time-limit");
     }
 
     protected override void activate () {
@@ -71,7 +71,7 @@ public class Timer.Application : Gtk.Application {
         });
 
         main_window.send_notification.connect ((notification) => {
-            send_notification("com.github.marbetschar.timing", notification);
+            send_notification("com.github.marbetschar.time-limit", notification);
         });
     }
 
