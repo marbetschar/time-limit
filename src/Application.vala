@@ -24,13 +24,13 @@ public class Timer.Application : Gtk.Application {
 
     public Application () {
         Object (
-            application_id: "name.betschart.marco.timer",
+            application_id: "com.github.marbetschar.timing",
             flags: ApplicationFlags.FLAGS_NONE
         );
     }
 
     static construct {
-        settings = new Settings("name.betschart.marco.timer");
+        settings = new Settings("com.github.marbetschar.timing");
     }
 
     protected override void activate () {
@@ -71,7 +71,7 @@ public class Timer.Application : Gtk.Application {
         });
 
         main_window.send_notification.connect ((notification) => {
-            send_notification("name.betschart.marco.timer", notification);
+            send_notification("com.github.marbetschar.timing", notification);
         });
     }
 

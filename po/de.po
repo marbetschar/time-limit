@@ -1,13 +1,13 @@
-# German translations for name.betschart.marco.timer package.
-# Copyright (C) 2020 THE name.betschart.marco.timer'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the name.betschart.marco.timer package.
+# German translations for com.github.marbetschar.timing package.
+# Copyright (C) 2020 THE com.github.marbetschar.timing'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.marbetschar.timing package.
 # Automatically generated, 2020.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: name.betschart.marco.timer\n"
+"Project-Id-Version: com.github.marbetschar.timing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-30 20:48+0100\n"
+"POT-Creation-Date: 2020-02-06 09:35+0900\n"
 "PO-Revision-Date: 2020-01-30 20:48+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,25 +17,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/name.betschart.marco.timer.desktop.in:3
-#: data/name.betschart.marco.timer.appdata.xml.in:6
+#: data/com.github.marbetschar.timing.desktop.in:3
+#: data/com.github.marbetschar.timing.appdata.xml.in:6
 msgid "Timer"
 msgstr ""
 
-#: data/name.betschart.marco.timer.desktop.in:4
+#: data/com.github.marbetschar.timing.desktop.in:4
 msgid "Timer App"
 msgstr ""
 
-#: data/name.betschart.marco.timer.desktop.in:5
-#: data/name.betschart.marco.timer.appdata.xml.in:7
+#: data/com.github.marbetschar.timing.desktop.in:5
 msgid "A simply beautiful timer"
 msgstr ""
 
-#: data/name.betschart.marco.timer.desktop.in:8
-msgid "application-default-icon"
+#: data/com.github.marbetschar.timing.desktop.in:8
+msgid "com.github.marbetschar.timing"
 msgstr ""
 
-#: data/name.betschart.marco.timer.appdata.xml.in:9
+#: data/com.github.marbetschar.timing.appdata.xml.in:7
+msgid "A simple and beautiful timer"
+msgstr ""
+
+#: data/com.github.marbetschar.timing.appdata.xml.in:9
 msgid ""
 "A quick summary of your app's main selling points and features. Just a "
 "couple sentences per paragraph is best."

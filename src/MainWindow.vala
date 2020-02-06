@@ -26,7 +26,7 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
     public MainWindow (Gtk.Application application) {
         Object (
             application: application,
-            icon_name: "name.betschart.marco.timer",
+            icon_name: "com.github.marbetschar.timing",
             resizable: false,
             default_height: 200,
             default_width: 200
@@ -35,10 +35,10 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
 
     construct {
         var main_window_provider = new Gtk.CssProvider ();
-        main_window_provider.load_from_resource ("name/betschart/marco/timer/Main.css");
+        main_window_provider.load_from_resource ("com/github/marbetschar/timing/Main.css");
 
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
-        default_theme.add_resource_path ("/name/betschart/marco/timer");
+        default_theme.add_resource_path ("/com/github/marbetschar/timing/");
 
         var header = new Gtk.HeaderBar ();
         header.decoration_layout = "close:";

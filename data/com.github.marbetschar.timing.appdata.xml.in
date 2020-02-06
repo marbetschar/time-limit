@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2020 Marco Betschart <elementary-timer@marco.betschart.name> -->
 <component type="desktop">
-  <id>name.betschart.marco.timer</id>
+  <id>com.github.marbetschar.timing</id>
   <metadata_license>CC0</metadata_license>
   <name>Timer</name>
   <summary>A simple and beautiful timer</summary>

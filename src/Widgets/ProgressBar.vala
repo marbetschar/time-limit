@@ -35,7 +35,7 @@ public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
         set_size_request (192, 192); // TODO: Make size allocation dynamic to support resizing
 
         try {
-            background = new Gdk.Pixbuf.from_resource ("/name/betschart/marco/timer/progress.png");
+            background = new Gdk.Pixbuf.from_resource ("/com/github/marbetschar/timing/progress.png");
         } catch (Error e) {
             warning (e.message);
         }
