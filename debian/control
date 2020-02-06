@@ -1,13 +1,13 @@
 Source: com.github.marbetschar.time-limit
 Section: x11
-Priority: optional
+Priority: extra
 Maintainer: Marco Betschart <time-limit@marco.betschart.name>
-Build-Depends: cmake (>= 2.8),
-               debhelper (>= 9),
-               libgtk-3-dev,
-               valac (>= 0.40.0),
-               meson
-Standards-Version: 3.9.3
+Build-Depends: debhelper (>= 10.5.1),
+               gettext,
+               libgtk-3-dev (>= 3.10),
+               meson,
+               valac (>= 0.28.0)
+Standards-Version: 4.1.1
 
 Package: com.github.marbetschar.time-limit
 Architecture: any
