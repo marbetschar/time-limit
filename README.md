@@ -1,4 +1,4 @@
-# Timing
+# Time Limit
 
 A simple and beautiful timer app for elementary OS
 
