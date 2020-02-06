@@ -22,7 +22,7 @@
      <value key="x-appcenter-suggested-price">2</value>
   </custom>
     <provides>
-    <binary>name.betschart.marco.timer</binary>
+    <binary>com.github.marbetschar.timing</binary>
   </provides>
   <content_rating type="oars-1.1">
     <content_attribute id="violence-cartoon">none</content_attribute>
