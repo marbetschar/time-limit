@@ -2,7 +2,7 @@
 Name=Time Limit
 GenericName=Time Limit
 Comment=A simply beautiful timer
-Categories=Utility;Other;
+Categories=Utility;
 Exec=com.github.marbetschar.time-limit
 Icon=com.github.marbetschar.time-limit
 Terminal=false
