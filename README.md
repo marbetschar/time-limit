@@ -16,7 +16,7 @@ When the time is up, a notification will show up with a nice sound.
 
 ## Installation
 
-Please be patient, the app should become available in elementary AppCenter soon...
+[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.marbetschar.time-limit)﻿
 
 ## Building
 
