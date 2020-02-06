@@ -3,6 +3,7 @@
 <component type="desktop">
   <id>com.github.marbetschar.time-limit</id>
   <metadata_license>CC0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
   <name>Time Limit</name>
   <summary>A simple and beautiful timer</summary>
   <description>
