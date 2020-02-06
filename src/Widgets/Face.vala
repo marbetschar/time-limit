@@ -25,7 +25,7 @@ public class Timer.Widgets.Face : Gtk.Frame {
 
     static construct {
         css_provider = new Gtk.CssProvider ();
-        css_provider.load_from_resource ("name/betschart/marco/timer/Face.css");
+        css_provider.load_from_resource ("com/github/marbetschar/timing/Face.css");
     }
 
     construct {

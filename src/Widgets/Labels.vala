@@ -35,7 +35,7 @@ public class Timer.Widgets.Labels : Gtk.Box {
 
     static construct {
         css_provider = new Gtk.CssProvider ();
-        css_provider.load_from_resource ("name/betschart/marco/timer/Labels.css");
+        css_provider.load_from_resource ("com/github/marbetschar/timing/Labels.css");
     }
 
     construct {

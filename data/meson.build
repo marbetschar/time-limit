@@ -1,4 +1,3 @@
-
 icon_sizes = ['64']
 
 foreach i : icon_sizes
@@ -21,7 +20,7 @@ install_data(
 )
 
 i18n.merge_file(
-    input: 'timer.desktop.in',
+    input: meson.project_name() + '.desktop.in',
     output: meson.project_name() + '.desktop',
     po_dir: join_paths(meson.source_root(), 'po', 'extra'),
     type: 'desktop',
@@ -30,7 +29,7 @@ i18n.merge_file(
 )
 
 i18n.merge_file(
-    input: 'timer.appdata.xml.in',
+    input: meson.project_name() + '.appdata.xml.in',
     output: meson.project_name() + '.appdata.xml',
     po_dir: join_paths(meson.source_root(), 'po', 'extra'),
     type: 'xml',

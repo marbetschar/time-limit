@@ -37,7 +37,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
     static construct {
         css_provider = new Gtk.CssProvider ();
-        css_provider.load_from_resource ("name/betschart/marco/timer/Main.css");
+        css_provider.load_from_resource ("com/github/marbetschar/timing/Main.css");
     }
 
     construct {

@@ -8,7 +8,7 @@ Build-Depends: cmake (>= 2.8),
                valac (>= 0.40.0)
 Standards-Version: 3.9.3
 
-Package: name.betschart.marco.timer
+Package: com.github.marbetschar.timing
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Timer

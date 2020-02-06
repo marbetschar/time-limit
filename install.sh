@@ -9,4 +9,4 @@ sudo ninja install
 sudo chown -R $USER:$USER .
 
 export G_MESSAGES_DEBUG=all
-name.betschart.marco.timer
+com.github.marbetschar.timing

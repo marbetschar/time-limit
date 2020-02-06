@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema path="/name/betschart/marco/timer/" id="name.betschart.marco.timer">
+  <schema path="/com/github/marbetschar/timing/" id="com.github.marbetschar.timing">
     <key name="window-maximized" type="b">
       <default>false</default>
       <summary>Whether the window was maximized on last run</summary>
