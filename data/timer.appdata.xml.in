@@ -6,15 +6,64 @@
   <name>Timer</name>
   <summary>A simple and beautiful timer</summary>
   <description>
-    <p>A quick summary of your app's main selling points and features. Just a couple sentences per paragraph is best.</p>
+    <p>
+      Drag the blue arrow to set a timer. Release to start and click to pause.
+      When the time is up, a notification will show up with a nice sound.
+    </p>
+    <p>Keyboard shortcuts:</p>
+    <ul>
+      <li><code>Space</code> for pause/play</li>
+      <li><code>Esc</code> to reset</li>
+    </ul>
   </description>
   <custom>
      <value key="x-appcenter-color-primary">#318AF4</value>
      <value key="x-appcenter-color-primary-text">rgb(255, 255, 255)</value>
      <value key="x-appcenter-suggested-price">2</value>
   </custom>
-  <!--
-  For further fields see:
-  https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html
-  -->
+    <provides>
+    <binary>name.betschart.marco.timer</binary>
+  </provides>
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">none</content_attribute>
+    <content_attribute id="violence-fantasy">none</content_attribute>
+    <content_attribute id="violence-realistic">none</content_attribute>
+    <content_attribute id="violence-bloodshed">none</content_attribute>
+    <content_attribute id="violence-sexual">none</content_attribute>
+    <content_attribute id="violence-desecration">none</content_attribute>
+    <content_attribute id="violence-slavery">none</content_attribute>
+    <content_attribute id="violence-worship">none</content_attribute>
+    <content_attribute id="drugs-alcohol">none</content_attribute>
+    <content_attribute id="drugs-narcotics">none</content_attribute>
+    <content_attribute id="drugs-tobacco">none</content_attribute>
+    <content_attribute id="sex-nudity">none</content_attribute>
+    <content_attribute id="sex-themes">none</content_attribute>
+    <content_attribute id="sex-homosexuality">none</content_attribute>
+    <content_attribute id="sex-prostitution">none</content_attribute>
+    <content_attribute id="sex-adultery">none</content_attribute>
+    <content_attribute id="sex-appearance">none</content_attribute>
+    <content_attribute id="language-profanity">none</content_attribute>
+    <content_attribute id="language-humor">none</content_attribute>
+    <content_attribute id="language-discrimination">none</content_attribute>
+    <content_attribute id="social-chat">none</content_attribute>
+    <content_attribute id="social-info">none</content_attribute>
+    <content_attribute id="social-audio">none</content_attribute>
+    <content_attribute id="social-location">none</content_attribute>
+    <content_attribute id="social-contacts">none</content_attribute>
+    <content_attribute id="money-purchasing">none</content_attribute>
+    <content_attribute id="money-gambling">none</content_attribute>
+  </content_rating>
+  <developer_name>Marco Betschart</developer_name>
+  <url type="homepage">https://github.com/marbetschar/timer</url>
+  <url type="bugtracker">https://github.com/marbetschar/timer/issues</url>
+  <url type="help">https://github.com/marbetschar/timer/issues</url>
+  <update_contact>elementary-timer@marco.betschart.name</update_contact>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/marbetschar/timer/master/screenshots/Desktop-App.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/marbetschar/timer/master/screenshots/Desktop-Notification.png</image>
+    </screenshot>
+  </screenshots>
 </component>

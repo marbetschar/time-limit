@@ -2,7 +2,7 @@
 
 A simple and beautiful timer app for elementary OS
 
-<img src="timer.png?raw=true" width="262" align="right">
+<img src="screenshots/App.png?raw=true" width="262" align="right">
 
 ## Usage
 
