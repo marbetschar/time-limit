@@ -6,6 +6,7 @@ Build-Depends: debhelper (>= 10.5.1),
                gettext,
                libgtk-3-dev (>= 3.10),
                meson,
+               libunity-dev,
                valac (>= 0.28.0)
 Standards-Version: 4.1.1
 
