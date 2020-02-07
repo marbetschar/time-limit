@@ -33,6 +33,9 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     private Timer.Widgets.Face face;
     private Timer.Widgets.Labels labels;
 
+    private Unity.LauncherEntry launcher_entry;
+    private double launcher_entry_total_seconds;
+
     private static Gtk.CssProvider css_provider;
 
     static construct {
@@ -48,6 +51,8 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         on_button_press_seconds = 0.0;
         on_button_press_pause = false;
         button_press_active = false;
+
+        launcher_entry = Unity.LauncherEntry.get_for_desktop_id ("com.github.marbetschar.time-limit.desktop");
 
         indicator = new Timer.Widgets.ProgressIndicator (0.0);
 
@@ -74,8 +79,6 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
         button_press_event.connect (on_button_press_event);
         button_release_event.connect (on_button_release_event);
-        key_press_event.connect (on_key_release_event);
-        key_release_event.connect (on_key_release_event);
 
         notify["progress"].connect (on_progress_changed);
         notify["seconds"].connect (on_seconds_changed);
@@ -112,21 +115,27 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         return Gdk.EVENT_PROPAGATE;
     }
 
-    private bool on_key_release_event (Gdk.EventKey event) {
-        debug ("key_release");
-        return Gdk.EVENT_PROPAGATE;
-    }
-
     private void on_seconds_changed () {
         if (!pause) {
+            launcher_entry.progress_visible = true;
+
             progress = convert_seconds_to_progress (seconds);
+            launcher_entry.progress = 1 - seconds / launcher_entry_total_seconds;
+
             update_labels ();
+        }
+
+        if (seconds <= 0) {
+            launcher_entry.progress_visible = false;
         }
     }
 
     private void on_progress_changed () {
         if (pause) {
+            launcher_entry.progress_visible = false;
+
             seconds = convert_progress_to_seconds (progress);
+            launcher_entry_total_seconds = seconds;
             update_labels ();
         }
     }
