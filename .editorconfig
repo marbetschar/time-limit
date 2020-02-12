@@ -1,4 +1,3 @@
-
 # EditorConfig <http://EditorConfig.org>
 root = true
 
@@ -14,4 +13,3 @@ tab_width = 4
 
 [{*.xml,*.xml.in,*.yml}]
 tab_width = 2
-

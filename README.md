@@ -2,7 +2,7 @@
 
 A simple and beautiful timer app for elementary OS
 
-<img src="screenshots/App.png?raw=true" width="262" align="right">
+<img src="data/screenshots/App.png?raw=true" width="262" align="right">
 
 ## Usage
 
@@ -16,7 +16,7 @@ When the time is up, a notification will show up with a nice sound.
 
 ## Installation
 
-[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.marbetschar.time-limit)﻿
+[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.marbetschar.time-limit)
 
 ## Building
 

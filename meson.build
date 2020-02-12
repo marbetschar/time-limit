@@ -1,42 +1,34 @@
-# project name and programming language
 project('com.github.marbetschar.time-limit', 'vala', 'c')
 
 gnome = import('gnome')
 i18n = import('i18n')
 
-# Set our translation domain
-add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
-
-gresource = gnome.compile_resources(
-    'gresource',
-    join_paths('data', 'gresource.xml'),
-    source_dir: 'data'
+add_project_arguments(
+    '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
+    language: 'c'
 )
 
-# Add math library (-lm) portably
-compiler = meson.get_compiler('c')
-math_lib = compiler.find_library('m', required : false)
+asresources = gnome.compile_resources(
+    'as-resources',
+    'data/' + meson.project_name() + '.gresource.xml',
+    source_dir: 'data',
+    c_name: 'as'
+)
 
-# Create a new executable, list the files we want to compile,
-# list the dependencies we need, and install
+dependencies = [
+    dependency('glib-2.0'),
+    dependency('gtk+-3.0'),
+    dependency('unity'),
+    meson.get_compiler('c').find_library('m', required : false)
+]
+
+subdir('src')
+
 executable(
     meson.project_name(),
-    gresource,
-    'src/Application.vala',
-    'src/MainWindow.vala',
-    'src/Util.vala',
-    'src/Widgets/Clock.vala',
-    'src/Widgets/Face.vala',
-    'src/Widgets/Labels.vala',
-    'src/Widgets/ProgressIndicator.vala',
-    'src/Widgets/ProgressArrow.vala',
-    'src/Widgets/ProgressBar.vala',
-    dependencies: [
-        dependency('glib-2.0'),
-        dependency('gtk+-3.0'),
-        dependency('unity'),
-        math_lib
-    ],
+    asresources,
+    sources,
+    dependencies: dependencies,
     install: true
 )
 
