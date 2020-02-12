@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- Copyright 2020 Marco Betschart <elementary-timer@marco.betschart.name> -->
 <component type="desktop">
   <id>com.github.marbetschar.time-limit</id>
@@ -10,16 +10,22 @@
     <p>Drag the blue arrow to set a timer. Release to start and click to pause. When the time is up, a notification will show up with a nice sound.</p>
     <p>Keyboard shortcuts:</p>
     <ul>
-      <li><code>Space</code> for pause/play</li>
-      <li><code>Esc</code> to reset</li>
+      <li>
+        <code>Space</code>
+        for pause/play
+      </li>
+      <li>
+        <code>Esc</code>
+        to reset
+      </li>
     </ul>
   </description>
   <custom>
-     <value key="x-appcenter-color-primary">#318AF4</value>
-     <value key="x-appcenter-color-primary-text">rgb(255, 255, 255)</value>
-     <value key="x-appcenter-suggested-price">2</value>
+    <value key="x-appcenter-color-primary">#318AF4</value>
+    <value key="x-appcenter-color-primary-text">rgb(255, 255, 255)</value>
+    <value key="x-appcenter-suggested-price">2</value>
   </custom>
-    <provides>
+  <provides>
     <binary>com.github.marbetschar.time-limit</binary>
   </provides>
   <content_rating type="oars-1.1">
@@ -58,10 +64,10 @@
   <update_contact>elementary-time-limit@marco.betschart.name</update_contact>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/marbetschar/time-limit/master/screenshots/Desktop-App.png</image>
+      <image>https://raw.githubusercontent.com/marbetschar/time-limit/master/data/screenshots/Desktop-App.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/marbetschar/time-limit/master/screenshots/Desktop-Notification.png</image>
+      <image>https://raw.githubusercontent.com/marbetschar/time-limit/master/data/screenshots/Desktop-Notification.png</image>
     </screenshot>
   </screenshots>
 </component>
