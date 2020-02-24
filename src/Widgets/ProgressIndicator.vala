@@ -23,8 +23,17 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
 
     public double progress { get; construct set; }
 
+    public bool is_active {
+        get {
+            return arrow.is_active;
+        }
+    }
+
     private Timer.Widgets.ProgressArrow arrow;
     private Timer.Widgets.ProgressBar bar;
+
+    private int arrow_width;
+    private int arrow_height;
 
     public ProgressIndicator (double progress) {
         Object (progress: progress);
@@ -44,6 +53,41 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
         notify["progress"].connect (() => {
             arrow_move (progress);
         });
+
+        arrow.size_allocate.connect (() => {
+            arrow_width = arrow.get_allocated_width ();
+            arrow_height = arrow.get_allocated_height ();
+        });
+
+        button_press_event.connect ((event) => {
+            return arrow.button_press_event (event);
+        });
+
+        button_release_event.connect ((event) => {
+            return arrow.button_release_event (event);
+        });
+
+        motion_notify_event.connect ((event) => {
+            return arrow.motion_notify_event (event);
+        });
+    }
+
+    public bool handles_event (Gdk.Event event) {
+        if (arrow.is_active) {
+            return true;
+        }
+        double event_x, event_y;
+        int arrow_min_x, arrow_min_y, arrow_max_x, arrow_max_y;
+
+        event.get_coords (out event_x, out event_y);
+
+        event_x += arrow_width / 2;
+        event_y += arrow_height / 2;
+
+        arrow.translate_coordinates (base, 0, 0, out arrow_min_x, out arrow_min_y);
+        arrow.translate_coordinates (base, arrow_width, arrow_height, out arrow_max_x, out arrow_max_y);
+
+        return event_x >= arrow_min_x && event_x <= arrow_max_x && event_y >= arrow_min_y && event_y <= arrow_max_y;
     }
 
     private void arrow_move (double progress) {

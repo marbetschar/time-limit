@@ -28,6 +28,19 @@
   <provides>
     <binary>com.github.marbetschar.time-limit</binary>
   </provides>
+  <releases>
+    <release version="1.2.0" date="2020-02-24" urgency="medium">
+      <description>
+        <p><a href="https://github.com/marbetschar/time-limit/issues/19">Fixed #19</a>: "Grab arrow after first drag is sometimes difficult"</p>
+        <p><a href="https://github.com/marbetschar/time-limit/pull/23">Merged #23</a>: "Add French translations", thanks to Nathan Bonnemains 🎉️</p>
+      </description>
+    </release>
+    <release version="1.0.0" date="2020-02-06">
+      <description>
+        <p>Submitting the first version to elementary AppCenter! 🎉️</p>
+      </description>
+    </release>
+  </releases>
   <content_rating type="oars-1.1">
     <content_attribute id="violence-cartoon">none</content_attribute>
     <content_attribute id="violence-fantasy">none</content_attribute>

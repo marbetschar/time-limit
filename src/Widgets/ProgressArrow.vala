@@ -22,6 +22,7 @@
 public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
 
     public double progress { get; construct set; }
+    public bool is_active { get; private set; }
 
     public ProgressArrow (double progress) {
         Object (progress: progress);
@@ -29,6 +30,7 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
 
     construct {
         set_size_request (25, 25);
+        is_active = false;
 
         add_events (Gdk.EventMask.BUTTON_PRESS_MASK
                   | Gdk.EventMask.BUTTON_RELEASE_MASK
@@ -58,24 +60,22 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
         return true;
     }
 
-    private bool drag_is_active = false;
-
-    private bool on_button_press_event (Gdk.EventButton event) {
-        if (!drag_is_active) {
-            drag_is_active = true;
+    public bool on_button_press_event (Gdk.EventButton event) {
+        if (!is_active) {
+            is_active = true;
         }
         return Gdk.EVENT_PROPAGATE;
     }
 
-    private bool on_button_release_event (Gdk.EventButton event) {
-        if (drag_is_active) {
-            drag_is_active = false;
+    public bool on_button_release_event (Gdk.EventButton event) {
+        if (is_active) {
+            is_active = false;
         }
         return Gdk.EVENT_PROPAGATE;
     }
 
-    private bool on_motion_notify_event (Gdk.EventMotion event) {
-        if (drag_is_active) {
+    public bool on_motion_notify_event (Gdk.EventMotion event) {
+        if (is_active) {
             var parent_center_x = parent.get_allocated_width () / 2;
             var parent_center_y = parent.get_allocated_height () / 2;
 
