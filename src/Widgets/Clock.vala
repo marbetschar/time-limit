@@ -166,6 +166,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
                         var main_window = (Timer.MainWindow) parent;
                         var notification = new Notification (_("It's time!"));
                         notification.set_body (_("Your time limit is over."));
+                        notification.set_priority (NotificationPriority.URGENT);
                         main_window.send_notification (notification);
                     }
                 }
