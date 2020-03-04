@@ -32,7 +32,7 @@
     <release version="x.y.z" date="YYYY-MM-DD">
       <description>
         <p><a href="https://github.com/marbetschar/time-limit/issues/26">Fixed #26</a>: Play notification sound regardless of "do not disturb" (needs use-new-notifications)</p>
-        <p><a href="https://github.com/marbetschar/time-limit/pull/27">Merged #27 & #28</a>: "Turkish translation", thanks to Safak Genisol 🎉️ (@safak45x)</p>
+        <p><a href="https://github.com/marbetschar/time-limit/pull/27">Merged #27 &amp; #28</a>: "Turkish translation", thanks to Safak Genisol 🎉️ (@safak45x)</p>
       </description>
     </release>
     <release version="1.2.0" date="2020-02-24" urgency="medium">
