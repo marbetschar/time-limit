@@ -1,18 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Turkish translations for extra package.
+# Copyright (C) 2020 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the extra package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Safak Genisol <Bjksafak45@gmail.com>, 2020.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-04 19:23+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2020-02-13 18:46+0100\n"
+"PO-Revision-Date: 2020-02-13 00:00+0300\n"
+"Last-Translator: Safak Genisol <Bjksafak45@gmail.com>\n"
+"Language-Team: none\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,62 +21,44 @@ msgstr ""
 #: data/com.github.marbetschar.time-limit.desktop.in:4
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:7
 msgid "Time Limit"
-msgstr ""
+msgstr "Time Limit"
 
 #: data/com.github.marbetschar.time-limit.desktop.in:5
 msgid "A simply beautiful timer"
-msgstr ""
+msgstr "Tek kelimeyle güzel bir zamanlayıcı"
 
 #: data/com.github.marbetschar.time-limit.desktop.in:8
 msgid "com.github.marbetschar.time-limit"
-msgstr ""
+msgstr "com.github.marbetschar.time-limit"
 
 #: data/com.github.marbetschar.time-limit.desktop.in:11
 msgid "Timer;Countdown;Deadline;Clock;"
-msgstr ""
+msgstr "Zamanlayıcı;Sayım;Tarih;Saat;"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:8
 msgid "A simple and beautiful timer"
-msgstr ""
+msgstr "Tek kelimeyle güzel bir zamanlayıcı"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:10
 msgid ""
 "Drag the blue arrow to set a timer. Release to start and click to pause. "
 "When the time is up, a notification will show up with a nice sound."
 msgstr ""
+"Zamanlayıcı ayarlamak için mavi oku sürükleyin. Başlatmak için bırakın ve duraklatmak için tıklayın."
+"Süre dolduğunda hoş bir sesle bir bildirim görünür."
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:11
 msgid "Keyboard shortcuts:"
-msgstr ""
+msgstr "Klavye kısayolları"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:13
 msgid "<code>Space</code> for pause/play"
-msgstr ""
+msgstr "<code>Space</code> duraklat / oynat için"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:17
 msgid "<code>Esc</code> to reset"
-msgstr ""
+msgstr "<code>Esc</code> sıfırlamak"
 
-#: data/com.github.marbetschar.time-limit.appdata.xml.in:34
-msgid "Fixed #26"
-msgstr ""
-
-#: data/com.github.marbetschar.time-limit.appdata.xml.in:35
-msgid "Merged #27 &amp; #28"
-msgstr ""
-
-#: data/com.github.marbetschar.time-limit.appdata.xml.in:40
-msgid "Fixed #19"
-msgstr ""
-
-#: data/com.github.marbetschar.time-limit.appdata.xml.in:41
-msgid "Merged #23"
-msgstr ""
-
-#: data/com.github.marbetschar.time-limit.appdata.xml.in:46
-msgid "Submitting the first version to elementary AppCenter! 🎉️"
-msgstr ""
-
-#: data/com.github.marbetschar.time-limit.appdata.xml.in:79
+#: data/com.github.marbetschar.time-limit.appdata.xml.in:60
 msgid "Marco Betschart"
-msgstr ""
+msgstr "Marco Betschart"
