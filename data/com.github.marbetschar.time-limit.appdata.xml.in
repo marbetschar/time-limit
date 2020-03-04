@@ -29,10 +29,16 @@
     <binary>com.github.marbetschar.time-limit</binary>
   </provides>
   <releases>
+    <release version="x.y.z" date="YYYY-MM-DD">
+      <description>
+        <p><a href="https://github.com/marbetschar/time-limit/issues/26">Fixed #26</a>: Play notification sound regardless of "do not disturb" (needs use-new-notifications)</p>
+        <p><a href="https://github.com/marbetschar/time-limit/pull/27">Merged #27 & #28</a>: "Turkish translation", thanks to Safak Genisol 🎉️ (@safak45x)</p>
+      </description>
+    </release>
     <release version="1.2.0" date="2020-02-24" urgency="medium">
       <description>
         <p><a href="https://github.com/marbetschar/time-limit/issues/19">Fixed #19</a>: "Grab arrow after first drag is sometimes difficult"</p>
-        <p><a href="https://github.com/marbetschar/time-limit/pull/23">Merged #23</a>: "Add French translations", thanks to Nathan Bonnemains 🎉️</p>
+        <p><a href="https://github.com/marbetschar/time-limit/pull/23">Merged #23</a>: "Add French translations", thanks to Nathan Bonnemains 🎉️ (@NathanBnm)</p>
       </description>
     </release>
     <release version="1.0.0" date="2020-02-06">
