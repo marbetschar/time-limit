@@ -1,8 +1,8 @@
-# Time Limit
+# <img src="data/icons/128/com.github.marbetschar.time-limit.svg?raw=true" style="padding-bottom: 4pt" width="42" height="42" align="left" /> Time Limit
 
 A simple and beautiful timer app for elementary OS
 
-<img src="data/screenshots/App.png?raw=true" width="262" align="right">
+<img src="data/screenshots/App.png?raw=true" width="262" align="right" />
 
 ## Usage
 
