@@ -101,7 +101,7 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
                 Timer.Application.settings.set ("window-position", "(ii)", root_x, root_y);
             }
 
-            return false;
+            return Source.REMOVE;
         });
 
         return base.configure_event (event);
