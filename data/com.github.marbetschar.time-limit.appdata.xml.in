@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- Copyright 2020 Marco Betschart <elementary-timer@marco.betschart.name> -->
+<!-- Copyright 2020 Marco Betschart <time-limit@marco.betschart.name> -->
 <component type="desktop">
   <id>com.github.marbetschar.time-limit</id>
   <metadata_license>CC0</metadata_license>
@@ -29,10 +29,12 @@
     <binary>com.github.marbetschar.time-limit</binary>
   </provides>
   <releases>
-    <release version="x.y.z" date="YYYY-MM-DD">
+    <release version="1.3.0" date="2020-07-24">
       <description>
-        <p><a href="https://github.com/marbetschar/time-limit/issues/26">Fixed #26</a>: Play notification sound regardless of "do not disturb" (needs use-new-notifications)</p>
+        <p><a href="https://github.com/marbetschar/time-limit/issues/26">Fixed #26</a>: Play notification sound regardless of "do not disturb" (<a href="https://github.com/marbetschar/time-limit/issues/26#issuecomment-591934059">needs new notification server</a>)</p>
+        <p><a href="https://github.com/marbetschar/time-limit/issues/16">Fixed #16</a>: Remember window position after close</p>
         <p><a href="https://github.com/marbetschar/time-limit/pull/27">Merged #27 &amp; #28</a>: "Turkish translation", thanks to Safak Genisol 🎉️ (@safak45x)</p>
+        <p><a href="https://github.com/marbetschar/time-limit/issues/24">Fixed #24</a>: Updated AppCenter screenshots to match the Publishing Requirements</p>
       </description>
     </release>
     <release version="1.2.0" date="2020-02-24" urgency="medium">
