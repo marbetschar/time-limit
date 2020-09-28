@@ -155,9 +155,9 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
             progress = convert_seconds_to_progress (seconds);
             launcher_entry.progress = 1 - seconds / launcher_entry_total_seconds;
-
-            update_labels ();
         }
+
+        update_labels ();
 
         if (seconds <= 0) {
             launcher_entry.progress_visible = false;
@@ -193,12 +193,14 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     private bool on_resume () {
-        if (suspend_datetime != null) {
+        if (!pause && suspend_datetime != null) {
             var now = new GLib.DateTime.now_local ();
             var sleep_seconds = now.difference (suspend_datetime) * 1000000;
             suspend_datetime = null;
 
             seconds = GLib.Math.fmax(0, seconds - sleep_seconds);
+        } else {
+            update_labels ();
         }
         return GLib.Source.REMOVE;
     }
