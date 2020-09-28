@@ -25,6 +25,9 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     public double seconds { get; set; }
     public bool pause { get; set; }
 
+    private LoginManager login_manager;
+    private GLib.DateTime? suspend_datetime = null;
+
     private uint update_labels_timeout_id = 0U;
     private double on_button_press_seconds;
     private bool on_button_press_pause;
@@ -87,6 +90,22 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         notify["seconds"].connect (on_seconds_changed);
         notify["pause"].connect (on_pause_changed);
 
+        try {
+            login_manager = GLib.Bus.get_proxy_sync (BusType.SYSTEM, "org.freedesktop.login1", "/org/freedesktop/login1");
+            login_manager.prepare_for_sleep.connect ((start) => {
+                if (start) {
+                    if (update_labels_timeout_id > 0) {
+                        GLib.Source.remove (update_labels_timeout_id);
+                        update_labels_timeout_id = 0;
+                    }
+                    suspend_datetime = new GLib.DateTime.now_local ();
+                    GLib.Timeout.add_seconds (1, on_resume);
+                }
+            });
+        } catch(IOError e) {
+            warning (e.message);
+        }
+
         update_labels ();
     }
 
@@ -137,12 +156,18 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
             progress = convert_seconds_to_progress (seconds);
             launcher_entry.progress = 1 - seconds / launcher_entry_total_seconds;
-
-            update_labels ();
         }
+
+        update_labels ();
 
         if (seconds <= 0) {
             launcher_entry.progress_visible = false;
+
+            var main_window = (Timer.MainWindow) parent;
+            var notification = new Notification (_("It's time!"));
+            notification.set_body (_("Your time limit is over."));
+            notification.set_priority (NotificationPriority.URGENT);
+            main_window.send_notification (notification);
         }
     }
 
@@ -160,16 +185,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         if (!button_press_active && !pause && seconds > 0) {
             Timeout.add_seconds (1, () => {
                 if (!pause) {
-                    var seconds_new = seconds - 1;
-                    seconds = seconds_new > 0 ? seconds_new : 0;
-
-                    if (seconds == 0) {
-                        var main_window = (Timer.MainWindow) parent;
-                        var notification = new Notification (_("It's time!"));
-                        notification.set_body (_("Your time limit is over."));
-                        notification.set_priority (NotificationPriority.URGENT);
-                        main_window.send_notification (notification);
-                    }
+                    seconds = GLib.Math.fmax(0, seconds - 1);
                 }
                 return !pause && seconds > 0;
             });
@@ -177,12 +193,26 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         update_labels ();
     }
 
+    private bool on_resume () {
+        if (!pause && suspend_datetime != null) {
+            var now = new GLib.DateTime.now_local ();
+            var sleep_seconds = now.difference (suspend_datetime) / 1000000;
+            suspend_datetime = null;
+
+            seconds = GLib.Math.fmax(0, seconds - sleep_seconds);
+        } else {
+            update_labels ();
+        }
+        return GLib.Source.REMOVE;
+    }
+
     private bool update_labels () {
         if (update_labels_timeout_id > 0) {
             GLib.Source.remove (update_labels_timeout_id);
+            update_labels_timeout_id = 0;
         }
 
-        var now = new DateTime.now_local ();
+        var now = new GLib.DateTime.now_local ();
         var until = now.add_seconds (seconds);
         until = until.add_seconds (-until.get_seconds ());
         labels.time_label.label = until.format ("%R");
