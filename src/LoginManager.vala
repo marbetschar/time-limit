@@ -19,7 +19,7 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-[DBus (name = "org.freedesktop.login1.LoginManager")]
+[DBus (name = "org.freedesktop.login1.Manager")]
 interface LoginManager : GLib.Object {
     public signal void prepare_for_sleep (bool start);
 }
