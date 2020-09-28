@@ -25,6 +25,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     public double seconds { get; set; }
     public bool pause { get; set; }
 
+    private uint update_labels_timeout_id = 0U;
     private double on_button_press_seconds;
     private bool on_button_press_pause;
     private bool button_press_active;
@@ -176,9 +177,13 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         update_labels ();
     }
 
-    private void update_labels () {
-        var until = new DateTime.now_local ();
-        until = until.add_seconds (seconds);
+    private bool update_labels () {
+        if (update_labels_timeout_id > 0) {
+            GLib.Source.remove (update_labels_timeout_id);
+        }
+
+        var now = new DateTime.now_local ();
+        var until = now.add_seconds (seconds);
         until = until.add_seconds (-until.get_seconds ());
         labels.time_label.label = until.format ("%R");
 
@@ -196,6 +201,10 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         } else {
             labels.time_stack.visible_child = labels.time_label;
         }
+
+        var minute_delta = 60 - now.get_second ();
+        update_labels_timeout_id = GLib.Timeout.add_seconds (minute_delta, update_labels);
+        return GLib.Source.REMOVE;
     }
 
     private double scale_original = 6;
