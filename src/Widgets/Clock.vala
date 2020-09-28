@@ -196,7 +196,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     private bool on_resume () {
         if (!pause && suspend_datetime != null) {
             var now = new GLib.DateTime.now_local ();
-            var sleep_seconds = now.difference (suspend_datetime) * 1000000;
+            var sleep_seconds = now.difference (suspend_datetime) / 1000000;
             suspend_datetime = null;
 
             seconds = GLib.Math.fmax(0, seconds - sleep_seconds);
