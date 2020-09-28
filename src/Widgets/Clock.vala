@@ -93,6 +93,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         try {
             login_manager = GLib.Bus.get_proxy_sync (BusType.SYSTEM, "org.freedesktop.login1", "/org/freedesktop/login1");
             login_manager.prepare_for_sleep.connect ((start) => {
+                debug (@"prepare_for_sleep: $start");
                 if (start) {
                     if (update_labels_timeout_id > 0) {
                         GLib.Source.remove (update_labels_timeout_id);
@@ -193,6 +194,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     private bool on_resume () {
+        debug (@"on_resume:suspend_datetime: $suspend_datetime");
         if (!pause && suspend_datetime != null) {
             var now = new GLib.DateTime.now_local ();
             var sleep_seconds = now.difference (suspend_datetime) * 1000000;
