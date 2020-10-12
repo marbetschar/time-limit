@@ -29,6 +29,8 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
     }
 
     construct {
+        set_css_name ("arrow");
+
         set_size_request (25, 25);
         is_active = false;
 
@@ -54,7 +56,12 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
         context.line_to (width / 2, height * 0.8);
         context.line_to (width, 0);
         context.close_path ();
-        context.set_source_rgba (0.19845, 0.5485, 0.9665, 1);
+
+        Gdk.RGBA rgba;
+        if (!get_style_context ().lookup_color ("accent_color_500", out rgba)) {
+            rgba = { 0.19845, 0.5485, 0.9665, 1 };
+        }
+        context.set_source_rgba (rgba.red, rgba.green, rgba.blue, rgba.alpha);
         context.fill ();
 
         return true;
