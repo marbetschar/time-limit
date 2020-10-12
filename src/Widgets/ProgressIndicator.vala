@@ -71,7 +71,9 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
             return arrow.motion_notify_event (event);
         });
 
-        size_allocate.connect (bar.size_allocate);
+        size_allocate.connect ((allocation) => {
+            bar.size_allocate (allocation);
+        });
     }
 
     public bool handles_event (Gdk.Event event) {
