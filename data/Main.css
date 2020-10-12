@@ -19,10 +19,7 @@
 * Authored by: Marco Betschart <elementary-timer@marco.betschart.header
 */
 
-@define-color bg_color #fafafa;
-@define-color text_color #555761;
-
 .main-background {
-    background-color: shade (@bg_color, 0.92);
-    color: mix (@bg_color, @text_color, 0.77);
+    background-color: shade (@theme_bg_color, 0.92);
+    color: mix (@theme_bg_color, @theme_text_color, 0.77);
 }

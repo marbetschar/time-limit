@@ -24,15 +24,8 @@
     border-radius: 50%;
     background-image: -gtk-gradient (linear,
         center top, center bottom,
-        from (#FFFFFF), to (#F0F4F9));
+        from (lighter (@theme_bg_color)),
+        to (lighter (@theme_bg_color))
+    );
     box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.07);
 }
-
-/*
-Another use of pseudo-classes is to match widgets depending on their state.
-The available pseudo-classes for widget states are
-:active, :prelight (or :hover), :insensitive, :selected,
-:focused and :inconsistent.
-
-https://people.gnome.org/~desrt/gtk/html/GtkCssProvider.html
-*/
