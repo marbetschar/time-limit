@@ -91,6 +91,6 @@ public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
         context.rectangle (width / 2, 0, width / 2 + 1, height);
         context.fill();
 
-        return true;
+        return false;
     }
 }

@@ -23,6 +23,7 @@ When the time is up, a notification will show up with a nice sound.
 You'll need the following dependencies:
 * glib-2.0
 * gtk+-3.0
+* granite >=0.5
 * unity
 * meson
 * valac

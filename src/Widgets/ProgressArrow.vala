@@ -64,7 +64,7 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
         context.set_source_rgba (rgba.red, rgba.green, rgba.blue, rgba.alpha);
         context.fill ();
 
-        return true;
+        return false;
     }
 
     public bool on_button_press_event (Gdk.EventButton event) {
