@@ -31,8 +31,6 @@ public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
     }
 
     construct {
-        set_size_request (192, 192); // TODO: Make size allocation dynamic to support resizing
-
         size_allocate.connect (() => {
             int width = get_allocated_width ();
             int height = get_allocated_height ();
