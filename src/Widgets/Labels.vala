@@ -28,6 +28,7 @@ public class Timer.Widgets.Labels : Gtk.Box {
     public Gtk.Label seconds_label;
 
     private static Gtk.CssProvider css_provider;
+    private static Gtk.CssProvider accent_color_css_provicer;
 
     public Labels () {
         Object (orientation: Gtk.Orientation.VERTICAL, spacing: 0);
@@ -36,10 +37,20 @@ public class Timer.Widgets.Labels : Gtk.Box {
     static construct {
         css_provider = new Gtk.CssProvider ();
         css_provider.load_from_resource ("com/github/marbetschar/time-limit/Labels.css");
+
+        accent_color_css_provicer = new Gtk.CssProvider ();
+        try {
+            accent_color_css_provicer.load_from_data ("@define-color accent_color @accent_color_500;");
+        } catch (Error e) {
+            warning ("Unable to define accent-color: %s", e.message);
+        }
     }
 
     construct {
-        time_pause = new Gtk.Image.from_icon_name ("pause", Gtk.IconSize.BUTTON);
+        time_pause = new Gtk.Image.from_icon_name ("pause-symbolic", Gtk.IconSize.BUTTON);
+
+        var time_pause_context = time_pause.get_style_context ();
+        time_pause_context.add_provider (accent_color_css_provicer, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         time_label = new Gtk.Label ("");
 
