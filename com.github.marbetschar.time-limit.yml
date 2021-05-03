@@ -1,0 +1,19 @@
+app-id: com.github.marbetschar.time-limit
+
+runtime: io.elementary.Platform
+runtime-version: 'daily'
+sdk: io.elementary.Sdk
+
+command: com.github.marbetschar.time-limit
+
+finish-args:
+  - '--share=ipc'
+  - '--socket=fallback-x11'
+  - '--socket=wayland'
+
+modules:
+  - name: time-limit
+    buildsystem: meson
+    sources:
+      - type: dir
+        path: .
