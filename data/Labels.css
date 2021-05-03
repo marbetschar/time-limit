@@ -22,7 +22,7 @@
 .time-label {
     font-size: 1.3em;
     font-weight: bold;
-    color: rgba(192, 36, 3, 1);
+    color: @accent_color_500;
 }
 
 .minutes-label {

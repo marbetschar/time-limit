@@ -28,6 +28,7 @@ public class Timer.Widgets.Labels : Gtk.Box {
     public Gtk.Label seconds_label;
 
     private static Gtk.CssProvider css_provider;
+    private static Gtk.CssProvider accent_color_css_provicer;
 
     public Labels () {
         Object (orientation: Gtk.Orientation.VERTICAL, spacing: 0);
@@ -39,7 +40,10 @@ public class Timer.Widgets.Labels : Gtk.Box {
     }
 
     construct {
-        time_pause = new Gtk.Image.from_icon_name ("pause", Gtk.IconSize.BUTTON);
+        time_pause = new Gtk.Image.from_icon_name ("pause-symbolic", Gtk.IconSize.BUTTON);
+
+        var time_pause_context = time_pause.get_style_context ();
+        time_pause_context.add_class (Granite.STYLE_CLASS_ACCENT);
 
         time_label = new Gtk.Label ("");
 
