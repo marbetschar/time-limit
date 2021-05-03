@@ -76,7 +76,10 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
         });
     }
 
-    public bool handles_event (Gdk.Event event) {
+    public bool handles_event (Gdk.EventButton event) {
+        if (event.window != arrow.get_window ()) {
+            return false;
+        }
         if (arrow.is_active) {
             return true;
         }

@@ -21,7 +21,7 @@
 
 public class Timer.Widgets.Clock : Gtk.Overlay {
 
-    public Hdy.HeaderBar? header_bar { get; construct; }
+    public Hdy.HeaderBar? header { get; construct; }
 
     public double progress { get; set; }
     public double seconds { get; set; }
@@ -49,11 +49,11 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         css_provider.load_from_resource ("com/github/marbetschar/time-limit/Main.css");
     }
 
-    public Clock (Hdy.HeaderBar? header_bar = null) {
-        Object (header_bar: header_bar);
+    public Clock (Hdy.HeaderBar? header = null) {
+        Object (header: header);
     }
 
-    construct {
+    construct { && event.window == header.get_window ()
         progress = 0.0;
         seconds = 0.0;
         pause = false;
@@ -74,15 +74,26 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         labels.valign = Gtk.Align.CENTER;
         labels.halign = Gtk.Align.CENTER;
 
-        if (header_bar != null) {
-            var header_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            header_container.add (header_bar);
-            add (header_container);
+        if (header != null) {
+            add_overlay (header);
+            set_overlay_pass_through (header, true);
         }
         add_overlay (indicator);
         set_overlay_pass_through (indicator, true);
         add_overlay (face);
         add_overlay (labels);
+
+        var indicator_context = indicator.get_style_context ();
+        indicator_context.add_class ("indicator");
+        indicator_context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+        var face_context = face.get_style_context ();
+        face_context.add_class ("face");
+        face_context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+        var labels_context = labels.get_style_context ();
+        labels_context.add_class ("labels");
+        labels_context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         var context = get_style_context ();
         context.add_class ("main");
@@ -121,10 +132,43 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         update_labels ();
     }
 
+    private bool header_handles_event (Gdk.EventButton event) {
+        debug ("event_window == header_window: %s", event.window == header.get_window () ? "yes" : "no");
+        if (header != null && event.window == header.get_window ()) {
+            double header_x_min, header_y_min,
+            header_width, header_height;
+
+            header.translate_coordinates (base, 0, 0, out header_x_min, out header_y_min);
+            header_width = header.get_allocated_width ();
+            header_height = header.get_allocated_height ();
+
+            // lower quarter and upper quarter are controlled by header
+            // we don't care about 2nd and 3rd quarter:
+            if (
+                event.x <= (header_x_min + header_width * 0.25) && event.y <= (header_y_min + header_height)
+                ||
+                event.x >= (header_x_min + header_width * 0.75) && event.y <= (header_y_min + header_height)
+            ) {
+                debug ("header handles event");
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private bool on_button_press_event (Gdk.EventButton event) {
+        debug ("on_button_press_event");
+
         if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.button_press_event (event)) {
             return Gdk.EVENT_STOP;
         }
+
+        if (header_handles_event (event)) {
+            debug ("header_handles_event");
+            return Gdk.EVENT_PROPAGATE;
+        }
+
         button_press_active = true;
 
         on_button_press_seconds = seconds;
@@ -138,6 +182,10 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     private bool on_button_release_event (Gdk.EventButton event) {
         if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.button_release_event (event)) {
             return Gdk.EVENT_STOP;
+        }
+
+        if (header_handles_event (event)) {
+            return Gdk.EVENT_PROPAGATE;
         }
         button_press_active = false;
 
@@ -156,9 +204,9 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     private bool on_motion_notify_event (Gdk.EventMotion event) {
-        if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.motion_notify_event (event)) {
+        /*if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.motion_notify_event (event)) {
             return Gdk.EVENT_STOP;
-        }
+        }*/
         return Gdk.EVENT_PROPAGATE;
     }
 

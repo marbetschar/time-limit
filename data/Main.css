@@ -23,3 +23,12 @@
     background-color: shade (@theme_bg_color, 0.92);
     color: mix (@theme_bg_color, @theme_text_color, 0.77);
 }
+
+.indicator {
+    background-color: red;
+}
+
+.header {
+    background-color: blue;
+    border: 0;
+}

@@ -2,6 +2,7 @@
 <gresources>
   <gresource prefix="/com/github/marbetschar/time-limit">
     <file alias="pause-symbolic.svg" compressed="true" preprocess="xml-stripblanks">pause-symbolic.svg</file>
+    <file alias="move-symbolic.svg" compressed="true" preprocess="xml-stripblanks">move-symbolic.svg</file>
     <file compressed="true">Main.css</file>
     <file compressed="true">Face.css</file>
     <file compressed="true">Labels.css</file>
