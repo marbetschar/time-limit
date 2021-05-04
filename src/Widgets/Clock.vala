@@ -161,9 +161,9 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     private bool on_motion_notify_event (Gdk.EventMotion event) {
-        /*if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.motion_notify_event (event)) {
+        if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.motion_notify_event (event)) {
             return Gdk.EVENT_STOP;
-        }*/
+        }
         return Gdk.EVENT_PROPAGATE;
     }
 
