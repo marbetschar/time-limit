@@ -19,7 +19,7 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
+public class TimeLimit.Widgets.ProgressBar : Gtk.DrawingArea {
 
     private Gdk.Point center;
     private int radius;
@@ -35,7 +35,7 @@ public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
             int width = get_allocated_width ();
             int height = get_allocated_height ();
 
-            radius = (width - margin_left - margin_right) / 2;
+            radius = (width - margin_start - margin_end) / 2;
 
             center = Gdk.Point () {
                 x = width / 2,

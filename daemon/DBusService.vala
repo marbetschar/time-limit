@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 Marco Betschart (https://marco.betschart.name)
+* Copyright (c) 2021 Marco Betschart (https://marco.betschart.name)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,7 +19,7 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-[DBus (name = "org.freedesktop.login1.Manager")]
-interface LoginManager : GLib.Object {
-    public signal void prepare_for_sleep (bool start);
+[DBus (name = "com.github.marbetschar.TimeLimit")]
+public class TimeLimit.DBusService : Object {
+    public string alert_datetime_iso8601 { get; set; default = ""; }
 }

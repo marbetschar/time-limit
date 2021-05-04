@@ -10,6 +10,8 @@ add_project_arguments([
     language: 'c'
 )
 
+libexecdir = join_paths(get_option('prefix'), get_option('libexecdir'), meson.project_name())
+
 asresources = gnome.compile_resources(
     'as-resources',
     'data/' + meson.project_name() + '.gresource.xml',
@@ -17,12 +19,18 @@ asresources = gnome.compile_resources(
     c_name: 'as'
 )
 
+gio_dep = dependency('gio-2.0')
+glib_dep = dependency('glib-2.0')
+granite_dep = dependency('granite', version: '>=0.5')
+m_dep = meson.get_compiler('c').find_library('m', required : false)
+
 dependencies = [
-    dependency('glib-2.0'),
+    gio_dep,
+    glib_dep,
+    granite_dep,
     dependency('gtk+-3.0'),
-    dependency('granite', version: '>=0.5'),
     dependency('libhandy-1', version: '>=0.83.0'),
-    meson.get_compiler('c').find_library('m', required : false)
+    m_dep
 ]
 
 subdir('src')
@@ -36,6 +44,7 @@ executable(
 )
 
 subdir('data')
+subdir('daemon')
 subdir('po')
 
 meson.add_install_script('meson/post_install.py')

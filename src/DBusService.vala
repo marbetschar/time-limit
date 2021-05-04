@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 Marco Betschart (https://marco.betschart.name)
+* Copyright (c) 2021 Marco Betschart (https://marco.betschart.name)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,10 +19,7 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-namespace TimeLimit.Util {
-
-    public double truncating_remainder (double x, double y) {
-        var q = Math.trunc (x / y);
-        return x - q * y;
-    }
+[DBus (name = "com.github.marbetschar.TimeLimit")]
+public interface TimeLimit.DBusService : Object {
+    public abstract string alert_datetime_iso8601 { owned get; set; }
 }
