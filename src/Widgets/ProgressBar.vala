@@ -35,7 +35,7 @@ public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
             int width = get_allocated_width ();
             int height = get_allocated_height ();
 
-            radius = (width - margin * 2) / 2;
+            radius = (width - margin_left - margin_right) / 2;
 
             center = Gdk.Point () {
                 x = width / 2,

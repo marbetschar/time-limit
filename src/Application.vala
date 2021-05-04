@@ -39,7 +39,9 @@ public class Timer.Application : Gtk.Application {
             return;
         }
 
-        var main_window = new MainWindow (this);
+        var main_window = new MainWindow (this) {
+            title = "Time Limit"
+        };
 
         int window_x, window_y;
         var rect = Gtk.Allocation ();
