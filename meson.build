@@ -22,7 +22,6 @@ dependencies = [
     dependency('gtk+-3.0'),
     dependency('granite', version: '>=0.5'),
     dependency('libhandy-1', version: '>=0.83.0'),
-    dependency('unity'),
     meson.get_compiler('c').find_library('m', required : false)
 ]
 

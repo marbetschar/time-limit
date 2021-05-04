@@ -21,7 +21,7 @@
 
 public class Timer.Widgets.Clock : Gtk.Overlay {
 
-    public Hdy.HeaderBar? header_bar { get; construct; }
+    public Hdy.HeaderBar? header { get; construct; }
 
     public double progress { get; set; }
     public double seconds { get; set; }
@@ -39,18 +39,10 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     private Timer.Widgets.Face face;
     private Timer.Widgets.Labels labels;
 
-    private Unity.LauncherEntry launcher_entry;
-    private double launcher_entry_total_seconds;
+    private double progress_total_seconds;
 
-    private static Gtk.CssProvider css_provider;
-
-    static construct {
-        css_provider = new Gtk.CssProvider ();
-        css_provider.load_from_resource ("com/github/marbetschar/time-limit/Main.css");
-    }
-
-    public Clock (Hdy.HeaderBar? header_bar = null) {
-        Object (header_bar: header_bar);
+    public Clock (Hdy.HeaderBar? header) {
+        Object (header: header);
     }
 
     construct {
@@ -62,8 +54,6 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         on_button_press_pause = false;
         button_press_active = false;
 
-        launcher_entry = Unity.LauncherEntry.get_for_desktop_id ("com.github.marbetschar.time-limit.desktop");
-
         indicator = new Timer.Widgets.ProgressIndicator (0.0);
 
         face = new Timer.Widgets.Face ();
@@ -74,19 +64,15 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         labels.valign = Gtk.Align.CENTER;
         labels.halign = Gtk.Align.CENTER;
 
-        if (header_bar != null) {
-            var header_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            header_container.add (header_bar);
-            add (header_container);
+        if (header != null) {
+            add (header);
+
+            indicator.margin_top = 20;
+            face.margin_top = labels.margin_top = indicator.margin_top + 20;
         }
         add_overlay (indicator);
-        set_overlay_pass_through (indicator, true);
         add_overlay (face);
         add_overlay (labels);
-
-        var context = get_style_context ();
-        context.add_class ("main");
-        context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         bind_property ("progress", indicator, "progress", BindingFlags.BIDIRECTIONAL);
 
@@ -121,7 +107,19 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         update_labels ();
     }
 
+    private bool header_handles_event (Gdk.EventButton event) {
+        if (header != null && event.window == header.get_window ()) {
+            return true;
+        }
+
+        return false;
+    }
+
     private bool on_button_press_event (Gdk.EventButton event) {
+        if (header_handles_event (event)) {
+            return Gdk.EVENT_PROPAGATE;
+        }
+
         if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.button_press_event (event)) {
             return Gdk.EVENT_STOP;
         }
@@ -136,6 +134,10 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     private bool on_button_release_event (Gdk.EventButton event) {
+        if (header_handles_event (event)) {
+            return Gdk.EVENT_PROPAGATE;
+        }
+
         if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.button_release_event (event)) {
             return Gdk.EVENT_STOP;
         }
@@ -164,31 +166,31 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
     private void on_seconds_changed () {
         if (!pause) {
-            launcher_entry.progress_visible = true;
+            Granite.Services.Application.set_progress_visible.begin (true);
 
             progress = convert_seconds_to_progress (seconds);
-            launcher_entry.progress = 1 - seconds / launcher_entry_total_seconds;
+            Granite.Services.Application.set_progress.begin (1 - seconds / progress_total_seconds);
         }
 
         update_labels ();
 
         if (seconds <= 0) {
-            launcher_entry.progress_visible = false;
-
-            var main_window = (Timer.MainWindow) parent;
+            var main_window = (Timer.MainWindow) parent.parent;
             var notification = new Notification (_("It's time!"));
             notification.set_body (_("Your time limit is over."));
             notification.set_priority (NotificationPriority.URGENT);
             main_window.send_notification (notification);
+
+            Granite.Services.Application.set_progress_visible.begin (false);
         }
     }
 
     private void on_progress_changed () {
         if (pause) {
-            launcher_entry.progress_visible = false;
+            Granite.Services.Application.set_progress_visible.begin (false);
 
             seconds = convert_progress_to_seconds (progress);
-            launcher_entry_total_seconds = seconds;
+            progress_total_seconds = seconds;
             update_labels ();
         }
     }
