@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 Marco Betschart (https://marco.betschart.name)
+* Copyright (c) 2021 Marco Betschart (https://marco.betschart.name)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -39,7 +39,11 @@ public class Timer.Widgets.Labels : Gtk.Box {
     }
 
     construct {
-        time_pause = new Gtk.Image.from_icon_name ("pause", Gtk.IconSize.BUTTON);
+        time_pause = new Gtk.Image.from_icon_name ("pause-symbolic", Gtk.IconSize.BUTTON);
+
+        var time_pause_context = time_pause.get_style_context ();
+        time_pause_context.add_class ("pause-icon");
+        time_pause_context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         time_label = new Gtk.Label ("");
 

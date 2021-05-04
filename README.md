@@ -24,8 +24,9 @@ You'll need the following dependencies:
 * glib-2.0
 * gtk+-3.0
 * granite >=0.5
-* unity
+* libhandy-1-dev >= 0.83.0
 * meson
+* unity
 * valac
 
 Simply run

@@ -21,6 +21,8 @@
 
 public class Timer.Widgets.Clock : Gtk.Overlay {
 
+    public Hdy.HeaderBar? header_bar { get; construct; }
+
     public double progress { get; set; }
     public double seconds { get; set; }
     public bool pause { get; set; }
@@ -47,6 +49,10 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         css_provider.load_from_resource ("com/github/marbetschar/time-limit/Main.css");
     }
 
+    public Clock (Hdy.HeaderBar? header_bar = null) {
+        Object (header_bar: header_bar);
+    }
+
     construct {
         progress = 0.0;
         seconds = 0.0;
@@ -68,7 +74,13 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         labels.valign = Gtk.Align.CENTER;
         labels.halign = Gtk.Align.CENTER;
 
-        add (indicator);
+        if (header_bar != null) {
+            var header_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            header_container.add (header_bar);
+            add (header_container);
+        }
+        add_overlay (indicator);
+        set_overlay_pass_through (indicator, true);
         add_overlay (face);
         add_overlay (labels);
 
