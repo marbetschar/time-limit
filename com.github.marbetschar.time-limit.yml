@@ -10,7 +10,10 @@ finish-args:
   - '--share=ipc'
   - '--socket=fallback-x11'
   - '--socket=wayland'
+  # needed for perfers-color-scheme
 
+  - '--talk-name=org.gnome.SettingsDaemon'
+  - --system-talk-name=org.freedesktop.Accounts
 modules:
   - name: time-limit
     buildsystem: meson
