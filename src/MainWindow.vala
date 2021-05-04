@@ -29,7 +29,7 @@ public class Timer.MainWindow : Hdy.ApplicationWindow {
             application: application,
             icon_name: "com.github.marbetschar.time-limit",
             resizable: false,
-            default_height: 200,
+            default_height: 220,
             default_width: 200
         );
     }
@@ -39,9 +39,6 @@ public class Timer.MainWindow : Hdy.ApplicationWindow {
     }
 
     construct {
-        var main_window_provider = new Gtk.CssProvider ();
-        main_window_provider.load_from_resource ("com/github/marbetschar/time-limit/Main.css");
-
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
         default_theme.add_resource_path ("/com/github/marbetschar/time-limit/");
 
@@ -49,25 +46,13 @@ public class Timer.MainWindow : Hdy.ApplicationWindow {
             has_subtitle = false,
             decoration_layout = "close:",
             show_close_button = true,
-            expand = false
+            valign = Gtk.Align.START
         };
 
-        unowned Gtk.StyleContext header_context = header.get_style_context ();
-        header_context.add_class ("default-decoration");
-        header_context.add_class (Gtk.STYLE_CLASS_FLAT);
-        header_context.add_provider (main_window_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var clock = new Timer.Widgets.Clock (header);
         add (clock);
-
-        //set_titlebar (header);
-
-        /*var main_window_context = get_style_context ();
-        main_window_context.add_class ("rounded");
-        main_window_context.add_class ("main-background");
-        main_window_context.add_class (Gtk.STYLE_CLASS_FLAT);
-        main_window_context.add_class ("main");
-        main_window_context.add_provider (main_window_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);*/
 
         key_release_event.connect ((event) => {
             switch (event.keyval) {

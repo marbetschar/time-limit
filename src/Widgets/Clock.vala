@@ -21,7 +21,7 @@
 
 public class Timer.Widgets.Clock : Gtk.Overlay {
 
-    public Hdy.HeaderBar? header_bar { get; construct; }
+    public Hdy.HeaderBar? header { get; construct; }
 
     public double progress { get; set; }
     public double seconds { get; set; }
@@ -42,15 +42,8 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     private Unity.LauncherEntry launcher_entry;
     private double launcher_entry_total_seconds;
 
-    private static Gtk.CssProvider css_provider;
-
-    static construct {
-        css_provider = new Gtk.CssProvider ();
-        css_provider.load_from_resource ("com/github/marbetschar/time-limit/Main.css");
-    }
-
-    public Clock (Hdy.HeaderBar? header_bar = null) {
-        Object (header_bar: header_bar);
+    public Clock (Hdy.HeaderBar? header) {
+        Object (header: header);
     }
 
     construct {
@@ -74,19 +67,15 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         labels.valign = Gtk.Align.CENTER;
         labels.halign = Gtk.Align.CENTER;
 
-        if (header_bar != null) {
-            var header_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            header_container.add (header_bar);
-            add (header_container);
+        if (header != null) {
+            add (header);
+
+            indicator.margin_top = 20;
+            face.margin_top = labels.margin_top = indicator.margin_top + 20;
         }
         add_overlay (indicator);
-        set_overlay_pass_through (indicator, true);
         add_overlay (face);
         add_overlay (labels);
-
-        var context = get_style_context ();
-        context.add_class ("main");
-        context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         bind_property ("progress", indicator, "progress", BindingFlags.BIDIRECTIONAL);
 
@@ -121,7 +110,19 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         update_labels ();
     }
 
+    private bool header_handles_event (Gdk.EventButton event) {
+        if (header != null && event.window == header.get_window ()) {
+            return true;
+        }
+
+        return false;
+    }
+
     private bool on_button_press_event (Gdk.EventButton event) {
+        if (header_handles_event (event)) {
+            return Gdk.EVENT_PROPAGATE;
+        }
+
         if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.button_press_event (event)) {
             return Gdk.EVENT_STOP;
         }
@@ -136,6 +137,10 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     private bool on_button_release_event (Gdk.EventButton event) {
+        if (header_handles_event (event)) {
+            return Gdk.EVENT_PROPAGATE;
+        }
+
         if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.button_release_event (event)) {
             return Gdk.EVENT_STOP;
         }
@@ -175,7 +180,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         if (seconds <= 0) {
             launcher_entry.progress_visible = false;
 
-            var main_window = (Timer.MainWindow) parent;
+            var main_window = (Timer.MainWindow) parent.parent;
             var notification = new Notification (_("It's time!"));
             notification.set_body (_("Your time limit is over."));
             notification.set_priority (NotificationPriority.URGENT);
