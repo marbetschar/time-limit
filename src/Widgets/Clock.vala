@@ -39,8 +39,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     private Timer.Widgets.Face face;
     private Timer.Widgets.Labels labels;
 
-    private Unity.LauncherEntry launcher_entry;
-    private double launcher_entry_total_seconds;
+    private double progress_total_seconds;
 
     public Clock (Hdy.HeaderBar? header) {
         Object (header: header);
@@ -54,8 +53,6 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         on_button_press_seconds = 0.0;
         on_button_press_pause = false;
         button_press_active = false;
-
-        launcher_entry = Unity.LauncherEntry.get_for_desktop_id ("com.github.marbetschar.time-limit.desktop");
 
         indicator = new Timer.Widgets.ProgressIndicator (0.0);
 
@@ -169,31 +166,31 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
     private void on_seconds_changed () {
         if (!pause) {
-            launcher_entry.progress_visible = true;
+            Granite.Services.Application.set_progress_visible.begin (true);
 
             progress = convert_seconds_to_progress (seconds);
-            launcher_entry.progress = 1 - seconds / launcher_entry_total_seconds;
+            Granite.Services.Application.set_progress.begin (1 - seconds / progress_total_seconds);
         }
 
         update_labels ();
 
         if (seconds <= 0) {
-            launcher_entry.progress_visible = false;
-
             var main_window = (Timer.MainWindow) parent.parent;
             var notification = new Notification (_("It's time!"));
             notification.set_body (_("Your time limit is over."));
             notification.set_priority (NotificationPriority.URGENT);
             main_window.send_notification (notification);
+
+            Granite.Services.Application.set_progress_visible.begin (false);
         }
     }
 
     private void on_progress_changed () {
         if (pause) {
-            launcher_entry.progress_visible = false;
+            Granite.Services.Application.set_progress_visible.begin (false);
 
             seconds = convert_progress_to_seconds (progress);
-            launcher_entry_total_seconds = seconds;
+            progress_total_seconds = seconds;
             update_labels ();
         }
     }
