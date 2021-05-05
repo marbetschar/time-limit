@@ -35,6 +35,13 @@ namespace TimeLimit {
 
         private DBusService? timelimit_dbus_service = null;
 
+        public Daemon () {
+            Object (
+                application_id: "com.github.marbetschar.time-limit-daemon",
+                flags: ApplicationFlags.FLAGS_NONE
+            );
+        }
+
         construct {
             timelimit_dbus_service = new DBusService ();
             timelimit_dbus_service.notify["alert-datetime-iso8601"].connect (on_timelimit_alert_datetime_changed);
@@ -76,7 +83,7 @@ namespace TimeLimit {
 
             var seconds_remaining = alert_datetime.difference (now) / 1000000;
             if (seconds_remaining > 0) {
-                debug ("on_timelimit_alert_datetime_changed: Schedule notification.");
+                debug ("on_timelimit_alert_datetime_changed: Schedule notification for: %s", timelimit_dbus_service.alert_datetime_iso8601);
 
                 alert_timeout = GLib.Timeout.add_seconds ((uint) seconds_remaining, () => {
                     var notification = new Notification (_("It's time!"));
