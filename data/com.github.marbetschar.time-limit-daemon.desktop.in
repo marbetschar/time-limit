@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Time Limit Daemon
+Name=Time Limit
 Comment=Notify when time is up
 Exec=@EXEC_PATH@
 Icon=com.github.marbetschar.time-limit

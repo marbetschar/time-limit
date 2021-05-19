@@ -17,7 +17,7 @@ configure_file (
     input: meson.project_name()+'-daemon' + '.desktop.in',
     output: meson.project_name()+'-daemon' + '.desktop',
     configuration: desktop_config,
-    install_dir: join_paths(get_option('sysconfdir'), 'xdg', 'autostart')
+    install_dir: join_paths(get_option('datadir'), 'applications')
 )
 
 i18n.merge_file(
