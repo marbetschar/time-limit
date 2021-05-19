@@ -19,7 +19,7 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
+public class TimeLimit.Widgets.ProgressArrow : Gtk.DrawingArea {
 
     public double progress { get; construct set; }
     public bool is_active { get; private set; }
@@ -99,7 +99,7 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
             if (delta_x < 0) {
                 angle = angle - Math.PI;
             }
-            var progress_new = (progress - Timer.Util.truncating_remainder (progress, 1)) + -(angle - Math.PI / 2) / (Math.PI * 2.0);
+            var progress_new = (progress - TimeLimit.Util.truncating_remainder (progress, 1)) + -(angle - Math.PI / 2) / (Math.PI * 2.0);
 
             if (progress - progress_new > 0.25) {
                 progress_new += 1;

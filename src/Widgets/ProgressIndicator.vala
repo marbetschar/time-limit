@@ -19,7 +19,7 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
+public class TimeLimit.Widgets.ProgressIndicator : Gtk.Fixed {
 
     public double progress { get; construct set; }
 
@@ -29,8 +29,8 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
         }
     }
 
-    private Timer.Widgets.ProgressArrow arrow;
-    private Timer.Widgets.ProgressBar bar;
+    private TimeLimit.Widgets.ProgressArrow arrow;
+    private TimeLimit.Widgets.ProgressBar bar;
 
     private int arrow_width;
     private int arrow_height;
@@ -40,11 +40,11 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
     }
 
     construct {
-        bar = new Timer.Widgets.ProgressBar (progress);
+        bar = new TimeLimit.Widgets.ProgressBar (progress);
         bar.margin = 7;
         add (bar);
 
-        arrow = new Timer.Widgets.ProgressArrow (progress);
+        arrow = new TimeLimit.Widgets.ProgressArrow (progress);
         put (arrow, 90, 0); // TODO: Calculate initial placing
 
         bind_property ("progress", arrow, "progress", BindingFlags.BIDIRECTIONAL);

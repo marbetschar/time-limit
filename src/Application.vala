@@ -19,7 +19,7 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-public class Timer.Application : Gtk.Application {
+public class TimeLimit.Application : Gtk.Application {
     public static GLib.Settings settings;
 
     public Application () {
@@ -70,10 +70,6 @@ public class Timer.Application : Gtk.Application {
             if (main_window != null) {
                 main_window.destroy ();
             }
-        });
-
-        main_window.send_notification.connect ((notification) => {
-            send_notification("com.github.marbetschar.time-limit", notification);
         });
 
         var granite_settings = Granite.Settings.get_default ();

@@ -1,1 +1,12 @@
+daemon/Daemon.vala
+daemon/DBusService.vala
 src/Widgets/Clock.vala
+src/Widgets/Face.vala
+src/Widgets/Labels.vala
+src/Widgets/ProgressArrow.vala
+src/Widgets/ProgressBar.vala
+src/Widgets/ProgressIndicator.vala
+src/Application.vala
+src/DBusService.vala
+src/MainWindow.vala
+src/Uitl.vala

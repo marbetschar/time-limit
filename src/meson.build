@@ -1,8 +1,8 @@
 sources = files(
     'Application.vala',
+    'DBusService.vala',
     'MainWindow.vala',
     'Util.vala',
-    'LoginManager.vala',
     'Widgets/Clock.vala',
     'Widgets/Face.vala',
     'Widgets/Labels.vala',

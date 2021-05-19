@@ -19,9 +19,8 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-public class Timer.MainWindow : Hdy.ApplicationWindow {
+public class TimeLimit.MainWindow : Hdy.ApplicationWindow {
 
-    public signal void send_notification (Notification notification);
     private uint configure_id;
 
     public MainWindow (Gtk.Application application) {
@@ -51,7 +50,7 @@ public class Timer.MainWindow : Hdy.ApplicationWindow {
 
         header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var clock = new Timer.Widgets.Clock (header);
+        var clock = new TimeLimit.Widgets.Clock (header);
         add (clock);
 
         key_release_event.connect ((event) => {
@@ -77,17 +76,17 @@ public class Timer.MainWindow : Hdy.ApplicationWindow {
             configure_id = 0;
 
             if (is_maximized) {
-                Timer.Application.settings.set_boolean ("window-maximized", true);
+                TimeLimit.Application.settings.set_boolean ("window-maximized", true);
             } else {
-                Timer.Application.settings.set_boolean ("window-maximized", false);
+                TimeLimit.Application.settings.set_boolean ("window-maximized", false);
 
                 Gdk.Rectangle rect;
                 get_allocation (out rect);
-                Timer.Application.settings.set ("window-size", "(ii)", rect.width, rect.height);
+                TimeLimit.Application.settings.set ("window-size", "(ii)", rect.width, rect.height);
 
                 int root_x, root_y;
                 get_position (out root_x, out root_y);
-                Timer.Application.settings.set ("window-position", "(ii)", root_x, root_y);
+                TimeLimit.Application.settings.set ("window-position", "(ii)", root_x, root_y);
             }
 
             return Source.REMOVE;

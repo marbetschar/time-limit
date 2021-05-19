@@ -19,7 +19,7 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-public class Timer.Widgets.Clock : Gtk.Overlay {
+public class TimeLimit.Widgets.Clock : Gtk.Overlay {
 
     public Hdy.HeaderBar? header { get; construct; }
 
@@ -27,17 +27,16 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     public double seconds { get; set; }
     public bool pause { get; set; }
 
-    private LoginManager login_manager;
-    private GLib.DateTime? suspend_datetime = null;
+    private TimeLimit.DBusService? timelimit_dbus_service;
 
     private uint update_labels_timeout_id = 0U;
     private double on_button_press_seconds;
     private bool on_button_press_pause;
     private bool button_press_active;
 
-    private Timer.Widgets.ProgressIndicator indicator;
-    private Timer.Widgets.Face face;
-    private Timer.Widgets.Labels labels;
+    private TimeLimit.Widgets.ProgressIndicator indicator;
+    private TimeLimit.Widgets.Face face;
+    private TimeLimit.Widgets.Labels labels;
 
     private double progress_total_seconds;
 
@@ -54,12 +53,12 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         on_button_press_pause = false;
         button_press_active = false;
 
-        indicator = new Timer.Widgets.ProgressIndicator (0.0);
+        indicator = new TimeLimit.Widgets.ProgressIndicator (0.0);
 
-        face = new Timer.Widgets.Face ();
+        face = new TimeLimit.Widgets.Face ();
         face.margin = 20;
 
-        labels = new Timer.Widgets.Labels ();
+        labels = new TimeLimit.Widgets.Labels ();
         labels.margin = 20;
         labels.valign = Gtk.Align.CENTER;
         labels.halign = Gtk.Align.CENTER;
@@ -89,22 +88,36 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         notify["pause"].connect (on_pause_changed);
 
         try {
-            login_manager = GLib.Bus.get_proxy_sync (BusType.SYSTEM, "org.freedesktop.login1", "/org/freedesktop/login1");
-            login_manager.prepare_for_sleep.connect ((start) => {
-                if (start) {
-                    if (update_labels_timeout_id > 0) {
-                        GLib.Source.remove (update_labels_timeout_id);
-                        update_labels_timeout_id = 0;
-                    }
-                    suspend_datetime = new GLib.DateTime.now_local ();
-                    GLib.Timeout.add_seconds (1, on_resume);
-                }
-            });
-        } catch(IOError e) {
-            warning (e.message);
+            timelimit_dbus_service = Bus.get_proxy_sync (
+                BusType.SESSION,
+                "com.github.marbetschar.TimeLimit",
+                "/com/github/marbetschar/timelimit"
+            );
+            debug ("Connected to timelimit dbus service.");
+
+        } catch (Error e) {
+            critical ("Connecting to timelimit dbus service failed: %s", e.message);
         }
 
         update_labels ();
+
+        if (timelimit_dbus_service != null && timelimit_dbus_service.alert_datetime_iso8601 != null && timelimit_dbus_service.alert_datetime_iso8601 != "") {
+            debug ("Retrieving alert datetime from daemon: %s", timelimit_dbus_service.alert_datetime_iso8601);
+
+            var alert_datetime = new GLib.DateTime.from_iso8601 (timelimit_dbus_service.alert_datetime_iso8601, null);
+            var now = new GLib.DateTime.now_local ();
+
+            var seconds_remaining = alert_datetime.difference (now) / 1000000;
+            if (seconds_remaining > 0) {
+                seconds = seconds_remaining;
+                on_pause_changed ();
+
+                GLib.Idle.add (() => {
+                    indicator.notify_property ("progress");
+                    return GLib.Source.REMOVE;
+                });
+            }
+        }
     }
 
     private bool header_handles_event (Gdk.EventButton event) {
@@ -175,12 +188,6 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         update_labels ();
 
         if (seconds <= 0) {
-            var main_window = (Timer.MainWindow) parent.parent;
-            var notification = new Notification (_("It's time!"));
-            notification.set_body (_("Your time limit is over."));
-            notification.set_priority (NotificationPriority.URGENT);
-            main_window.send_notification (notification);
-
             Granite.Services.Application.set_progress_visible.begin (false);
         }
     }
@@ -191,6 +198,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
             seconds = convert_progress_to_seconds (progress);
             progress_total_seconds = seconds;
+
             update_labels ();
         }
     }
@@ -203,21 +211,21 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
                 }
                 return !pause && seconds > 0;
             });
+
+            if (timelimit_dbus_service != null) {
+                var alert_datetime = new GLib.DateTime.now_local ();
+                alert_datetime = alert_datetime.add_seconds (seconds);
+                var alert_datetime_iso8601 = alert_datetime.format_iso8601 ();
+
+                debug ("Schedule notification for: %s", alert_datetime_iso8601);
+                timelimit_dbus_service.alert_datetime_iso8601 = alert_datetime_iso8601;
+            }
+
+        } else {
+            debug ("Remove scheduled notification");
+            timelimit_dbus_service.alert_datetime_iso8601 = "";
         }
         update_labels ();
-    }
-
-    private bool on_resume () {
-        if (!pause && suspend_datetime != null) {
-            var now = new GLib.DateTime.now_local ();
-            var sleep_seconds = now.difference (suspend_datetime) / 1000000;
-            suspend_datetime = null;
-
-            seconds = GLib.Math.fmax(0, seconds - sleep_seconds);
-        } else {
-            update_labels ();
-        }
-        return GLib.Source.REMOVE;
     }
 
     private bool update_labels () {
@@ -237,7 +245,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
         } else {
             labels.minutes_label.label = "%i\'".printf ((int) convert_seconds_to_minutes (seconds));
-            labels.seconds_label.label = "%i\"".printf ((int) Timer.Util.truncating_remainder (seconds, 60));
+            labels.seconds_label.label = "%i\"".printf ((int) TimeLimit.Util.truncating_remainder (seconds, 60));
         }
 
         if (!button_press_active && pause && seconds > 0) {
@@ -263,9 +271,9 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
         var seconds = Math.round (scaled_progress * 60.0 * 60.0);
         if (seconds <= 300) {
-            seconds = seconds - Timer.Util.truncating_remainder (seconds, 10);
+            seconds = seconds - TimeLimit.Util.truncating_remainder (seconds, 10);
         } else {
-            seconds = seconds - Timer.Util.truncating_remainder (seconds, 60);
+            seconds = seconds - TimeLimit.Util.truncating_remainder (seconds, 60);
         }
 
         return seconds;

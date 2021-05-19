@@ -19,7 +19,7 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-public class Timer.Widgets.Labels : Gtk.Box {
+public class TimeLimit.Widgets.Labels : Gtk.Box {
 
     public Gtk.Stack time_stack;
     public Gtk.Label time_label;

@@ -19,7 +19,7 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-public class Timer.Widgets.Face : Gtk.Box {
+public class TimeLimit.Widgets.Face : Gtk.Box {
 
     private static Gtk.CssProvider css_provider;
 
