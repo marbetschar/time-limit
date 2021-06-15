@@ -1,0 +1,66 @@
+# Portuguese translations for extra package.
+# Copyright (C) 2020 THE extra'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the extra package.
+# Henrique Andrade <henrique.coelho@gmail.com>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: extra\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-13 18:46+0100\n"
+"PO-Revision-Date: 2021-06-15 10:31-0300\n"
+"Last-Translator: Henrique Andrade <henrique.coelho@gmail.com>\n"
+"Language-Team: none\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.4.3\n"
+
+#: data/com.github.marbetschar.time-limit.desktop.in:3
+#: data/com.github.marbetschar.time-limit.desktop.in:4
+#: data/com.github.marbetschar.time-limit.appdata.xml.in:7
+msgid "Time Limit"
+msgstr "Time Limit"
+
+#: data/com.github.marbetschar.time-limit.desktop.in:5
+msgid "A simply beautiful timer"
+msgstr "Um cronômetro simplesmente lindo"
+
+#: data/com.github.marbetschar.time-limit.desktop.in:8
+msgid "com.github.marbetschar.time-limit"
+msgstr "com.github.marbetschar.time-limit"
+
+#: data/com.github.marbetschar.time-limit.desktop.in:11
+msgid "Timer;Countdown;Deadline;Clock;"
+msgstr "Cronômetro;Contagem regressiva;Data limite;Relógio;"
+
+#: data/com.github.marbetschar.time-limit.appdata.xml.in:8
+msgid "A simple and beautiful timer"
+msgstr "Um cronômetro simples e bonito"
+
+#: data/com.github.marbetschar.time-limit.appdata.xml.in:10
+msgid ""
+"Drag the blue arrow to set a timer. Release to start and click to pause. "
+"When the time is up, a notification will show up with a nice sound."
+msgstr ""
+"Arraste a seta azul para definir um período. Solte para iniciar e clique "
+"para pausar. Quando o tempo acabar, uma notificação aparecerá e tocará "
+"um som legal."
+
+#: data/com.github.marbetschar.time-limit.appdata.xml.in:11
+msgid "Keyboard shortcuts:"
+msgstr "Atalhos de teclado:"
+
+#: data/com.github.marbetschar.time-limit.appdata.xml.in:13
+msgid "<code>Space</code> for pause/play"
+msgstr "<code>Espaço</code> para pausar/continuar"
+
+#: data/com.github.marbetschar.time-limit.appdata.xml.in:17
+msgid "<code>Esc</code> to reset"
+msgstr "<code>Esc</code> para zerar"
+
+#: data/com.github.marbetschar.time-limit.appdata.xml.in:60
+msgid "Marco Betschart"
+msgstr "Marco Betschart"
