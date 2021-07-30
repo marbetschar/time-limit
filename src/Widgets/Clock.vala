@@ -166,23 +166,14 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
     private void on_seconds_changed () {
         if (!pause) {
-            Granite.Services.Application.set_progress_visible.begin (true);
-
             progress = convert_seconds_to_progress (seconds);
-            Granite.Services.Application.set_progress.begin (1 - seconds / progress_total_seconds);
         }
 
         update_labels ();
-
-        if (seconds <= 0) {
-            Granite.Services.Application.set_progress_visible.begin (false);
-        }
     }
 
     private void on_progress_changed () {
         if (pause) {
-            Granite.Services.Application.set_progress_visible.begin (false);
-
             seconds = convert_progress_to_seconds (progress);
             progress_total_seconds = seconds;
             update_labels ();

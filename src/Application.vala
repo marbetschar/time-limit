@@ -97,7 +97,8 @@ public class Timer.Application : Gtk.Application {
             debug ("Remove scheduled notification");
             GLib.Source.remove (scheduled_notification_timeout_id);
             scheduled_notification_timeout_id = 0;
-            this.release ();
+            // allow app to quit:
+            release ();
         }
 
         if (datetime != null) {
@@ -115,31 +116,21 @@ public class Timer.Application : Gtk.Application {
                     send_notification ("com.github.marbetschar.time-limit", notification);
 
                     scheduled_notification_timeout_id = 0;
-                    this.release ();
+                    // allow app to quit:
+                    release ();
 
                     return GLib.Source.REMOVE;
                 });
 
-                this.hold ();
+                // disallow app to quit:
+                hold ();
             }
         }
     }
 
     private void on_quit_action () {
-        if (scheduled_notification_timeout_id > 0) {
-            unowned var windows = get_windows ();
-            foreach (unowned var window in windows) {
-                window.hide ();
-            }
-
-            // Ensure windows are hidden before
-            // returning from this function:
-            Gdk.Display.get_default ().flush ();
-
-        } else {
-            if (main_window != null) {
-                main_window.destroy ();
-            }
+        if (main_window != null) {
+            main_window.destroy ();
         }
     }
 }
