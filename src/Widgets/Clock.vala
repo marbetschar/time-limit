@@ -175,12 +175,6 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         update_labels ();
 
         if (seconds <= 0) {
-            var main_window = (Timer.MainWindow) parent.parent;
-            var notification = new Notification (_("It's time!"));
-            notification.set_body (_("Your time limit is over."));
-            notification.set_priority (NotificationPriority.URGENT);
-            main_window.send_notification (notification);
-
             Granite.Services.Application.set_progress_visible.begin (false);
         }
     }
@@ -196,13 +190,16 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     private void on_pause_changed () {
+        var main_window = (Timer.MainWindow) parent.parent;
+
         if (!button_press_active && !pause && seconds > 0) {
-            Timeout.add_seconds (1, () => {
-                if (!pause) {
-                    seconds = GLib.Math.fmax(0, seconds - 1);
-                }
-                return !pause && seconds > 0;
-            });
+            start_ticking ();
+
+            var notification_datetime = new GLib.DateTime.now_local ();
+            main_window.schedule_notification (notification_datetime.add_seconds (seconds));
+
+        } else {
+            main_window.schedule_notification (null);
         }
         update_labels ();
     }
@@ -295,5 +292,14 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
             }
         }
         return progress;
+    }
+
+    public void start_ticking () {
+        Timeout.add_seconds (1, () => {
+            if (!pause) {
+                seconds = GLib.Math.fmax(0, seconds - 1);
+            }
+            return !pause && seconds > 0;
+        });
     }
 }

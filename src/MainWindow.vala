@@ -21,8 +21,9 @@
 
 public class Timer.MainWindow : Hdy.ApplicationWindow {
 
-    public signal void send_notification (Notification notification);
+    public signal void schedule_notification (GLib.DateTime? datetime);
     private uint configure_id;
+    private Timer.Widgets.Clock clock;
 
     public MainWindow (Gtk.Application application) {
         Object (
@@ -51,7 +52,7 @@ public class Timer.MainWindow : Hdy.ApplicationWindow {
 
         header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var clock = new Timer.Widgets.Clock (header);
+        clock = new Timer.Widgets.Clock (header);
         add (clock);
 
         key_release_event.connect ((event) => {
@@ -94,5 +95,18 @@ public class Timer.MainWindow : Hdy.ApplicationWindow {
         });
 
         return base.configure_event (event);
+    }
+
+    public void set_scheduled_notification_datetime (GLib.DateTime? datetime) {
+        if (datetime == null) {
+            clock.seconds = 0;
+
+        } else {
+            var now = new GLib.DateTime.now_local ();
+            clock.seconds = datetime.difference (now) / 1000000;
+
+            clock.pause = false;
+            clock.start_ticking ();
+        }
     }
 }

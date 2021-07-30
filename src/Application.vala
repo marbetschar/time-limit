@@ -22,6 +22,10 @@
 public class Timer.Application : Gtk.Application {
     public static GLib.Settings settings;
 
+    private MainWindow main_window;
+    private GLib.DateTime? scheduled_notification_datetime = null;
+    private uint scheduled_notification_timeout_id = 0;
+
     public Application () {
         Object (
             application_id: "com.github.marbetschar.time-limit",
@@ -34,12 +38,15 @@ public class Timer.Application : Gtk.Application {
     }
 
     protected override void activate () {
+        warning (">>>> Application.activate...");
         if (get_windows ().length () > 0) {
+            warning (">>>> Application.data");
             get_windows ().data.present ();
             return;
         }
 
-        var main_window = new MainWindow (this) {
+        warning (">>>> Application.main_window.construct");
+        main_window = new MainWindow (this) {
             title = "Time Limit"
         };
 
@@ -60,21 +67,16 @@ public class Timer.Application : Gtk.Application {
         }
 
         main_window.show_all ();
+        main_window.set_scheduled_notification_datetime (scheduled_notification_datetime);
 
         var quit_action = new SimpleAction ("quit", null);
 
         add_action (quit_action);
         set_accels_for_action ("app.quit", {"<Control>q"});
 
-        quit_action.activate.connect (() => {
-            if (main_window != null) {
-                main_window.destroy ();
-            }
-        });
+        quit_action.activate.connect (on_quit_action);
 
-        main_window.send_notification.connect ((notification) => {
-            send_notification("com.github.marbetschar.time-limit", notification);
-        });
+        main_window.schedule_notification.connect (on_schedule_notification);
 
         var granite_settings = Granite.Settings.get_default ();
         var gtk_settings = Gtk.Settings.get_default ();
@@ -89,5 +91,58 @@ public class Timer.Application : Gtk.Application {
     public static int main (string[] args) {
         var app = new Application ();
         return app.run (args);
+    }
+
+    private void on_schedule_notification (GLib.DateTime? datetime) {
+        scheduled_notification_datetime = datetime;
+
+        if (scheduled_notification_timeout_id > 0) {
+            debug ("Remove scheduled notification");
+            GLib.Source.remove (scheduled_notification_timeout_id);
+            scheduled_notification_timeout_id = 0;
+            this.release ();
+        }
+
+        if (datetime != null) {
+            var now = new GLib.DateTime.now_local ();
+            var seconds_remaining = datetime.difference (now) / 1000000;
+
+            if (seconds_remaining > 0) {
+                debug ("Schedule notification for: %s", datetime.format_iso8601 ());
+
+                scheduled_notification_timeout_id = GLib.Timeout.add_seconds ((uint) seconds_remaining, () => {
+                    var notification = new Notification (_("It's time!"));
+                    notification.set_body (_("Your time limit is over."));
+                    notification.set_priority (NotificationPriority.URGENT);
+
+                    send_notification ("com.github.marbetschar.time-limit", notification);
+
+                    scheduled_notification_timeout_id = 0;
+                    this.release ();
+
+                    return GLib.Source.REMOVE;
+                });
+
+                this.hold ();
+            }
+        }
+    }
+
+    private void on_quit_action () {
+        if (scheduled_notification_timeout_id > 0) {
+            unowned var windows = get_windows ();
+            foreach (unowned var window in windows) {
+                window.hide ();
+            }
+
+            // Ensure windows are hidden before
+            // returning from this function:
+            Gdk.Display.get_default ().flush ();
+
+        } else {
+            if (main_window != null) {
+                main_window.destroy ();
+            }
+        }
     }
 }
