@@ -73,6 +73,7 @@ namespace TimeLimit {
             if (alert_timeout > 0) {
                 debug ("on_timelimit_alert_datetime_changed: Removing scheduled notification.");
                 GLib.Source.remove (alert_timeout);
+                alert_timeout = 0;
             }
 
             var now = new GLib.DateTime.now_local ();
