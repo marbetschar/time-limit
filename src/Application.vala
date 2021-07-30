@@ -38,14 +38,11 @@ public class Timer.Application : Gtk.Application {
     }
 
     protected override void activate () {
-        warning (">>>> Application.activate...");
         if (get_windows ().length () > 0) {
-            warning (">>>> Application.data");
             get_windows ().data.present ();
             return;
         }
 
-        warning (">>>> Application.main_window.construct");
         main_window = new MainWindow (this) {
             title = "Time Limit"
         };
