@@ -45,7 +45,6 @@ public class Timer.MainWindow : Hdy.ApplicationWindow {
 
         var header = new Hdy.HeaderBar () {
             has_subtitle = false,
-            decoration_layout = "close:",
             show_close_button = true,
             valign = Gtk.Align.START
         };
