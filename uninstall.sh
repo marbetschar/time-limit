@@ -1,5 +1,4 @@
 #!/bin/bash
 set -e
 
-cd build
-sudo ninja uninstall
+flatpak uninstall com.github.marbetschar.time-limit
