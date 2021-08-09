@@ -125,6 +125,8 @@ public class Timer.Application : Gtk.Application {
                         send_notification ("com.github.marbetschar.time-limit", notification);
 
                         scheduled_notification_timeout_id = 0;
+                        Granite.Services.Application.set_progress_visible.begin (false);
+
                         // allow app to quit:
                         release ();
 
