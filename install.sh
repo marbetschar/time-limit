@@ -1,12 +1,7 @@
 #!/bin/bash
 set -e
 
-meson build --prefix=/usr
-cd build
-ninja
-
-sudo ninja install
-sudo chown -R $USER:$USER .
+flatpak-builder build com.github.marbetschar.time-limit.yml --user --install --force-clean
 
 export G_MESSAGES_DEBUG=all
-com.github.marbetschar.time-limit
+flatpak run com.github.marbetschar.time-limit
