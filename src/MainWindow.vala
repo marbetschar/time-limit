@@ -59,11 +59,17 @@ public class Timer.MainWindow : Hdy.ApplicationWindow {
             switch (event.keyval) {
                 case Gdk.Key.space:
                     clock.pause = !clock.pause;
+                    if (clock.pause) {
+                        schedule_notification (null);
+                    } else {
+                        schedule_notification (new GLib.DateTime.now_local ().add_seconds (clock.seconds));
+                    }
                     break;
 
                 case Gdk.Key.Escape:
                     clock.pause = false;
                     clock.seconds = 0;
+                    schedule_notification (null);
                     break;
             }
         });
