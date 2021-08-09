@@ -31,6 +31,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     private GLib.DateTime? suspend_datetime = null;
 
     private uint update_labels_timeout_id = 0U;
+    private uint ticking_timeout_id = 0U;
     private double on_button_press_seconds;
     private bool on_button_press_pause;
     private bool button_press_active;
@@ -286,7 +287,12 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     public void start_ticking () {
-        Timeout.add_seconds (1, () => {
+        if (ticking_timeout_id != 0) {
+            GLib.Source.remove (ticking_timeout_id);
+            ticking_timeout_id = 0;
+        }
+
+        ticking_timeout_id = Timeout.add_seconds (1, () => {
             if (!pause) {
                 seconds = GLib.Math.fmax(0, seconds - 1);
             }
