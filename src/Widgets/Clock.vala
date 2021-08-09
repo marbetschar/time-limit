@@ -68,7 +68,7 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         if (header != null) {
             add (header);
 
-            indicator.margin_top = 20;
+            indicator.margin_top = 25;
             face.margin_top = labels.margin_top = indicator.margin_top + 20;
         }
         add_overlay (indicator);

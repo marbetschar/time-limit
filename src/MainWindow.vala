@@ -30,7 +30,7 @@ public class Timer.MainWindow : Hdy.ApplicationWindow {
             application: application,
             icon_name: "com.github.marbetschar.time-limit",
             resizable: false,
-            default_height: 220,
+            default_height: 225,
             default_width: 200
         );
     }
