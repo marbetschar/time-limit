@@ -37,6 +37,7 @@
         <p>Improve space usage by making the header bar floating</p>
         <p>Uses Flatpak as packaging format</p>
         <p>Ditched LibUnity in favor of Granite</p>
+        <p>Added Portuguese translation - thanks to Henrique Andrade 🎉️ (@henrique-andrade)</p>
       </description>
     </release>
     <release version="1.4.1" date="2020-09-28">
