@@ -30,7 +30,7 @@
     <binary>com.github.marbetschar.time-limit</binary>
   </provides>
   <releases>
-    <release version="2.0.0" date="2021-08-09">
+    <release version="2.0.1" date="2021-08-09">
       <description>
         <p>Added dark mode support</p>
         <p>Show notification even if the app window is closed</p>
@@ -38,6 +38,7 @@
         <p>Uses Flatpak as packaging format</p>
         <p>Ditched LibUnity in favor of Granite</p>
         <p>Added Portuguese translation - thanks to Henrique Andrade 🎉️ (@henrique-andrade)</p>
+        <p>Respect distro specific close button position (left vs. right) - thanks to Ryo Nakano 🎉️ (@ryonakano)</p>
       </description>
     </release>
     <release version="1.4.1" date="2020-09-28">
