@@ -2,7 +2,7 @@
 
 A simple and beautiful timer app for elementary OS
 
-<img src="data/screenshots/App.png?raw=true" width="262" align="right" />
+<img src="data/screenshots/Dark-Light-Accent-Variants-Background.png?raw=true" />
 
 ## Usage
 

@@ -30,6 +30,15 @@
     <binary>com.github.marbetschar.time-limit</binary>
   </provides>
   <releases>
+    <release version="2.0.0" date="2021-08-09">
+      <description>
+        <p>Added dark mode support</p>
+        <p>Show notification even if the app window is closed</p>
+        <p>Improve space usage by making the header bar floating</p>
+        <p>Uses Flatpak as packaging format</p>
+        <p>Ditched LibUnity in favor of Granite</p>
+      </description>
+    </release>
     <release version="1.4.1" date="2020-09-28">
       <description>
         <p>Fixed #25: Added hibernation support</p>
@@ -101,13 +110,16 @@
   <url type="homepage">https://github.com/marbetschar/time-limit</url>
   <url type="bugtracker">https://github.com/marbetschar/time-limit/issues</url>
   <url type="help">https://github.com/marbetschar/time-limit/issues</url>
-  <update_contact>elementary-time-limit@marco.betschart.name</update_contact>
+  <update_contact>time-limit@marco.betschart.name</update_contact>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/marbetschar/time-limit/master/data/screenshots/Desktop-App.png</image>
+      <image>https://raw.githubusercontent.com/marbetschar/time-limit/master/data/screenshots/Dark-Light-Accent-Variants-Background.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/marbetschar/time-limit/master/data/screenshots/Desktop-Notification.png</image>
+      <image>https://raw.githubusercontent.com/marbetschar/time-limit/master/data/screenshots/Default-Notification-Background.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/marbetschar/time-limit/master/data/screenshots/Dark-Notification-Background.png</image>
     </screenshot>
   </screenshots>
 </component>
