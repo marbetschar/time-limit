@@ -1,32 +1,32 @@
-# Portuguese translations for extra package.
+# Brazilian Portuguese translations for extra package.
 # Copyright (C) 2020 THE extra'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the extra package.
-# Hugo Carvalho <hugokarvalho@hotmail.com>, 2021.
+# Henrique Andrade <henrique.coelho@gmail.com>, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-04 19:23+0900\n"
-"PO-Revision-Date: 2021-12-02 16:58+0000\n"
-"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
-"Language-Team: Portuguese <hugokarvalho@hotmail.com>\n"
-"Language: pt\n"
+"POT-Creation-Date: 2020-02-13 18:46+0100\n"
+"PO-Revision-Date: 2021-12-02 16:45+0000\n"
+"Last-Translator: Henrique Andrade <henrique.coelho@gmail.com>\n"
+"Language-Team: none\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.0\n"
 
 #: data/com.github.marbetschar.time-limit.desktop.in:3
 #: data/com.github.marbetschar.time-limit.desktop.in:4
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:7
 msgid "Time Limit"
-msgstr "Tempo limite"
+msgstr "Time Limit"
 
 #: data/com.github.marbetschar.time-limit.desktop.in:5
 msgid "A simply beautiful timer"
-msgstr "Um cronómetro simplesmente bonito"
+msgstr "Um cronômetro simplesmente lindo"
 
 #: data/com.github.marbetschar.time-limit.desktop.in:8
 msgid "com.github.marbetschar.time-limit"
@@ -34,24 +34,24 @@ msgstr "com.github.marbetschar.time-limit"
 
 #: data/com.github.marbetschar.time-limit.desktop.in:11
 msgid "Timer;Countdown;Deadline;Clock;"
-msgstr "Cronómetro;Contagem decrescente;Data limite;Relógio;"
+msgstr "Cronômetro;Contagem regressiva;Data limite;Relógio;"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:8
 msgid "A simple and beautiful timer"
-msgstr "Um cronómetro simples e bonito"
+msgstr "Um cronômetro simples e bonito"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:10
 msgid ""
 "Drag the blue arrow to set a timer. Release to start and click to pause. "
 "When the time is up, a notification will show up with a nice sound."
 msgstr ""
-"Arraste a seta azul para definir um período. Largue para iniciar e clique "
-"para colocar em pausa. Quando o tempo acabar, aparecerá uma notificação com "
-"um som agradável."
+"Arraste a seta azul para definir um período. Solte para iniciar e clique "
+"para pausar. Quando o tempo acabar, uma notificação aparecerá e tocará "
+"um som legal."
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:11
 msgid "Keyboard shortcuts:"
-msgstr "Teclas de atalho:"
+msgstr "Atalhos de teclado:"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:13
 msgid "<code>Space</code> for pause/play"
@@ -59,29 +59,8 @@ msgstr "<code>Espaço</code> para pausar/continuar"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:17
 msgid "<code>Esc</code> to reset"
-msgstr "<code>Esc</code> para repor"
+msgstr "<code>Esc</code> para zerar"
 
-#: data/com.github.marbetschar.time-limit.appdata.xml.in:34
-msgid "Fixed #26"
-msgstr "Corrigido #26"
-
-#: data/com.github.marbetschar.time-limit.appdata.xml.in:35
-msgid "Merged #27 &amp; #28"
-msgstr "Integrado #27 e #28"
-
-#: data/com.github.marbetschar.time-limit.appdata.xml.in:40
-msgid "Fixed #19"
-msgstr "Corrigido #19"
-
-#: data/com.github.marbetschar.time-limit.appdata.xml.in:41
-msgid "Merged #23"
-msgstr "Integrado #23"
-
-#: data/com.github.marbetschar.time-limit.appdata.xml.in:46
-msgid "Submitting the first version to elementary AppCenter! 🎉️"
-msgstr ""
-"A submeter a primeira versão ao Centro de Aplicações do elementary OS! 🎉️"
-
-#: data/com.github.marbetschar.time-limit.appdata.xml.in:79
+#: data/com.github.marbetschar.time-limit.appdata.xml.in:60
 msgid "Marco Betschart"
 msgstr "Marco Betschart"
