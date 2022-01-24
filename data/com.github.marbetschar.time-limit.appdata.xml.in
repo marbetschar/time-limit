@@ -30,6 +30,13 @@
     <binary>com.github.marbetschar.time-limit</binary>
   </provides>
   <releases>
+    <release version="2.1.0" date="2022-01-24">
+      <description>
+        <p>Update to elementary Platform v6.1</p>
+        <p>Fixed app categories</p>
+        <p>Fixed Portuguese and Brazilian Portuguese translations - thanks to Hugo Carvalho 🎉️ (@hugok79)</p>
+      </description>
+    </release>
     <release version="2.0.1" date="2021-08-09">
       <description>
         <p>Added dark mode support</p>
