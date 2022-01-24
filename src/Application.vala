@@ -86,10 +86,12 @@ public class Timer.Application : Gtk.Application {
         });
     }
 
+#if !IS_TEST
     public static int main (string[] args) {
         var app = new Application ();
         return app.run (args);
     }
+#endif
 
     private void on_schedule_notification (GLib.DateTime? datetime) {
         scheduled_notification_timer_start_datetime = new GLib.DateTime.now_local ();

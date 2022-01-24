@@ -26,6 +26,15 @@ dependencies = [
 ]
 
 subdir('src')
+subdir('tests')
+
+tests_exec = executable(
+  meson.project_name() + '-tests',
+  tests + sources,
+  dependencies: dependencies,
+  vala_args: '--define=IS_TEST'
+)
+test('Tests', tests_exec)
 
 executable(
     meson.project_name(),
