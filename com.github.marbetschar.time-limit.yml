@@ -18,6 +18,7 @@ finish-args:
 modules:
   - name: time-limit
     buildsystem: meson
+    run-tests: true
     sources:
       - type: dir
         path: .
