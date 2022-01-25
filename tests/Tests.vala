@@ -24,7 +24,11 @@ namespace Tests {
     int main(string[] args) {
         Test.init (ref args);
 
-        Test.add_func("/Tests/Util/test_truncating_reminder", Tests.Util.test_truncating_remainder);
+        // Using GLib.TestSuite allows for set_up/tear_down methods:
+        Test.get_root ().add(new Util.TruncatingRemainder ());
+
+        // If we don't need the set_up/tear_down methods, we can simply register a function:
+        Test.add_func("/Util/truncating_remaindssser", Util.test_truncating_remainder);
 
         return Test.run();
     }

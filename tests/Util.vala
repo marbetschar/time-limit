@@ -21,8 +21,41 @@
 
 namespace Tests.Util {
 
+    class TruncatingRemainder : TestCase {
+
+        // test env variables need to be static:
+        private static string test_value = null;
+
+        public TruncatingRemainder () {
+            base (
+                "TruncatingRemainder",
+                set_up,  // or: null
+                test,
+                tear_down  // or: null
+            );
+        }
+
+        void set_up () {
+            test_value = "my-test-value";
+        }
+
+        void test () {
+            assert_true (1.0 == Timer.Util.truncating_remainder (5.0, 4.0));
+            assert_true (0.0 == Timer.Util.truncating_remainder (7.0, 7.0));
+
+            assert_nonnull (test_value);
+            assert_true ("my-test-value" == test_value);
+            // https://docs.gtk.org/glib/func.assert_cmpstr.html
+            // assert_cmpstr (test_value, ==, "my-test-value");
+        }
+
+        void tear_down () {
+            test_value = null;
+        }
+    }
+
     void test_truncating_remainder () {
-        assert (1.0 == Timer.Util.truncating_remainder (5.0, 4.0));
-        assert (0.0 == Timer.Util.truncating_remainder (7.0, 7.0));
+        assert_true (1.0 == Timer.Util.truncating_remainder (5.0, 4.0));
+        assert_true (0.0 == Timer.Util.truncating_remainder (7.0, 7.0));
     }
 }
