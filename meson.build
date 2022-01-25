@@ -22,7 +22,8 @@ dependencies = [
     dependency('gtk+-3.0'),
     dependency('granite', version: '>=0.5'),
     dependency('libhandy-1', version: '>=0.83.0'),
-    meson.get_compiler('c').find_library('m', required : false)
+    meson.get_compiler('c').find_library('m', required : false),
+    meson.get_compiler('vala').find_library('glib-2.0-fixes', dirs: meson.current_source_dir() / 'vapi')
 ]
 
 subdir('src')
