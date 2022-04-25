@@ -21,7 +21,7 @@
 
 public class Timer.Widgets.Clock : Gtk.Overlay {
 
-    public Hdy.HeaderBar? header { get; construct; }
+    // public Hdy.HeaderBar? header { get; construct; }
 
     public double progress { get; set; }
     public double seconds { get; set; }
@@ -42,9 +42,9 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
 
     private double progress_total_seconds;
 
-    public Clock (Hdy.HeaderBar? header) {
+    /*public Clock (Hdy.HeaderBar? header) {
         Object (header: header);
-    }
+    }*/
 
     construct {
         progress = 0.0;
@@ -58,32 +58,32 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         indicator = new Timer.Widgets.ProgressIndicator (0.0);
 
         face = new Timer.Widgets.Face ();
-        face.margin = 20;
+        // face.margin = 20;
 
         labels = new Timer.Widgets.Labels ();
-        labels.margin = 20;
+        // labels.margin = 20;
         labels.valign = Gtk.Align.CENTER;
         labels.halign = Gtk.Align.CENTER;
 
-        if (header != null) {
+        /*if (header != null) {
             add (header);
 
             indicator.margin_top = 25;
             face.margin_top = labels.margin_top = indicator.margin_top + 20;
-        }
+        }*/
         add_overlay (indicator);
         add_overlay (face);
         add_overlay (labels);
 
         bind_property ("progress", indicator, "progress", BindingFlags.BIDIRECTIONAL);
 
-        add_events (Gdk.EventMask.BUTTON_PRESS_MASK
-                  | Gdk.EventMask.BUTTON_RELEASE_MASK
-                  | Gdk.EventMask.POINTER_MOTION_MASK);
+        //  add_events (Gdk.EventMask.BUTTON_PRESS_MASK
+        //            | Gdk.EventMask.BUTTON_RELEASE_MASK
+        //            | Gdk.EventMask.POINTER_MOTION_MASK);
 
-        button_press_event.connect (on_button_press_event);
-        button_release_event.connect (on_button_release_event);
-        motion_notify_event.connect (on_motion_notify_event);
+        // button_press_event.connect (on_button_press_event);
+        // button_release_event.connect (on_button_release_event);
+        // motion_notify_event.connect (on_motion_notify_event);
 
         notify["progress"].connect (on_progress_changed);
         notify["seconds"].connect (on_seconds_changed);
@@ -108,22 +108,24 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         update_labels ();
     }
 
-    private bool header_handles_event (Gdk.EventButton event) {
+    /*private bool header_handles_event (Gdk.EventButton event) {
         if (header != null && event.window == header.get_window ()) {
             return true;
         }
 
         return false;
-    }
+    }*/
 
-    private bool on_button_press_event (Gdk.EventButton event) {
-        if (header_handles_event (event)) {
-            return Gdk.EVENT_PROPAGATE;
-        }
+    private bool on_button_press_event (
+        //Gdk.EventButton event
+    ) {
+        //  if (header_handles_event (event)) {
+        //      return Gdk.EVENT_PROPAGATE;
+        //  }
 
-        if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.button_press_event (event)) {
-            return Gdk.EVENT_STOP;
-        }
+        //  if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.button_press_event (event)) {
+        //      return Gdk.EVENT_STOP;
+        //  }
         button_press_active = true;
 
         on_button_press_seconds = seconds;
@@ -134,14 +136,16 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         return Gdk.EVENT_PROPAGATE;
     }
 
-    private bool on_button_release_event (Gdk.EventButton event) {
-        if (header_handles_event (event)) {
-            return Gdk.EVENT_PROPAGATE;
-        }
+    private bool on_button_release_event (
+        //Gdk.EventButton event
+    ) {
+        //  if (header_handles_event (event)) {
+        //      return Gdk.EVENT_PROPAGATE;
+        //  }
 
-        if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.button_release_event (event)) {
-            return Gdk.EVENT_STOP;
-        }
+        //  if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.button_release_event (event)) {
+        //      return Gdk.EVENT_STOP;
+        //  }
         button_press_active = false;
 
         if (on_button_press_seconds == seconds && seconds > 0) {
@@ -158,10 +162,12 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         return Gdk.EVENT_PROPAGATE;
     }
 
-    private bool on_motion_notify_event (Gdk.EventMotion event) {
-        if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.motion_notify_event (event)) {
-            return Gdk.EVENT_STOP;
-        }
+    private bool on_motion_notify_event (
+        //Gdk.EventMotion event
+    ) {
+        //  if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.motion_notify_event (event)) {
+        //      return Gdk.EVENT_STOP;
+        //  }
         return Gdk.EVENT_PROPAGATE;
     }
 

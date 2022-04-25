@@ -4,8 +4,7 @@ gnome = import('gnome')
 i18n = import('i18n')
 
 add_project_arguments([
-        '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
-        '-DHANDY_USE_UNSTABLE_API'
+        '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name())
     ],
     language: 'c'
 )
@@ -19,9 +18,8 @@ asresources = gnome.compile_resources(
 
 dependencies = [
     dependency('glib-2.0'),
-    dependency('gtk+-3.0'),
-    dependency('granite', version: '>=0.5'),
-    dependency('libhandy-1', version: '>=0.83.0'),
+    dependency('gtk4'),
+    dependency('granite-7', version: '>=7.0.0'),
     meson.get_compiler('c').find_library('m', required : false)
 ]
 

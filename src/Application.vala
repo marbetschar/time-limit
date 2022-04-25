@@ -55,16 +55,16 @@ public class Timer.Application : Gtk.Application {
         settings.get ("window-size", "(ii)", out rect.width, out rect.height);
 
         if (window_x != -1 || window_y != -1) {
-            main_window.move (window_x, window_y);
+            // main_window.move (window_x, window_y);
         }
 
-        main_window.set_allocation (rect);
+       //  main_window.set_allocation (rect);
 
         if (settings.get_boolean ("window-maximized")) {
             main_window.maximize ();
         }
 
-        main_window.show_all ();
+        // main_window.show_all ();
         main_window.set_scheduled_notification_datetime (scheduled_notification_timer_end_datetime);
 
         var quit_action = new SimpleAction ("quit", null);

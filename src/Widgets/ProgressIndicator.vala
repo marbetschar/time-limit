@@ -41,8 +41,8 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
 
     construct {
         bar = new Timer.Widgets.ProgressBar (progress);
-        bar.margin = 7;
-        add (bar);
+        // bar.margin = 7;
+        // add (bar);
 
         arrow = new Timer.Widgets.ProgressArrow (progress);
         put (arrow, 90, 0); // TODO: Calculate initial placing
@@ -54,26 +54,26 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
             arrow_move (progress);
         });
 
-        arrow.size_allocate.connect (() => {
-            arrow_width = arrow.get_allocated_width ();
-            arrow_height = arrow.get_allocated_height ();
-        });
+        //  arrow.size_allocate.connect (() => {
+        //      arrow_width = arrow.get_allocated_width ();
+        //      arrow_height = arrow.get_allocated_height ();
+        //  });
 
-        button_press_event.connect ((event) => {
-            return arrow.button_press_event (event);
-        });
+        //  button_press_event.connect ((event) => {
+        //      return arrow.button_press_event (event);
+        //  });
 
-        button_release_event.connect ((event) => {
-            return arrow.button_release_event (event);
-        });
+        //  button_release_event.connect ((event) => {
+        //      return arrow.button_release_event (event);
+        //  });
 
-        motion_notify_event.connect ((event) => {
-            return arrow.motion_notify_event (event);
-        });
+        //  motion_notify_event.connect ((event) => {
+        //      return arrow.motion_notify_event (event);
+        //  });
 
-        size_allocate.connect ((allocation) => {
-            bar.size_allocate (allocation);
-        });
+        //  size_allocate.connect ((allocation) => {
+        //      bar.size_allocate (allocation);
+        //  });
     }
 
     public bool handles_event (Gdk.Event event) {
@@ -81,9 +81,9 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
             return true;
         }
         double event_x, event_y;
-        int arrow_min_x, arrow_min_y, arrow_max_x, arrow_max_y;
+        double arrow_min_x, arrow_min_y, arrow_max_x, arrow_max_y;
 
-        event.get_coords (out event_x, out event_y);
+        // event.get_coords (out event_x, out event_y);
 
         event_x += arrow_width / 2;
         event_y += arrow_height / 2;

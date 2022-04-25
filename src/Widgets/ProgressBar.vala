@@ -21,7 +21,8 @@
 
 public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
 
-    private Gdk.Point center;
+    private double center_x;
+    private double center_y;
     private int radius;
 
     public double progress { get; construct set; }
@@ -31,66 +32,64 @@ public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
     }
 
     construct {
-        size_allocate.connect (() => {
-            int width = get_allocated_width ();
-            int height = get_allocated_height ();
+        //  size_allocate.connect (() => {
+        //      int width = get_allocated_width ();
+        //      int height = get_allocated_height ();
 
-            radius = (width - margin_start - margin_end) / 2;
+        //      radius = (width - margin_start - margin_end) / 2;
 
-            center = Gdk.Point () {
-                x = width / 2,
-                y = height / 2
-            };
-        });
+        //      center_x = width / 2;
+        //      center_y = height / 2;
+        //  });
     }
 
-    public override bool draw (Cairo.Context context) {
-        int width = get_allocated_width ();
-        int height = get_allocated_height ();
+    //  public override bool draw (Cairo.Context context) {
+    //      int width = get_allocated_width ();
+    //      int height = get_allocated_height ();
 
-        context.move_to (center.x, 0);
-        double angle = progress * Math.PI * 2;
+    //      context.move_to (center_x, 0);
+    //      double angle = progress * Math.PI * 2;
 
-        var arc_angle_from = -Math.PI / 2;
-        var arc_angle_to = arc_angle_from + (progress > 1 ? Math.PI * 2 : angle);
+    //      var arc_angle_from = -Math.PI / 2;
+    //      var arc_angle_to = arc_angle_from + (progress > 1 ? Math.PI * 2 : angle);
 
-        context.arc (center.x, center.y, radius, arc_angle_from, arc_angle_to);
-        context.line_to (center.x, center.y);
+    //      context.arc (center_x, center_y, radius, arc_angle_from, arc_angle_to);
+    //      context.line_to (center_x, center_y);
 
-        context.translate (center.x, center.y);
-        context.rotate (angle);
-        context.translate (-center.x, -center.y);
-        context.clip ();
+    //      context.translate (center_x, center_y);
+    //      context.rotate (angle);
+    //      context.translate (-center_x, -center_y);
+    //      context.clip ();
 
-        Gdk.RGBA light_rgba, medium_rgba, dark_rgba;
-        var style_context = get_style_context ();
+    //      Gdk.RGBA light_rgba, medium_rgba, dark_rgba;
+    //      var style_context = get_style_context ();
 
-        if (!style_context.lookup_color ("accent_color_500", out light_rgba)) {
-            light_rgba = { 0.19845, 0.5485, 0.9665, 1 };
-        }
+    //      if (!style_context.lookup_color ("accent_color_500", out light_rgba)) {
+    //          light_rgba = { 0.19845f, 0.5485f, 0.9665f, 1 };
+    //      }
 
-        if (!style_context.lookup_color ("accent_color_700", out medium_rgba)) {
-            medium_rgba = { 0.101562, 0.414062, 0.789062, 1 };
-        }
+    //      if (!style_context.lookup_color ("accent_color_700", out medium_rgba)) {
+    //          medium_rgba = { 0.101562f, 0.414062f, 0.789062f, 1 };
+    //      }
 
-        if (!style_context.lookup_color ("accent_color_900", out dark_rgba)) {
-            dark_rgba = { 0.015625, 0.300781, 0.644531, 1 };
-        }
+    //      if (!style_context.lookup_color ("accent_color_900", out dark_rgba)) {
+    //          dark_rgba = { 0.015625f, 0.300781f, 0.644531f, 1 };
+    //      }
 
-        var light_medium_gradient = new Cairo.Pattern.linear (width * 0.25, 0, width * 0.25, height * 0.6);
-        light_medium_gradient.add_color_stop_rgba (0, light_rgba.red, light_rgba.green, light_rgba.blue, light_rgba.alpha);
-        light_medium_gradient.add_color_stop_rgba (height, medium_rgba.red, medium_rgba.green, medium_rgba.blue, medium_rgba.alpha);
-        context.set_source (light_medium_gradient);
-        context.rectangle (0, 0, width / 2 + 1, height);
-        context.fill();
+    //      var light_medium_gradient = new Cairo.Pattern.linear (width * 0.25, 0, width * 0.25, height * 0.6);
+    //      light_medium_gradient.add_color_stop_rgba (0, light_rgba.red, light_rgba.green, light_rgba.blue, light_rgba.alpha);
+    //      light_medium_gradient.add_color_stop_rgba (height, medium_rgba.red, medium_rgba.green, medium_rgba.blue, medium_rgba.alpha);
+    //      context.set_source (light_medium_gradient);
+    //      context.rectangle (0, 0, width / 2 + 1, height);
+    //      context.fill();
 
-        var dark_medium_gradient = new Cairo.Pattern.linear (width * 0.75, 0, width * 0.75, height * 0.6);
-        dark_medium_gradient.add_color_stop_rgba (0, dark_rgba.red, dark_rgba.green, dark_rgba.blue, dark_rgba.alpha);
-        dark_medium_gradient.add_color_stop_rgba (height, medium_rgba.red, medium_rgba.green, medium_rgba.blue, medium_rgba.alpha);
-        context.set_source (dark_medium_gradient);
-        context.rectangle (width / 2, 0, width / 2 + 1, height);
-        context.fill();
+    //      var dark_medium_gradient = new Cairo.Pattern.linear (width * 0.75, 0, width * 0.75, height * 0.6);
+    //      dark_medium_gradient.add_color_stop_rgba (0, dark_rgba.red, dark_rgba.green, dark_rgba.blue, dark_rgba.alpha);
+    //      dark_medium_gradient.add_color_stop_rgba (height, medium_rgba.red, medium_rgba.green, medium_rgba.blue, medium_rgba.alpha);
+    //      context.set_source (dark_medium_gradient);
+    //      context.rectangle (width / 2, 0, width / 2 + 1, height);
+    //      context.fill();
 
-        return false;
-    }
+    //      return false;
+    //  }
 }

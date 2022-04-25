@@ -39,7 +39,7 @@ public class Timer.Widgets.Labels : Gtk.Box {
     }
 
     construct {
-        time_pause = new Gtk.Image.from_icon_name ("pause-symbolic", Gtk.IconSize.BUTTON);
+        time_pause = new Gtk.Image.from_icon_name ("pause-symbolic");//, Gtk.IconSize.BUTTON);
 
         var time_pause_context = time_pause.get_style_context ();
         time_pause_context.add_class ("pause-icon");
@@ -55,12 +55,12 @@ public class Timer.Widgets.Labels : Gtk.Box {
         time_stack.hhomogeneous = false;
         time_stack.valign = Gtk.Align.END;
         time_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        time_stack.add (time_label);
-        time_stack.add (time_pause);
+        //  time_stack.add (time_label);
+        //  time_stack.add (time_pause);
 
         minutes_label = new Gtk.Label ("");
         minutes_label.valign = Gtk.Align.CENTER;
-        minutes_label.margin = 0;
+        // minutes_label.margin = 0;
 
         var minutes_label_attributes = new Pango.AttrList ();
         minutes_label_attributes.insert (Pango.attr_rise_new (-20000));
@@ -77,8 +77,8 @@ public class Timer.Widgets.Labels : Gtk.Box {
         seconds_label_context.add_class ("seconds-label");
         seconds_label_context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        pack_start (time_stack, true, false, 0);
-        pack_start (minutes_label, true, false, 0);
-        pack_start (seconds_label, true, false, 0);
+        //  pack_start (time_stack, true, false, 0);
+        //  pack_start (minutes_label, true, false, 0);
+        //  pack_start (seconds_label, true, false, 0);
     }
 }

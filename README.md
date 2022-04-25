@@ -22,9 +22,9 @@ When the time is up, a notification will show up with a nice sound.
 
 You'll need the following dependencies:
 * glib-2.0
-* gtk+-3.0
-* granite >=0.5
-* libhandy-1-dev >= 0.83.0
+* gtk4
+* granite >=7.0.0
+* libadwaita-1-dev >= 1.0.0
 * meson
 * unity
 * valac
