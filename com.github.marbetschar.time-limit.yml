@@ -1,7 +1,7 @@
 app-id: com.github.marbetschar.time-limit
 
 runtime: io.elementary.Platform
-runtime-version: daily
+runtime-version: '7'
 sdk: io.elementary.Sdk
 
 command: com.github.marbetschar.time-limit

@@ -24,7 +24,6 @@ You'll need the following dependencies:
 * glib-2.0
 * gtk4
 * granite >=7.0.0
-* libadwaita-1-dev >= 1.0.0
 * meson
 * unity
 * valac
