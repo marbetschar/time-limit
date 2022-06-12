@@ -35,6 +35,14 @@ public class Timer.MainWindow : Gtk.ApplicationWindow {
     }
 
     construct {
+        var header = new Gtk.HeaderBar () {
+            width_request = 200
+        };
+        header.add_css_class ("titlebar");
+        header.add_css_class (Granite.STYLE_CLASS_FLAT);
+        header.add_css_class (Granite.STYLE_CLASS_DEFAULT_DECORATION);
+        set_titlebar (header);
+
         clock = new Timer.Widgets.Clock ();
         child = clock;
 

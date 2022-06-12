@@ -71,20 +71,6 @@ public class Timer.Application : Gtk.Application {
         granite_settings.notify["prefers-color-scheme"].connect (() => {
             gtk_settings.gtk_application_prefer_dark_theme = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
         });
-
-        /*
-        * This is very finicky. Bind size after present else set_titlebar gives us bad sizes
-        * Set maximize after height/width else window is min size on unmaximize
-        * Bind maximize as SET else get get bad sizes
-        */
-        settings.bind ("window-height", main_window, "default-height", SettingsBindFlags.DEFAULT);
-        settings.bind ("window-width", main_window, "default-width", SettingsBindFlags.DEFAULT);
-
-        if (settings.get_boolean ("window-maximized")) {
-            main_window.maximize ();
-        }
-
-        settings.bind ("window-maximized", main_window, "maximized", SettingsBindFlags.SET);
     }
 
 #if !IS_TEST

@@ -79,8 +79,8 @@ public class Timer.Widgets.Clock : Gtk.Box {
         };
 
         overlay = new Gtk.Overlay () {
-            hexpand = true,
-            vexpand = true
+            width_request = 200,
+            height_request = 200
         };
         overlay.add_overlay (indicator);
         overlay.add_overlay (face);
