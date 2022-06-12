@@ -25,7 +25,6 @@ You'll need the following dependencies:
 * gtk4
 * granite >=7.0.0
 * meson
-* unity
 * valac
 
 Simply run
@@ -39,4 +38,4 @@ The app is started automatically after successful installation.
 
 ## Acknowledgements
 
-- Designed by [Michael Villar](https://github.com/michaelvillar/timer-app).
+- Originally designed by [Michael Villar](https://github.com/michaelvillar/timer-app).
