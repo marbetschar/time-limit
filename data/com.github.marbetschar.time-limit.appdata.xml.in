@@ -32,7 +32,8 @@
   <releases>
     <release version="3.0.0" date="2022-06-12">
       <description>
-        <p>Update to elementary Platform v7 and Gtk4</p>
+        <p>Migrated to Gtk4</p>
+        <p>Update to elementary Platform v7</p>
       </description>
     </release>
     <release version="2.1.0" date="2022-01-24">
