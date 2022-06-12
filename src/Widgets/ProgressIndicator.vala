@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 Marco Betschart (https://marco.betschart.name)
+* Copyright (c) 2022 Marco Betschart (https://marco.betschart.name)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -32,19 +32,25 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
     private Timer.Widgets.ProgressArrow arrow;
     private Timer.Widgets.ProgressBar bar;
 
-    private int arrow_width;
-    private int arrow_height;
-
     public ProgressIndicator (double progress) {
         Object (progress: progress);
     }
 
     construct {
-        bar = new Timer.Widgets.ProgressBar (progress);
-        bar.margin = 7;
-        add (bar);
+        bar = new Timer.Widgets.ProgressBar (progress) {
+            margin_top = 7,
+            margin_bottom = 7,
+            margin_start = 7,
+            margin_end = 7,
+            width_request = 186,
+            height_request = 186
+        };
+        put (bar, 0, 0); // TODO: Calculate initial placing
 
-        arrow = new Timer.Widgets.ProgressArrow (progress);
+        arrow = new Timer.Widgets.ProgressArrow (progress) {
+            width_request = 25,
+            height_request = 25
+        };
         put (arrow, 90, 0); // TODO: Calculate initial placing
 
         bind_property ("progress", arrow, "progress", BindingFlags.BIDIRECTIONAL);
@@ -54,51 +60,24 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
             arrow_move (progress);
         });
 
-        arrow.size_allocate.connect (() => {
-            arrow_width = arrow.get_allocated_width ();
-            arrow_height = arrow.get_allocated_height ();
+        realize.connect (() => {
+            arrow_move (progress);
         });
-
-        button_press_event.connect ((event) => {
-            return arrow.button_press_event (event);
-        });
-
-        button_release_event.connect ((event) => {
-            return arrow.button_release_event (event);
-        });
-
-        motion_notify_event.connect ((event) => {
-            return arrow.motion_notify_event (event);
-        });
-
-        size_allocate.connect ((allocation) => {
-            bar.size_allocate (allocation);
-        });
-    }
-
-    public bool handles_event (Gdk.Event event) {
-        if (arrow.is_active) {
-            return true;
-        }
-        double event_x, event_y;
-        int arrow_min_x, arrow_min_y, arrow_max_x, arrow_max_y;
-
-        event.get_coords (out event_x, out event_y);
-
-        event_x += arrow_width / 2;
-        event_y += arrow_height / 2;
-
-        arrow.translate_coordinates (base, 0, 0, out arrow_min_x, out arrow_min_y);
-        arrow.translate_coordinates (base, arrow_width, arrow_height, out arrow_max_x, out arrow_max_y);
-
-        return event_x >= arrow_min_x && event_x <= arrow_max_x && event_y >= arrow_min_y && event_y <= arrow_max_y;
     }
 
     private void arrow_move (double progress) {
         int width = get_allocated_width ();
         int height = get_allocated_height ();
 
-        if (width > 1 && height > 1) {
+        if (width < 1 || height < 1) {
+            // if size is not allocated yet, we need to wait before we
+            // move the arrow - otherwise it does not have any effect
+            Timeout.add(100, () => {
+                arrow_move (progress);
+                return Source.REMOVE;
+            });
+
+        } else {
             int arrow_width = arrow.get_allocated_width ();
             int arrow_height = arrow.get_allocated_height ();
 

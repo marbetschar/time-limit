@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2021 Marco Betschart (https://marco.betschart.name)
+* Copyright (c) 2022 Marco Betschart (https://marco.betschart.name)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,10 +19,9 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-public class Timer.MainWindow : Hdy.ApplicationWindow {
+public class Timer.MainWindow : Gtk.ApplicationWindow {
 
     public signal void schedule_notification (GLib.DateTime? datetime);
-    private uint configure_id;
     private Timer.Widgets.Clock clock;
 
     public MainWindow (Gtk.Application application) {
@@ -30,32 +29,18 @@ public class Timer.MainWindow : Hdy.ApplicationWindow {
             application: application,
             icon_name: "com.github.marbetschar.time-limit",
             resizable: false,
-            default_height: 225,
+            default_height: 200,
             default_width: 200
         );
     }
 
-    static construct {
-        Hdy.init ();
-    }
-
     construct {
-        weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
-        default_theme.add_resource_path ("/com/github/marbetschar/time-limit/");
+        clock = new Timer.Widgets.Clock ();
+        child = clock;
 
-        var header = new Hdy.HeaderBar () {
-            has_subtitle = false,
-            show_close_button = true,
-            valign = Gtk.Align.START
-        };
-
-        header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        clock = new Timer.Widgets.Clock (header);
-        add (clock);
-
-        key_release_event.connect ((event) => {
-            switch (event.keyval) {
+        var event_controller_key = new Gtk.EventControllerKey ();
+        event_controller_key.key_released.connect ((keyval, keycode, state) => {
+            switch (keyval) {
                 case Gdk.Key.space:
                     clock.pause = !clock.pause;
                     if (clock.pause) {
@@ -71,35 +56,8 @@ public class Timer.MainWindow : Hdy.ApplicationWindow {
                     schedule_notification (null);
                     break;
             }
-        });
-    }
-
-    public override bool configure_event (Gdk.EventConfigure event) {
-        if (configure_id != 0) {
-            GLib.Source.remove (configure_id);
-        }
-
-        configure_id = Timeout.add (100, () => {
-            configure_id = 0;
-
-            if (is_maximized) {
-                Timer.Application.settings.set_boolean ("window-maximized", true);
-            } else {
-                Timer.Application.settings.set_boolean ("window-maximized", false);
-
-                Gdk.Rectangle rect;
-                get_allocation (out rect);
-                Timer.Application.settings.set ("window-size", "(ii)", rect.width, rect.height);
-
-                int root_x, root_y;
-                get_position (out root_x, out root_y);
-                Timer.Application.settings.set ("window-position", "(ii)", root_x, root_y);
-            }
-
-            return Source.REMOVE;
-        });
-
-        return base.configure_event (event);
+        });        
+        ((Gtk.Widget) this).add_controller (event_controller_key);
     }
 
     public void set_scheduled_notification_datetime (GLib.DateTime? datetime) {

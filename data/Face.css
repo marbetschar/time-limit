@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 Marco Betschart (https://marco.betschart.name)
+* Copyright (c) 2022 Marco Betschart (https://marco.betschart.name)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -22,10 +22,6 @@
 .face {
     border-color: transparent;
     border-radius: 50%;
-    background-image: -gtk-gradient (linear,
-        center top, center bottom,
-        from (lighter (@theme_bg_color)),
-        to (lighter (@theme_bg_color))
-    );
+    background-color: @theme_base_color;
     box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.07);
 }

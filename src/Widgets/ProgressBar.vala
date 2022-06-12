@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 Marco Betschart (https://marco.betschart.name)
+* Copyright (c) 2022 Marco Betschart (https://marco.betschart.name)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -21,7 +21,8 @@
 
 public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
 
-    private Gdk.Point center;
+    private double center_x;
+    private double center_y;
     private int radius;
 
     public double progress { get; construct set; }
@@ -31,50 +32,45 @@ public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
     }
 
     construct {
-        size_allocate.connect (() => {
-            int width = get_allocated_width ();
-            int height = get_allocated_height ();
-
-            radius = (width - margin_start - margin_end) / 2;
-
-            center = Gdk.Point () {
-                x = width / 2,
-                y = height / 2
-            };
-        });
+        set_draw_func (draw);
+        notify["progress"].connect (queue_draw);
     }
 
-    public override bool draw (Cairo.Context context) {
-        int width = get_allocated_width ();
-        int height = get_allocated_height ();
+    public override void size_allocate (int width, int height, int baseline) {
+        radius = (width - margin_start - margin_end) / 2;
 
-        context.move_to (center.x, 0);
+        center_x = width / 2;
+        center_y = height / 2;
+    }
+
+    private void draw (Gtk.DrawingArea area, Cairo.Context context, int width, int height) {
+        context.move_to (center_x, 0);
         double angle = progress * Math.PI * 2;
 
         var arc_angle_from = -Math.PI / 2;
         var arc_angle_to = arc_angle_from + (progress > 1 ? Math.PI * 2 : angle);
 
-        context.arc (center.x, center.y, radius, arc_angle_from, arc_angle_to);
-        context.line_to (center.x, center.y);
+        context.arc (center_x, center_y, radius, arc_angle_from, arc_angle_to);
+        context.line_to (center_x, center_y);
 
-        context.translate (center.x, center.y);
+        context.translate (center_x, center_y);
         context.rotate (angle);
-        context.translate (-center.x, -center.y);
+        context.translate (-center_x, -center_y);
         context.clip ();
 
         Gdk.RGBA light_rgba, medium_rgba, dark_rgba;
         var style_context = get_style_context ();
 
         if (!style_context.lookup_color ("accent_color_500", out light_rgba)) {
-            light_rgba = { 0.19845, 0.5485, 0.9665, 1 };
+            light_rgba = { 0.19845f, 0.5485f, 0.9665f, 1 };
         }
 
         if (!style_context.lookup_color ("accent_color_700", out medium_rgba)) {
-            medium_rgba = { 0.101562, 0.414062, 0.789062, 1 };
+            medium_rgba = { 0.101562f, 0.414062f, 0.789062f, 1 };
         }
 
         if (!style_context.lookup_color ("accent_color_900", out dark_rgba)) {
-            dark_rgba = { 0.015625, 0.300781, 0.644531, 1 };
+            dark_rgba = { 0.015625f, 0.300781f, 0.644531f, 1 };
         }
 
         var light_medium_gradient = new Cairo.Pattern.linear (width * 0.25, 0, width * 0.25, height * 0.6);
@@ -90,7 +86,5 @@ public class Timer.Widgets.ProgressBar : Gtk.DrawingArea {
         context.set_source (dark_medium_gradient);
         context.rectangle (width / 2, 0, width / 2 + 1, height);
         context.fill();
-
-        return false;
     }
 }

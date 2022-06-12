@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2021 Marco Betschart (https://marco.betschart.name)
+* Copyright (c) 2022 Marco Betschart (https://marco.betschart.name)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -39,46 +39,44 @@ public class Timer.Widgets.Labels : Gtk.Box {
     }
 
     construct {
-        time_pause = new Gtk.Image.from_icon_name ("pause-symbolic", Gtk.IconSize.BUTTON);
-
-        var time_pause_context = time_pause.get_style_context ();
-        time_pause_context.add_class ("pause-icon");
-        time_pause_context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        time_pause = new Gtk.Image.from_icon_name ("pause-symbolic");//, Gtk.IconSize.BUTTON);
+        time_pause.add_css_class ("pause-icon");
+        time_pause.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         time_label = new Gtk.Label ("");
+        time_label.add_css_class ("time-label");
+        time_label.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        var time_label_context = time_label.get_style_context ();
-        time_label_context.add_class ("time-label");
-        time_label_context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        time_stack = new Gtk.Stack () {
+            hhomogeneous = false,
+            valign = Gtk.Align.END,
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+        time_stack.add_child (time_label);
+        time_stack.add_child (time_pause);
 
-        time_stack = new Gtk.Stack ();
-        time_stack.hhomogeneous = false;
-        time_stack.valign = Gtk.Align.END;
-        time_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        time_stack.add (time_label);
-        time_stack.add (time_pause);
-
-        minutes_label = new Gtk.Label ("");
-        minutes_label.valign = Gtk.Align.CENTER;
-        minutes_label.margin = 0;
+        minutes_label = new Gtk.Label ("") {
+            margin_top = 0,
+            margin_bottom = 0,
+            margin_start = 0,
+            margin_end = 0,
+            valign = Gtk.Align.CENTER
+        };
+        minutes_label.add_css_class ("minutes-label");
+        minutes_label.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         var minutes_label_attributes = new Pango.AttrList ();
         minutes_label_attributes.insert (Pango.attr_rise_new (-20000));
         minutes_label.attributes = minutes_label_attributes;
 
-        var minutes_label_context = minutes_label.get_style_context ();
-        minutes_label_context.add_class ("minutes-label");
-        minutes_label_context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        seconds_label = new Gtk.Label ("") {
+            valign = Gtk.Align.START
+        };
+        seconds_label.add_css_class ("seconds-label");
+        seconds_label.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        seconds_label = new Gtk.Label ("");
-        seconds_label.valign = Gtk.Align.START;
-
-        var seconds_label_context = seconds_label.get_style_context ();
-        seconds_label_context.add_class ("seconds-label");
-        seconds_label_context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-        pack_start (time_stack, true, false, 0);
-        pack_start (minutes_label, true, false, 0);
-        pack_start (seconds_label, true, false, 0);
+        append (time_stack);
+        append (minutes_label);
+        append (seconds_label);
     }
 }
