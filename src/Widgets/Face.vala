@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 Marco Betschart (https://marco.betschart.name)
+* Copyright (c) 2022 Marco Betschart (https://marco.betschart.name)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,7 +19,7 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-public class Timer.Widgets.Face : Gtk.Box {
+public class Timer.Widgets.Face : Gtk.Widget {
 
     private static Gtk.CssProvider css_provider;
 
@@ -29,8 +29,7 @@ public class Timer.Widgets.Face : Gtk.Box {
     }
 
     construct {
-        var context = get_style_context ();
-        context.add_class ("face");
-        context.add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        add_css_class ("face");
+        get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 }

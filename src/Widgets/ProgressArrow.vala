@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 Marco Betschart (https://marco.betschart.name)
+* Copyright (c) 2022 Marco Betschart (https://marco.betschart.name)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -30,64 +30,53 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
 
     construct {
         set_css_name ("arrow");
+        set_draw_func (draw);
+        notify["progress"].connect (queue_draw);
 
-        set_size_request (25, 25);
         is_active = false;
 
-        //  add_events (Gdk.EventMask.BUTTON_PRESS_MASK
-        //            | Gdk.EventMask.BUTTON_RELEASE_MASK
-        //            | Gdk.EventMask.POINTER_MOTION_MASK);
+        var gesture_click = new Gtk.GestureClick ();
+        gesture_click.pressed.connect (on_click_pressed);
+        gesture_click.released.connect (on_click_released);
+        add_controller (gesture_click);
 
-        //  button_press_event.connect (on_button_press_event);
-        //  button_release_event.connect (on_button_release_event);
-        //  motion_notify_event.connect (on_motion_notify_event);
+        var event_controller_motion = new Gtk.EventControllerMotion ();
+        event_controller_motion.motion.connect (on_motion);
+        add_controller (event_controller_motion);
     }
 
-    //  public override bool draw (Cairo.Context context) {
-    //      int width = get_allocated_width ();
-    //      int height = get_allocated_height ();
+    private void draw (Gtk.DrawingArea area, Cairo.Context context, int width, int height) {
+        double angle = progress * Math.PI * 2 - Math.PI;
+        context.translate (width / 2, height / 2);
+        context.rotate (angle);
+        context.translate (-(width / 2), -(height / 2));
 
-    //      double angle = progress * Math.PI * 2 - Math.PI;
-    //      context.translate (width / 2, height / 2);
-    //      context.rotate (angle);
-    //      context.translate (-(width / 2), -(height / 2));
+        context.move_to (0, 0);
+        context.line_to (width / 2, height * 0.8);
+        context.line_to (width, 0);
+        context.close_path ();
 
-    //      context.move_to (0, 0);
-    //      context.line_to (width / 2, height * 0.8);
-    //      context.line_to (width, 0);
-    //      context.close_path ();
+        Gdk.RGBA rgba;
+        if (!get_style_context ().lookup_color ("accent_color_500", out rgba)) {
+            rgba = { 0.19845f, 0.5485f, 0.9665f, 1 };
+        }
+        context.set_source_rgba (rgba.red, rgba.green, rgba.blue, rgba.alpha);
+        context.fill ();
+    }
 
-    //      Gdk.RGBA rgba;
-    //      if (!get_style_context ().lookup_color ("accent_color_500", out rgba)) {
-    //          rgba = { 0.19845f, 0.5485f, 0.9665f, 1 };
-    //      }
-    //      context.set_source_rgba (rgba.red, rgba.green, rgba.blue, rgba.alpha);
-    //      context.fill ();
-
-    //      return false;
-    //  }
-
-    public bool on_button_press_event (
-        //Gdk.EventButton event
-    ) {
+    private void on_click_pressed (int n_press, double x, double y) {
         if (!is_active) {
             is_active = true;
         }
-        return Gdk.EVENT_PROPAGATE;
     }
 
-    public bool on_button_release_event (
-        //Gdk.EventButton event
-    ) {
+    private void on_click_released (int n_press, double x, double y) {
         if (is_active) {
             is_active = false;
         }
-        return Gdk.EVENT_PROPAGATE;
     }
 
-    public bool on_motion_notify_event (
-        //Gdk.EventMotion event
-    ) {
+    private void on_motion (double x, double y) {
         if (is_active) {
             var parent_center_x = parent.get_allocated_width () / 2;
             var parent_center_y = parent.get_allocated_height () / 2;
@@ -98,8 +87,8 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
             double arrow_center_x, arrow_center_y;
             translate_coordinates (parent, arrow_width / 2, arrow_height / 2, out arrow_center_x, out arrow_center_y);
 
-            var delta_x = 0; // (arrow_center_x + event.x - parent_center_x) / parent_center_x;
-            var delta_y = 0; // (arrow_center_y + event.y - parent_center_y) / -parent_center_y;
+            var delta_x = (arrow_center_x + x - parent_center_x) / parent_center_x;
+            var delta_y = (arrow_center_y + y - parent_center_y) / -parent_center_y;
 
             var angle = Math.atan (delta_y / delta_x);
             if (delta_x < 0) {
@@ -118,6 +107,5 @@ public class Timer.Widgets.ProgressArrow : Gtk.DrawingArea {
 
             progress = progress_new;
         }
-        return Gdk.EVENT_PROPAGATE;
     }
 }

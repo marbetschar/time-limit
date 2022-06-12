@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 Marco Betschart (https://marco.betschart.name)
+* Copyright (c) 2022 Marco Betschart (https://marco.betschart.name)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,9 +19,7 @@
 * Authored by: Marco Betschart <time-limit@marco.betschart.name
 */
 
-public class Timer.Widgets.Clock : Gtk.Overlay {
-
-    // public Hdy.HeaderBar? header { get; construct; }
+public class Timer.Widgets.Clock : Gtk.Box {
 
     public double progress { get; set; }
     public double seconds { get; set; }
@@ -36,15 +34,19 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     private bool on_button_press_pause;
     private bool button_press_active;
 
+    private Gtk.Overlay overlay;
     private Timer.Widgets.ProgressIndicator indicator;
     private Timer.Widgets.Face face;
     private Timer.Widgets.Labels labels;
 
     private double progress_total_seconds;
 
-    /*public Clock (Hdy.HeaderBar? header) {
-        Object (header: header);
-    }*/
+    public Clock () {
+        Object (
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 0
+        );
+    }
 
     construct {
         progress = 0.0;
@@ -55,35 +57,42 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         on_button_press_pause = false;
         button_press_active = false;
 
-        indicator = new Timer.Widgets.ProgressIndicator (0.0);
+        indicator = new Timer.Widgets.ProgressIndicator (0.0) {
+            vexpand = true,
+            hexpand = true
+        };
 
-        face = new Timer.Widgets.Face ();
-        // face.margin = 20;
+        face = new Timer.Widgets.Face () {
+            margin_top = 20,
+            margin_bottom = 20,
+            margin_start = 20,
+            margin_end = 20
+        };
 
-        labels = new Timer.Widgets.Labels ();
-        // labels.margin = 20;
-        labels.valign = Gtk.Align.CENTER;
-        labels.halign = Gtk.Align.CENTER;
+        labels = new Timer.Widgets.Labels () {
+            margin_top = 20,
+            margin_bottom = 20,
+            margin_start = 20,
+            margin_end = 20,
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER
+        };
 
-        /*if (header != null) {
-            add (header);
-
-            indicator.margin_top = 25;
-            face.margin_top = labels.margin_top = indicator.margin_top + 20;
-        }*/
-        add_overlay (indicator);
-        add_overlay (face);
-        add_overlay (labels);
+        overlay = new Gtk.Overlay () {
+            hexpand = true,
+            vexpand = true
+        };
+        overlay.add_overlay (indicator);
+        overlay.add_overlay (face);
+        overlay.add_overlay (labels);
+        append (overlay);
 
         bind_property ("progress", indicator, "progress", BindingFlags.BIDIRECTIONAL);
 
-        //  add_events (Gdk.EventMask.BUTTON_PRESS_MASK
-        //            | Gdk.EventMask.BUTTON_RELEASE_MASK
-        //            | Gdk.EventMask.POINTER_MOTION_MASK);
-
-        // button_press_event.connect (on_button_press_event);
-        // button_release_event.connect (on_button_release_event);
-        // motion_notify_event.connect (on_motion_notify_event);
+        var gesture_click = new Gtk.GestureClick ();
+        gesture_click.pressed.connect (on_click_pressed);
+        gesture_click.released.connect (on_click_released);
+        add_controller (gesture_click);
 
         notify["progress"].connect (on_progress_changed);
         notify["seconds"].connect (on_seconds_changed);
@@ -108,44 +117,16 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         update_labels ();
     }
 
-    /*private bool header_handles_event (Gdk.EventButton event) {
-        if (header != null && event.window == header.get_window ()) {
-            return true;
-        }
-
-        return false;
-    }*/
-
-    private bool on_button_press_event (
-        //Gdk.EventButton event
-    ) {
-        //  if (header_handles_event (event)) {
-        //      return Gdk.EVENT_PROPAGATE;
-        //  }
-
-        //  if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.button_press_event (event)) {
-        //      return Gdk.EVENT_STOP;
-        //  }
+    private void on_click_pressed (int n_press, double x, double y) {
         button_press_active = true;
 
         on_button_press_seconds = seconds;
         on_button_press_pause = pause;
 
         pause = true;
-
-        return Gdk.EVENT_PROPAGATE;
     }
 
-    private bool on_button_release_event (
-        //Gdk.EventButton event
-    ) {
-        //  if (header_handles_event (event)) {
-        //      return Gdk.EVENT_PROPAGATE;
-        //  }
-
-        //  if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.button_release_event (event)) {
-        //      return Gdk.EVENT_STOP;
-        //  }
+    private void on_click_released (int n_press, double x, double y) {
         button_press_active = false;
 
         if (on_button_press_seconds == seconds && seconds > 0) {
@@ -158,17 +139,6 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
         } else {
             pause = false;
         }
-
-        return Gdk.EVENT_PROPAGATE;
-    }
-
-    private bool on_motion_notify_event (
-        //Gdk.EventMotion event
-    ) {
-        //  if (indicator.handles_event (event) && Gdk.EVENT_STOP == indicator.motion_notify_event (event)) {
-        //      return Gdk.EVENT_STOP;
-        //  }
-        return Gdk.EVENT_PROPAGATE;
     }
 
     private void on_seconds_changed () {
@@ -188,7 +158,8 @@ public class Timer.Widgets.Clock : Gtk.Overlay {
     }
 
     private void on_pause_changed () {
-        var main_window = (Timer.MainWindow) parent.parent;
+        assert (parent is Timer.MainWindow);
+        var main_window = (Timer.MainWindow) parent;
 
         if (!button_press_active && !pause && seconds > 0) {
             start_ticking ();

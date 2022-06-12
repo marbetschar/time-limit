@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 Marco Betschart (https://marco.betschart.name)
+* Copyright (c) 2022 Marco Betschart (https://marco.betschart.name)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -47,25 +47,12 @@ public class Timer.Application : Gtk.Application {
         main_window = new MainWindow (this) {
             title = "Time Limit"
         };
-
-        int window_x, window_y;
-        var rect = Gtk.Allocation ();
-
-        settings.get ("window-position", "(ii)", out window_x, out window_y);
-        settings.get ("window-size", "(ii)", out rect.width, out rect.height);
-
-        if (window_x != -1 || window_y != -1) {
-            // main_window.move (window_x, window_y);
-        }
-
-       //  main_window.set_allocation (rect);
-
-        if (settings.get_boolean ("window-maximized")) {
-            main_window.maximize ();
-        }
-
-        // main_window.show_all ();
         main_window.set_scheduled_notification_datetime (scheduled_notification_timer_end_datetime);
+        main_window.present ();
+        
+        add_window (main_window);
+
+        Gtk.IconTheme.get_for_display (Gdk.Display.get_default ()).add_resource_path ("/com/github/marbetschar/time-limit/");
 
         var quit_action = new SimpleAction ("quit", null);
 
@@ -84,6 +71,20 @@ public class Timer.Application : Gtk.Application {
         granite_settings.notify["prefers-color-scheme"].connect (() => {
             gtk_settings.gtk_application_prefer_dark_theme = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
         });
+
+        /*
+        * This is very finicky. Bind size after present else set_titlebar gives us bad sizes
+        * Set maximize after height/width else window is min size on unmaximize
+        * Bind maximize as SET else get get bad sizes
+        */
+        settings.bind ("window-height", main_window, "default-height", SettingsBindFlags.DEFAULT);
+        settings.bind ("window-width", main_window, "default-width", SettingsBindFlags.DEFAULT);
+
+        if (settings.get_boolean ("window-maximized")) {
+            main_window.maximize ();
+        }
+
+        settings.bind ("window-maximized", main_window, "maximized", SettingsBindFlags.SET);
     }
 
 #if !IS_TEST
