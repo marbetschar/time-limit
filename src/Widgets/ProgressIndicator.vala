@@ -59,13 +59,25 @@ public class Timer.Widgets.ProgressIndicator : Gtk.Fixed {
         notify["progress"].connect (() => {
             arrow_move (progress);
         });
+
+        realize.connect (() => {
+            arrow_move (progress);
+        });
     }
 
     private void arrow_move (double progress) {
         int width = get_allocated_width ();
         int height = get_allocated_height ();
 
-        if (width > 1 && height > 1) {
+        if (width < 1 || height < 1) {
+            // if size is not allocated yet, we need to wait before we
+            // move the arrow - otherwise it does not have any effect
+            Timeout.add(100, () => {
+                arrow_move (progress);
+                return Source.REMOVE;
+            });
+
+        } else {
             int arrow_width = arrow.get_allocated_width ();
             int arrow_height = arrow.get_allocated_height ();
 
