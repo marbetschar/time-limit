@@ -1,5 +1,5 @@
 # Russian translation for com.github.marbetschar.time-limit
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) 2022 THE com.github.marbetschar.time-limit'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.marbetschar.time-limit package.
 # lenemter <lenemter@gmail.com>, 2022.
 #
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.marbetschar.time-limit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-13 18:46+0100\n"
+"POT-Creation-Date: 2022-09-28 22:50+0900\n"
 "PO-Revision-Date: 2022-09-27 21:21+0900\n"
 "Last-Translator: lenemter <lenemter@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,7 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-
 
 #: data/com.github.marbetschar.time-limit.desktop.in:3
 #: data/com.github.marbetschar.time-limit.desktop.in:4
@@ -42,8 +41,9 @@ msgid ""
 "Drag the blue arrow to set a timer. Release to start and click to pause. "
 "When the time is up, a notification will show up with a nice sound."
 msgstr ""
-"Переместите синюю стрелку, чтобы поставить таймер. Отпустите, чтобы запустить, "
-"и нажмите, чтобы приостановить. Когда таймер закончится, вам придёт уведомление."
+"Переместите синюю стрелку, чтобы поставить таймер. Отпустите, чтобы "
+"запустить, и нажмите, чтобы приостановить. Когда таймер закончится, вам "
+"придёт уведомление."
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:11
 msgid "Keyboard shortcuts:"
@@ -77,7 +77,8 @@ msgstr "Исправлены категории приложения"
 msgid ""
 "Fixed Portuguese and Brazilian Portuguese translations - thanks to Hugo "
 "Carvalho 🎉️ (@hugok79)"
-msgstr "Исправлены переводы на португальский и бразильский португальский языки. "
+msgstr ""
+"Исправлены переводы на португальский и бразильский португальский языки. "
 "Спасибо Hugo Carvalho 🎉️ (@hugok79)"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:48
@@ -105,15 +106,16 @@ msgid ""
 "Added Portuguese translation - thanks to Henrique Andrade 🎉️ (@henrique-"
 "andrade)"
 msgstr ""
-"Добавлен португальский перевод. "
-"Спасибо Henrique Andrade 🎉️ (@henrique-andrade)"
+"Добавлен португальский перевод. Спасибо Henrique Andrade 🎉️ (@henrique-"
+"andrade)"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:54
 msgid ""
 "Respect distro specific close button position (left vs. right) - thanks to "
 "Ryo Nakano 🎉️ (@ryonakano)"
-msgstr "Использование системного положения кнопки закрыть. "
-"Спасибо Ryo Nakano 🎉️ (@ryonakano)"
+msgstr ""
+"Использование системного положения кнопки закрыть. Спасибо Ryo Nakano 🎉️ "
+"(@ryonakano)"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:59
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:66
@@ -141,8 +143,9 @@ msgstr ""
 msgid ""
 "Fixed #26: Play notification sound regardless of \"do not disturb\" (eeds "
 "new notification server)"
-msgstr "Исправлено #26: Воспроизведение звука уведомления вне зависимости от "
-"режима «Не беспокоить»"
+msgstr ""
+"Исправлено #26: Воспроизведение звука уведомления вне зависимости от режима "
+"«Не беспокоить»"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:78
 msgid "Fixed #16: Remember window position after close"
@@ -159,18 +162,22 @@ msgstr ""
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:80
 msgid ""
 "Fixed #24: Updated AppCenter screenshots to match the Publishing Requirements"
-msgstr "Исправлено #24: Обновлены скриншоты для AppCenter, чтобы "
-"соответствовать требованиям к публикации"
+msgstr ""
+"Исправлено #24: Обновлены скриншоты для AppCenter, чтобы соответствовать "
+"требованиям к публикации"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:85
 msgid "Fixed #19: \"Grab arrow after first drag is sometimes difficult\""
-msgstr "Исправлено #19: «Захватить стрелу после первого перетаскивания иногда бывает сложно»"
+msgstr ""
+"Исправлено #19: «Захватить стрелу после первого перетаскивания иногда бывает "
+"сложно»"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:86
 msgid ""
 "Merged #23: \"Add French translations\", thanks to Nathan Bonnemains 🎉️ "
 "(@NathanBnm)"
-msgstr "Добавлен #23: «Добавить перевод на француский». Спасибо Nathan Bonnemains 🎉️ "
+msgstr ""
+"Добавлен #23: «Добавить перевод на француский». Спасибо Nathan Bonnemains 🎉️ "
 "(@NathanBnm)"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:91
