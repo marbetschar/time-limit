@@ -134,7 +134,7 @@ msgid ""
 "Merged #37 &amp; #28: \"Dutch translation\", thanks to Heimen Stoffels 🎉️ "
 "(@Vistaus)"
 msgstr ""
-"Добавлен #37 и #28: \"Перевод на голландский\". Спасибо Heimen Stoffels 🎉️ "
+"Добавлен #37 и #28: «Перевод на голландский». Спасибо Heimen Stoffels 🎉️ "
 "(@Vistaus)"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:77
@@ -142,7 +142,7 @@ msgid ""
 "Fixed #26: Play notification sound regardless of \"do not disturb\" (eeds "
 "new notification server)"
 msgstr "Исправлено #26: Воспроизведение звука уведомления вне зависимости от "
-"режима \"Не беспокоить\""
+"режима «Не беспокоить»"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:78
 msgid "Fixed #16: Remember window position after close"
@@ -153,7 +153,7 @@ msgid ""
 "Merged #27 &amp; #28: \"Turkish translation\", thanks to Safak Genisol 🎉️ "
 "(@safak45x)"
 msgstr ""
-"Добавлен #27 и #28: \"Перевод на турецкий\". Спасибо Safak Genisol 🎉️ "
+"Добавлен #27 и #28: «Перевод на турецкий». Спасибо Safak Genisol 🎉️ "
 "(@safak45x)"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:80
@@ -164,13 +164,13 @@ msgstr "Исправлено #24: Обновлены скриншоты для A
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:85
 msgid "Fixed #19: \"Grab arrow after first drag is sometimes difficult\""
-msgstr "Исправлено #19: \"Захватить стрелу после первого перетаскивания иногда бывает сложно\""
+msgstr "Исправлено #19: «Захватить стрелу после первого перетаскивания иногда бывает сложно»"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:86
 msgid ""
 "Merged #23: \"Add French translations\", thanks to Nathan Bonnemains 🎉️ "
 "(@NathanBnm)"
-msgstr "Добавлен #23: \"Добавить перевод на француский\". Спасибо Nathan Bonnemains 🎉️ "
+msgstr "Добавлен #23: «Добавить перевод на француский». Спасибо Nathan Bonnemains 🎉️ "
 "(@NathanBnm)"
 
 #: data/com.github.marbetschar.time-limit.appdata.xml.in:91
